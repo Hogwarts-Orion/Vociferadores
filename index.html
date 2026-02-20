@@ -3,271 +3,261 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hogwarts Orion - El Profeta Negro</title>
+    <title>El Profeta - Edición Oficial</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Special+Elite&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Special+Elite&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap');
 
         :root {
-            --oro: #d4af37; --oro-oscuro: #aa8a2e; --sangre: #ff4d4d;
-            --fondo: #0a0a0a; --tarjeta: #1a1a1a; --texto: #e0e0e0;
+            --pergamino: #e8d9b5; --pergamino-oscuro: #d4c197;
+            --tinta: #1a1a1a; --oro-viejo: #8b6d45; --sangre: #8b0000;
         }
 
         body {
-            margin: 0; background: var(--fondo) url('https://www.transparenttextures.com/patterns/black-linen.png');
-            color: var(--texto); font-family: 'Special Elite', cursive;
-            display: flex; justify-content: center; padding: 20px; overflow-x: hidden;
+            margin: 0; background: #222 url('https://www.transparenttextures.com/patterns/dark-matter.png');
+            color: var(--tinta); font-family: 'Old Standard TT', serif;
+            display: flex; justify-content: center; padding: 15px;
         }
 
-        /* --- CONTENEDOR PRINCIPAL --- */
-        .paper {
-            width: 100%; max-width: 600px; min-height: 100vh;
-            padding: 40px 30px; box-sizing: border-box;
-            border: 2px solid var(--oro); border-radius: 5px;
-            box-shadow: 0 0 40px rgba(212, 175, 55, 0.2);
-            background: rgba(10, 10, 10, 0.95);
+        /* --- ESTRUCTURA DE PERIÓDICO --- */
+        .newspaper {
+            background: var(--pergamino) url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+            width: 100%; max-width: 650px; min-height: 100vh;
+            padding: 30px; box-sizing: border-box;
+            border: 2px solid #333; box-shadow: 0 0 40px rgba(0,0,0,0.7);
+            position: relative;
         }
 
-        header { text-align: center; margin-bottom: 50px; border-bottom: 1px solid var(--oro); padding-bottom: 20px; }
-        header h1 { font-family: 'Cinzel', serif; font-size: 45px; color: var(--oro); margin: 0; text-shadow: 0 0 15px rgba(212, 175, 55, 0.5); }
-        .meta-header { display: flex; justify-content: space-between; font-family: 'Cinzel'; font-size: 11px; color: var(--oro); margin-top: 10px; }
-
-        /* --- SECCIONES SEPARADAS --- */
-        h2.seccion-titulo {
-            font-family: 'Cinzel'; color: var(--oro); text-align: center;
-            border-bottom: 1px solid var(--oro-oscuro); margin: 60px 0 30px 0;
-            padding-bottom: 10px; letter-spacing: 3px; font-size: 18px;
+        header {
+            text-align: center; border-bottom: 5px solid var(--tinta);
+            margin-bottom: 20px; padding-bottom: 10px;
         }
 
-        /* --- TARJETAS DE NOTICIAS --- */
-        .card {
-            background: var(--tarjeta); border: 1px solid #333;
-            padding: 25px; margin-bottom: 40px; border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5); position: relative;
-            transition: transform 0.3s; border-left: 4px solid var(--oro);
+        header h1 {
+            font-family: 'Cinzel', serif; font-size: clamp(40px, 10vw, 65px);
+            margin: 0; letter-spacing: -2px; line-height: 1; font-weight: 900;
         }
-        .card:hover { transform: translateY(-5px); border-color: var(--oro); }
-        .card h3 { font-family: 'Cinzel'; margin: 0 0 15px 0; font-size: 26px; color: var(--oro); }
-        .card p { line-height: 1.8; color: #ccc; font-size: 15px; }
-        .card img { width: 100%; border-radius: 5px; border: 1px solid #444; margin: 15px 0; }
 
-        /* --- VOCIFERADORA SUPREMA --- */
+        .sub-header {
+            display: flex; justify-content: space-between; border-top: 2px solid var(--tinta);
+            border-bottom: 2px solid var(--tinta); padding: 5px 0;
+            font-size: 12px; font-weight: bold; text-transform: uppercase; margin-top: 10px;
+        }
+
+        /* --- SECCIONES --- */
+        .section-divider {
+            background: var(--tinta); color: var(--pergamino);
+            text-align: center; padding: 5px; font-family: 'Cinzel';
+            letter-spacing: 5px; font-size: 14px; margin: 40px 0 25px 0;
+        }
+
+        /* --- NOTICIAS ESTILO PROFETA --- */
+        .article {
+            border-bottom: 1px solid rgba(0,0,0,0.2);
+            padding-bottom: 30px; margin-bottom: 30px;
+            position: relative;
+        }
+
+        .article h3 {
+            font-family: 'Cinzel', serif; font-size: 28px; margin: 0 0 10px 0;
+            line-height: 1.1; text-align: justify; border-bottom: 1px solid #333;
+        }
+
+        .article-meta { font-size: 11px; font-style: italic; margin-bottom: 10px; display: block; }
+
+        .article p {
+            font-size: 16px; line-height: 1.4; text-align: justify;
+            column-count: 1; /* Por defecto 1 para móvil */
+        }
+
+        @media (min-width: 500px) {
+            .article p { column-count: 2; column-gap: 20px; }
+        }
+
+        .article img {
+            width: 100%; border: 4px solid var(--tinta);
+            filter: sepia(0.5) contrast(1.2); margin: 10px 0;
+        }
+
+        /* --- VOCIFERADORA --- */
         .vociferadora {
-            border: 2px solid var(--sangre) !important;
-            background: linear-gradient(145deg, #1a0000, #2a0000) !important;
-            animation: tremor 0.3s infinite alternate;
+            background: rgba(139, 0, 0, 0.05); border: 2px solid var(--sangre);
+            padding: 15px; transform: rotate(-1deg);
         }
         .vociferadora h3, .vociferadora p {
-            color: #ff6666 !important;
-            text-shadow: 0 0 10px var(--sangre);
-            animation: pulse-text 1s infinite alternate;
+            color: var(--sangre) !important;
+            animation: tremor 0.2s infinite;
+            text-shadow: 1px 1px 0px rgba(0,0,0,0.1);
         }
-        @keyframes pulse-text { from { filter: brightness(1); } to { filter: brightness(1.8) drop-shadow(0 0 5px var(--oro)); } }
-        @keyframes tremor { from { transform: rotate(0.5deg); } to { transform: rotate(-0.5deg); } }
 
-        /* --- LOGIN Y FORMULARIO --- */
-        .auth-box, .form-box {
-            background: #111; border: 1px solid var(--oro); padding: 35px;
-            border-radius: 15px; box-shadow: 0 0 20px rgba(0,0,0,1);
+        @keyframes tremor {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            50% { transform: translate(-1px, -1px) rotate(-1deg); }
+            100% { transform: translate(1px, 1px) rotate(1deg); }
+        }
+
+        /* --- LOGIN & FORMS --- */
+        .magic-form {
+            background: var(--pergamino-oscuro); border: 3px double var(--tinta);
+            padding: 25px; margin-top: 50px;
         }
         input, textarea, select {
-            width: 100%; padding: 15px; margin: 12px 0; background: #000;
-            border: 1px solid #444; color: var(--oro); border-radius: 5px;
-            font-family: 'Special Elite'; font-size: 14px;
+            width: 100%; padding: 12px; margin: 10px 0; background: rgba(255,255,255,0.3);
+            border: 1px solid var(--tinta); font-family: 'Special Elite';
         }
-        input:focus { border-color: var(--oro); outline: none; }
-
         .btn {
-            background: linear-gradient(to bottom, var(--oro), var(--oro-oscuro));
-            color: black; border: none; padding: 18px; width: 100%;
-            font-family: 'Cinzel'; font-weight: 900; cursor: pointer;
-            border-radius: 5px; text-transform: uppercase; margin-top: 15px;
+            background: var(--tinta); color: var(--pergamino);
+            border: none; padding: 15px; width: 100%; font-family: 'Cinzel';
+            font-weight: bold; font-size: 18px; cursor: pointer; transition: 0.3s;
         }
-        .btn:hover { filter: brightness(1.2); box-shadow: 0 0 15px var(--oro); }
+        .btn:hover { background: #444; }
 
-        .tag { font-family: 'Cinzel'; font-size: 10px; padding: 5px 10px; border-radius: 3px; color: #000; font-weight: bold; margin-bottom: 10px; display: inline-block; }
-        .Gryffindor { background: #ae0001; color: white; } .Slytherin { background: #2a623d; color: white; }
-        .Hufflepuff { background: #ffdb00; } .Ravenclaw { background: #222f5b; color: white; }
-        .OFICIAL { background: var(--oro); }
-
-        .voto-btn {
-            background: none; border: 1px solid var(--oro); color: var(--oro);
-            padding: 10px 20px; cursor: pointer; font-family: 'Cinzel'; transition: 0.3s;
+        .voto-area {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-top: 15px; border-top: 1px solid var(--tinta); padding-top: 10px;
         }
-        .voto-btn:disabled { border-color: #444; color: #444; cursor: not-allowed; }
-        .voto-btn:not(:disabled):hover { background: var(--oro); color: black; }
 
-        .spark { position: absolute; pointer-events: none; background: var(--oro); width: 4px; height: 4px; border-radius: 50%; animation: magic-pop 0.6s forwards; }
-        @keyframes magic-pop { 100% { transform: translate(var(--x), var(--y)); opacity: 0; } }
+        .tag-house {
+            font-weight: bold; border: 1px solid var(--tinta); padding: 2px 5px; font-size: 10px;
+        }
     </style>
 </head>
-<body onclick="crearMagia(event)">
+<body>
 
-<div class="paper">
-    <div id="pantalla-login" class="auth-box">
-        <h1 style="font-family:'Cinzel'; text-align:center; color:var(--oro);">HOGWARTS ORION</h1>
-        <p style="text-align:center; font-size:12px; color:var(--oro-oscuro);">INGRESO AL DEPARTAMENTO DE MISTERIOS</p>
-        <input type="text" id="user-name" placeholder="Usuario Mágico">
-        <input type="password" id="user-pass" placeholder="Contraseña">
-        <select id="user-house">
-            <option value="Gryffindor">Gryffindor 🦁</option>
-            <option value="Slytherin">Slytherin 🐍</option>
-            <option value="Hufflepuff">Hufflepuff 🦡</option>
-            <option value="Ravenclaw">Ravenclaw 🦅</option>
+<div class="newspaper">
+    <div id="login-box" style="text-align: center; padding: 50px 0;">
+        <h1 style="font-family: 'Cinzel'; border-bottom: 5px solid #000;">IDENTIFICACIÓN</h1>
+        <p>REQUERIDO POR EL MINISTERIO DE MAGIA</p>
+        <input type="text" id="reg-user" placeholder="Nombre de Mago/Bruja">
+        <input type="password" id="reg-pass" placeholder="Contraseña de Seguridad">
+        <select id="reg-house">
+            <option value="GRYFFINDOR">GRYFFINDOR</option>
+            <option value="SLYTHERIN">SLYTHERIN</option>
+            <option value="HUFFLEPUFF">HUFFLEPUFF</option>
+            <option value="RAVENCLAW">RAVENCLAW</option>
         </select>
-        <button class="btn" onclick="login()">DESCIFRAR ENTRADA ✨</button>
+        <button class="btn" onclick="acceder()">ENTRAR A LA REDACCIÓN ✨</button>
     </div>
 
-    <div id="web-contenido" style="display:none;">
+    <div id="main-content" style="display:none;">
         <header>
-            <div class="meta-header">
-                <span id="date-magic"></span>
-                <span id="user-display" style="text-transform:uppercase;"></span>
-                <span onclick="logout()" style="cursor:pointer; text-decoration: underline;">SALIR</span>
-            </div>
             <h1>EL PROFETA</h1>
+            <div class="sub-header">
+                <span id="fecha-m"></span>
+                <span>Precio: 5 Gales</span>
+                <span onclick="salir()" style="cursor:pointer;">[ CERRAR SESIÓN ]</span>
+            </div>
         </header>
 
-        <div id="feed-oficial"></div>
-        <div id="feed-comunidad"></div>
+        <div id="noticias-oficiales"></div>
+        <div id="noticias-alumnos"></div>
 
-        <h2 class="seccion-titulo">🖋️ NUEVA CRÓNICA</h2>
-        <div class="form-box">
-            <input type="text" id="p-tit" placeholder="Título de la Primicia">
-            <textarea id="p-msg" rows="5" placeholder="¿Qué ha ocurrido en las sombras?"></textarea>
-            <input type="text" id="p-img" placeholder="URL de Imagen o GIF">
-            
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:15px;">
-                <select id="p-ran">
-                    <option value="General">Rango: General</option>
-                    <option value="OFICIAL">Rango: Escritor Orion</option>
+        <div class="section-divider">REDACTAR NOTICIA</div>
+        <div class="magic-form">
+            <input type="text" id="tit" placeholder="Título de la Primicia">
+            <textarea id="msg" rows="5" placeholder="Relato de los hechos..."></textarea>
+            <input type="text" id="img-url" placeholder="URL de Imagen Mágica">
+            <div style="display: flex; gap: 10px;">
+                <select id="ran">
+                    <option value="ALUMNO">Alumno</option>
+                    <option value="OFICIAL">Escritor Real</option>
                 </select>
-                <select id="p-est">
-                    <option value="normal">Estilo: Pergamino</option>
-                    <option value="vociferadora">Estilo: Vociferadora 🔥</option>
+                <select id="est">
+                    <option value="normal">Normal</option>
+                    <option value="vociferadora">Vociferadora 🔥</option>
                 </select>
             </div>
-            
-            <div style="display:flex; align-items:center; gap:15px; margin-top:15px;">
-                <label style="color:var(--oro); font-size:12px;">COLOR DE TINTA:</label>
-                <input type="color" id="p-col" value="#d4af37" style="width:50px; height:50px; border:none; cursor:pointer;">
-            </div>
-
-            <button class="btn" onclick="publicar()">SELLAR Y PUBLICAR ✨</button>
+            <button class="btn" onclick="enviarNoticia()">LANZAR HECHIZO ✨</button>
         </div>
     </div>
 </div>
 
 <audio id="snd-magic" src="https://assets.mixkit.co/active_storage/sfx/2014/2014-preview.mp3"></audio>
-<audio id="snd-write" src="https://www.soundjay.com/misc/sounds/writing-on-paper-1.mp3"></audio>
 
 <script>
     const DB = "https://profeta-9c8df-default-rtdb.firebaseio.com/periodico";
-    const CLAVE_ADMIN = "Orion2026";
-    let sesion = JSON.parse(localStorage.getItem('hogwarts_user_v8'));
+    const CLAVE_OFICIAL = "Orion2026";
+    let sesionActual = JSON.parse(localStorage.getItem('sesion_profeta_v9'));
 
-    function crearMagia(e) {
-        for(let i=0; i<8; i++){
-            let s = document.createElement('div');
-            s.className = 'spark';
-            s.style.left = e.pageX+'px'; s.style.top = e.pageY+'px';
-            s.style.setProperty('--x', (Math.random()*100-50)+'px');
-            s.style.setProperty('--y', (Math.random()*100-50)+'px');
-            document.body.appendChild(s);
-            setTimeout(() => s.remove(), 600);
-        }
-    }
-
-    function login() {
-        const u = document.getElementById('user-name').value.trim();
-        const p = document.getElementById('user-pass').value.trim();
-        const h = document.getElementById('user-house').value;
-        if(!u || !p) return alert("El Ministerio exige Usuario y Contraseña.");
+    function acceder() {
+        const u = document.getElementById('reg-user').value.trim();
+        const p = document.getElementById('reg-pass').value.trim();
+        const h = document.getElementById('reg-house').value;
+        if(!u || !p) return alert("Identifícate ante el Ministerio.");
         
-        // Guardamos la sesión y vinculamos la "password" (esto es legal y seguro localmente)
-        sesion = { u, h, p };
-        localStorage.setItem('hogwarts_user_v8', JSON.stringify(sesion));
+        sesionActual = { u, p, h };
+        localStorage.setItem('sesion_profeta_v9', JSON.stringify(sesionActual));
         document.getElementById('snd-magic').play();
-        mostrar();
+        render();
     }
 
-    function logout() { localStorage.removeItem('hogwarts_user_v8'); location.reload(); }
+    function salir() { localStorage.removeItem('sesion_profeta_v9'); location.reload(); }
 
-    function mostrar() {
-        if(!sesion) return;
-        document.getElementById('pantalla-login').style.display = 'none';
-        document.getElementById('web-contenido').style.display = 'block';
-        document.getElementById('user-display').innerText = `${sesion.u} | ${sesion.h}`;
-        document.getElementById('date-magic').innerText = new Date().toLocaleDateString('es-ES', { day:'2-digit', month:'long' }).toUpperCase();
-        cargar();
+    function render() {
+        if(!sesionActual) return;
+        document.getElementById('login-box').style.display = 'none';
+        document.getElementById('main-content').style.display = 'block';
+        document.getElementById('fecha-m').innerText = new Date().toLocaleDateString('es-ES', { weekday:'long', day:'numeric', month:'long' }).toUpperCase();
+        cargarDatos();
     }
 
-    function publicar() {
-        const t = document.getElementById('p-tit').value.trim();
-        const m = document.getElementById('p-msg').value.trim();
-        const ran = document.getElementById('p-ran').value;
+    function enviarNoticia() {
+        const t = document.getElementById('tit').value.trim();
+        const m = document.getElementById('msg').value.trim();
+        const r = document.getElementById('ran').value;
         if(!t || !m) return;
-        if(ran === "OFICIAL" && prompt("Llave Maestra:") !== CLAVE_ADMIN) return;
+        if(r === "OFICIAL" && prompt("Contraseña de Escritor:") !== CLAVE_OFICIAL) return;
 
-        document.getElementById('snd-write').play();
-        const id = "P" + Date.now();
+        const id = "A" + Date.now();
         const data = {
-            id, titulo: t, texto: m, 
-            img: document.getElementById('p-img').value,
-            rango: ran, estilo: document.getElementById('p-est').value,
-            color: document.getElementById('p-col').value,
-            autor: sesion.u, casa: sesion.h,
-            votos_usuarios: {}, // Almacén de votos legales
-            count_votos: 0, time: Date.now()
+            id, titulo: t, texto: m, img: document.getElementById('img-url').value,
+            rango: r, estilo: document.getElementById('est').value,
+            autor: sesionActual.u, casa: sesionActual.h,
+            votos_db: {}, count: 0, time: Date.now()
         };
 
         fetch(`${DB}/${id}.json`, { method: 'PUT', body: JSON.stringify(data) }).then(() => location.reload());
     }
 
-    function cargar() {
-        fetch(`${DB}.json`).then(r => r.json()).then(data => {
+    function cargarDatos() {
+        fetch(`${DB}.json`).then(res => res.json()).then(data => {
             if(!data) return;
             const notas = Object.values(data).sort((a,b) => b.time - a.time);
-            let oficial = ""; let comunidad = "";
+            let htmlOf = ""; let htmlAl = "";
 
             notas.forEach(n => {
-                // Verificamos si este usuario ya votó en esta noticia (Legalidad 100%)
-                const yaVoto = n.votos_usuarios && n.votos_usuarios[sesion.u];
-                const item = `
-                    <div class="card ${n.estilo === 'vociferadora' ? 'vociferadora' : ''}" style="border-left-color: ${n.color}">
-                        <span class="tag ${n.rango === 'OFICIAL' ? 'OFICIAL' : n.casa}">${n.rango === 'OFICIAL' ? 'CRÓNICA REAL' : n.casa}</span>
+                const yaVoto = n.votos_db && n.votos_db[sesionActual.u];
+                const content = `
+                    <div class="article ${n.estilo === 'vociferadora' ? 'vociferadora' : ''}">
                         <h3>${n.titulo}</h3>
+                        <span class="article-meta">Por: ${n.autor} | Casa: ${n.casa}</span>
                         ${n.img ? `<img src="${n.img}">` : ''}
                         <p>${n.texto}</p>
-                        <div style="display:flex; justify-content:space-between; align-items:center; border-top: 1px solid #333; padding-top:15px; margin-top:15px;">
-                            <small style="color:var(--oro-oscuro);">🖋️ ${n.autor}</small>
-                            <button class="voto-btn" onclick="votar('${n.id}')" ${yaVoto ? 'disabled' : ''}>
-                                ${yaVoto ? 'SELLADO' : '🔥 GRITAR ('+(n.count_votos || 0)+')'}
+                        <div class="voto-area">
+                            <span class="tag-house">${n.rango}</span>
+                            <button class="btn" style="width: auto; padding: 5px 15px;" onclick="votar('${n.id}')" ${yaVoto ? 'disabled' : ''}>
+                                ${yaVoto ? 'REGISTRADO' : '🔥 GRITAR ('+(n.count || 0)+')'}
                             </button>
                         </div>
                     </div>
                 `;
-                if(n.rango === "OFICIAL") oficial += item; else comunidad += item;
+                if(n.rango === "OFICIAL") htmlOf += content; else htmlAl += content;
             });
 
-            document.getElementById('feed-oficial').innerHTML = oficial ? `<h2 class="seccion-titulo">DECRETOS REALES</h2>` + oficial : "";
-            document.getElementById('feed-comunidad').innerHTML = `<h2 class="seccion-titulo">CORREO DE ALUMNOS</h2>` + comunidad;
+            document.getElementById('noticias-oficiales').innerHTML = htmlOf ? `<div class="section-divider">CRÓNICAS OFICIALES</div>` + htmlOf : "";
+            document.getElementById('noticias-alumnos').innerHTML = `<div class="section-divider">CHISMES DE HOGWARTS</div>` + htmlAl;
         });
     }
 
     async function votar(id) {
         document.getElementById('snd-magic').play();
-        // Sello legal: Guardamos el nombre del usuario en la base de datos de esa noticia
-        await fetch(`${DB}/${id}/votos_usuarios/${sesion.u}.json`, { method: 'PUT', body: JSON.stringify(true) });
-        
-        // Actualizamos el contador
-        const r = await fetch(`${DB}/${id}/count_votos.json`);
-        const val = await r.json() || 0;
-        await fetch(`${DB}/${id}/count_votos.json`, { method: 'PUT', body: JSON.stringify(val + 1) });
-        
-        cargar();
+        await fetch(`${DB}/${id}/votos_db/${sesionActual.u}.json`, { method: 'PUT', body: JSON.stringify(true) });
+        const res = await fetch(`${DB}/${id}/count.json`);
+        const val = await res.json() || 0;
+        await fetch(`${DB}/${id}/count.json`, { method: 'PUT', body: JSON.stringify(val + 1) });
+        cargarDatos();
     }
 
-    if(sesion) mostrar();
+    if(sesionActual) render();
 </script>
 </body>
 </html>
