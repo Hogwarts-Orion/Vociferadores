@@ -2,133 +2,75 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El Profeta Rebelde - Hogwarts Orión</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Special+Elite&family=MedievalSharp&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Special+Elite&display=swap');
 
         body {
             margin: 0;
             background: #1a150f url('https://www.transparenttextures.com/patterns/paper-fibers.png');
             color: #2c1e11;
-            display: flex; flex-direction: column; align-items: center; padding: 20px;
-            overflow-x: hidden;
+            display: flex; flex-direction: column; align-items: center; padding: 10px;
             font-family: 'Special Elite', cursive;
         }
 
         .paper {
             background: #f4e4bc;
-            width: 95%; max-width: 900px; padding: 40px;
-            box-shadow: 0 0 60px rgba(0,0,0,0.8);
-            border: 2px solid #d2b48c; position: relative;
-            min-height: 100vh;
-            border-radius: 2px;
+            width: 100%; max-width: 800px; padding: 20px;
+            box-shadow: 0 0 40px rgba(0,0,0,0.5);
+            border: 2px solid #d2b48c; box-sizing: border-box;
         }
 
-        header { text-align: center; border-bottom: 5px double #2c1e11; margin-bottom: 30px; }
-        header h1 { font-family: 'Cinzel', serif; font-size: clamp(35px, 9vw, 65px); margin: 0; letter-spacing: -2px; }
+        header { text-align: center; border-bottom: 4px double #2c1e11; margin-bottom: 20px; }
+        header h1 { font-family: 'Cinzel', serif; font-size: 35px; margin: 10px 0; }
 
-        /* SECCIÓN OFICIAL - ESTILO CANVA/PREMIUM */
+        /* SECCIÓN OFICIAL */
         .seccion-oficial {
-            border: 3px solid #d4af37;
-            background: #fffdf5;
-            padding: 20px;
-            margin-bottom: 40px;
-            position: relative;
-            box-shadow: inset 0 0 15px rgba(212, 175, 55, 0.2);
+            border: 2px solid #d4af37; background: #fffdf5;
+            padding: 15px; margin-bottom: 20px; border-radius: 5px;
         }
-        .seccion-oficial::before {
-            content: "🖋️ CRÓNICAS OFICIALES DE ORIÓN";
-            position: absolute; top: -15px; left: 20px;
-            background: #d4af37; color: #1a150f;
-            padding: 2px 15px; font-family: 'Cinzel'; font-size: 14px; font-weight: bold;
-        }
-        .noticia-oficial {
-            border-bottom: 1px double #d4af37;
-            padding: 20px 0;
-        }
-        .noticia-oficial:last-child { border: none; }
-        .noticia-oficial h2 { font-family: 'Cinzel'; color: #8b0000; margin: 5px 0; }
-        .sello-oficial {
-            float: right; width: 60px; opacity: 0.8; filter: sepia(1);
-        }
+        .noticia-oficial { border-bottom: 1px solid #d4af37; padding: 10px 0; }
+        .noticia-oficial h2 { font-family: 'Cinzel'; color: #8b0000; font-size: 18px; margin: 5px 0; }
 
-        /* BANNER Y PODIO PREMIUM */
         .banner-premio {
-            background: #7d0000; color: #f4e4bc; padding: 20px;
+            background: #7d0000; color: #f4e4bc; padding: 15px;
             text-align: center; font-family: 'Cinzel', serif;
-            border-radius: 5px; margin-bottom: 30px; border: 3px double gold;
-            box-shadow: 0 4px 15px rgba(125,0,0,0.4);
+            border: 2px double gold; margin-bottom: 20px;
         }
 
-        .podio-container {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px; margin-bottom: 40px; border: 2px solid #7d0000; padding: 15px;
-            background: rgba(125, 0, 0, 0.05); border-radius: 8px;
+        /* FORMULARIO - Asegurando que sea clickeable */
+        .envio-box {
+            background: #2c1e11; color: #f4e4bc; padding: 20px;
+            border-radius: 10px; border: 2px solid #d4af37;
+            position: relative; z-index: 10; /* Prioridad de capa */
         }
-        .podio-card {
-            background: #fffdf5; border: 1px solid #7d0000; padding: 15px;
-            text-align: center; border-radius: 5px; box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        .envio-box h3 { font-family: 'Cinzel'; color: #d4af37; text-align: center; margin-top: 0; }
+
+        input, textarea, select {
+            width: 100%; padding: 12px; margin: 8px 0; border-radius: 5px;
+            border: 1px solid #d4af37; background: #fff; color: #000;
+            font-family: 'Special Elite', cursive; font-size: 16px;
+            box-sizing: border-box; display: block;
+        }
+        
+        /* Estilo para que se vea que puedes escribir */
+        input:focus, textarea:focus { background: #fdf8e9; border: 2px solid #f4e4bc; outline: none; }
+
+        .btn-enviar {
+            background: #d4af37; color: #1a150f; border: none; padding: 15px;
+            width: 100%; font-family: 'Cinzel'; font-weight: bold; cursor: pointer;
+            font-size: 18px; margin-top: 10px;
         }
 
-        /* NOTICIAS MEJORADAS */
         .noticia-item {
-            background: #fdf8e9;
-            border: 1px solid rgba(0,0,0,0.1);
-            padding: 25px; margin-bottom: 35px; border-radius: 4px;
-            position: relative; box-shadow: 4px 4px 15px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
+            background: #fdf8e9; border: 1px solid rgba(0,0,0,0.1);
+            padding: 15px; margin-bottom: 20px; border-radius: 4px;
         }
-        .noticia-item:hover { transform: translateY(-5px); box-shadow: 6px 10px 20px rgba(0,0,0,0.1); }
-
-        .vociferadora-style {
-            transform: rotate(-1deg) scale(1.02);
-            border: 4px solid #7d0000 !important;
-            font-weight: bold;
-        }
-        .vociferadora-style h2 {
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-            animation: shake 0.5s infinite alternate;
-        }
-
-        @keyframes shake { from { transform: rotate(-0.5deg); } to { transform: rotate(0.5deg); } }
-
-        .casa-tag { padding: 4px 10px; border-radius: 3px; font-size: 11px; color: white; font-weight: bold; text-transform: uppercase; }
+        .casa-tag { padding: 3px 8px; border-radius: 3px; font-size: 10px; color: white; font-weight: bold; }
         .Slytherin { background: #1a472a; } .Gryffindor { background: #740001; }
         .Hufflepuff { background: #ecb939; color: black; } .Ravenclaw { background: #0e1a40; }
         .General { background: #2c1e11; }
-
-        /* FORMULARIO PREMIUM */
-        .envio-box {
-            background: #2c1e11; color: #f4e4bc; padding: 35px;
-            border-radius: 15px; margin-top: 50px; border: 2px solid #d4af37;
-        }
-        .envio-box h3 { font-family: 'Cinzel', serif; color: #d4af37; margin-top: 0; text-align: center; font-size: 24px; }
-        
-        .color-picker-container {
-            display: none; margin: 15px 0; text-align: center;
-            border: 1px dashed #d4af37; padding: 15px; border-radius: 8px; background: rgba(255,255,255,0.05);
-        }
-
-        input, textarea, select {
-            width: 100%; padding: 12px; margin: 10px 0; border-radius: 5px;
-            border: 1px solid #d4af37; background: #1a150f; color: #f4e4bc;
-            font-family: 'Special Elite', cursive; font-size: 16px;
-        }
-        
-        .btn-enviar {
-            background: #d4af37; color: #1a150f; border: none; padding: 18px;
-            width: 100%; font-family: 'Cinzel', serif; font-weight: bold; cursor: pointer;
-            font-size: 20px; transition: 0.3s; margin-top: 10px;
-        }
-        .btn-enviar:hover { background: #f4e4bc; transform: scale(1.02); }
-
-        .voto-btn {
-            background: #d2b48c; border: 1px solid #2c1e11; padding: 10px 20px;
-            cursor: pointer; font-family: 'Cinzel', serif; margin-top: 15px;
-            font-weight: bold; border-radius: 4px; transition: 0.2s;
-        }
-        .voto-btn:hover:not(:disabled) { background: #2c1e11; color: #f4e4bc; }
-        .ya-votado { background: #888 !important; color: #444 !important; border-color: #666 !important; cursor: not-allowed; }
     </style>
 </head>
 <body>
@@ -136,25 +78,19 @@
     <div class="paper">
         <header>
             <h1>EL PROFETA REBELDE</h1>
-            <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 13px; font-family: 'Cinzel'; border-top: 1px solid #2c1e11; padding-top: 5px;">
-                <span>🦉 <span id="lectores"></span> LECHUZAS LEYENDO</span>
+            <div style="font-size: 12px; font-family: 'Cinzel'; border-top: 1px solid #2c1e11;">
                 <span id="fecha"></span>
             </div>
         </header>
 
-        <div class="seccion-oficial" id="contenedor-oficial">
-            <div id="noticias-oficiales-lista">
-                <p style="text-align:center; font-style: italic;">Consultando los archivos del Ministerio...</p>
-            </div>
+        <div class="seccion-oficial">
+            <div style="font-family:'Cinzel'; color:#d4af37; font-weight:bold; font-size:12px;">🖋️ CRÓNICAS OFICIALES</div>
+            <div id="noticias-oficiales-lista"></div>
         </div>
 
         <div class="banner-premio">
-            🏆 <b>PREMIO AL MEJOR CHISME</b> 🏆<br>
-            <span style="font-size: 26px; letter-spacing: 2px;">💰 15.000 GALEONES ✨</span>
+            🏆 MEJOR CHISME: 15.000 GALEONES ✨
         </div>
-
-        <h3 style="font-family: 'Cinzel'; border-bottom: 2px solid #7d0000; display: inline-block; margin-bottom: 20px;">🔥 PODIO DE LA INFAMIA</h3>
-        <div id="podio" class="podio-container"></div>
 
         <div id="noticias-container"></div>
 
@@ -164,25 +100,14 @@
             <input type="text" id="titulo-envio" placeholder="Título impactante...">
             <textarea id="texto-envio" rows="4" placeholder="¿Qué escándalo has presenciado?"></textarea>
             
-            <div style="display: flex; gap: 10px;">
-                <select id="casa-envio">
-                    <option value="General">Categoría: General</option>
-                    <option value="Slytherin">Casa: Slytherin 🐍</option>
-                    <option value="Gryffindor">Casa: Gryffindor 🦁</option>
-                    <option value="Hufflepuff">Casa: Hufflepuff 🦡</option>
-                    <option value="Ravenclaw">Casa: Ravenclaw 🦅</option>
-                    <option value="OFICIAL">🖋️ Rango: Escritor del Profeta</option>
-                </select>
-                <select id="tipo-envio" onchange="toggleColorPicker()">
-                    <option value="normal">Estilo: Normal 🗞️</option>
-                    <option value="vociferadora">Estilo: Vociferadora 💌</option>
-                </select>
-            </div>
-
-            <div id="color-picker-box" class="color-picker-container">
-                <label style="font-size: 14px; color: #d4af37; font-weight: bold;">🎨 PERSONALIZA EL COLOR DE TU GRITO:</label><br>
-                <input type="color" id="color-vociferadora" value="#ff7878" style="width: 60px; height: 60px; cursor: pointer; border: 2px solid #d4af37; background: none; margin-top: 10px; border-radius: 50%;">
-            </div>
+            <select id="casa-envio">
+                <option value="General">Categoría: General</option>
+                <option value="Slytherin">Casa: Slytherin 🐍</option>
+                <option value="Gryffindor">Casa: Gryffindor 🦁</option>
+                <option value="Hufflepuff">Casa: Hufflepuff 🦡</option>
+                <option value="Ravenclaw">Casa: Ravenclaw 🦅</option>
+                <option value="OFICIAL">🖋️ Rango: Escritor del Profeta</option>
+            </select>
             
             <button class="btn-enviar" onclick="enviarChisme()">HECHIZAR Y PUBLICAR ✨</button>
         </div>
@@ -190,111 +115,64 @@
 
     <script>
         const BASE_DB_URL = "https://profeta-9c8df-default-rtdb.firebaseio.com/periodico";
-        const CLAVE_ESCRITOR = "Orion2026"; // Cambia esta clave para los escritores reales
+        const CLAVE_ESCRITOR = "Orion2026";
 
         document.getElementById('fecha').innerText = new Date().toLocaleDateString('es-ES', { weekday: 'long', day: '2-digit', month: 'long' }).toUpperCase();
-        document.getElementById('lectores').innerText = Math.floor(Math.random() * 40) + 15;
-
-        function toggleColorPicker() {
-            const tipo = document.getElementById('tipo-envio').value;
-            document.getElementById('color-picker-box').style.display = (tipo === 'vociferadora') ? 'block' : 'none';
-        }
-
-        function yaVoto(id) {
-            const v = JSON.parse(localStorage.getItem('votos_hogwarts') || '{}');
-            return v[id] === true;
-        }
-
-        function registrarVotoLocal(id) {
-            const v = JSON.parse(localStorage.getItem('votos_hogwarts') || '{}');
-            v[id] = true;
-            localStorage.setItem('votos_hogwarts', JSON.stringify(v));
-        }
 
         function enviarChisme() {
             const autor = document.getElementById('nombre-envio').value.trim() || "Anónimo 👤";
             const titulo = document.getElementById('titulo-envio').value.trim();
             const texto = document.getElementById('texto-envio').value.trim();
             const casa = document.getElementById('casa-envio').value;
-            const tipo = document.getElementById('tipo-envio').value;
-            const color = document.getElementById('color-vociferadora').value;
 
             if(!titulo || !texto) return alert("¡Por Merlín! No dejes campos vacíos.");
 
-            // Verificación de Rango Escritor
             if (casa === "OFICIAL") {
                 const pass = prompt("Introduce la llave mágica de Escritor:");
-                if (pass !== CLAVE_ESCRITOR) return alert("¡Muggle detectado! No tienes permiso para crónicas oficiales.");
+                if (pass !== CLAVE_ESCRITOR) return alert("¡Muggle detectado!");
             }
 
             const id = Date.now().toString();
-            const data = {
-                id, autor, titulo, texto, casa, tipo,
-                color: (tipo === 'vociferadora') ? color : 'transparent',
-                votos: 0,
-                fecha: new Date().toLocaleString()
-            };
+            const data = { id, autor, titulo, texto, casa, votos: 0, fecha: new Date().toLocaleString() };
 
             fetch(`${BASE_DB_URL}/${id}.json`, { method: 'PUT', body: JSON.stringify(data) })
-            .then(() => { location.reload(); });
-        }
-
-        async function votar(id) {
-            if(yaVoto(id)) return;
-            try {
-                const res = await fetch(`${BASE_DB_URL}/${id}.json`);
-                const n = await res.json();
-                const nuevosVotos = (n.votos || 0) + 1;
-                await fetch(`${BASE_DB_URL}/${id}/votos.json`, { method: 'PUT', body: JSON.stringify(nuevosVotos) });
-                registrarVotoLocal(id);
-                cargarNoticias();
-            } catch(e) { console.error(e); }
+            .then(() => { 
+                document.getElementById('titulo-envio').value = "";
+                document.getElementById('texto-envio').value = "";
+                cargarNoticias(); 
+                alert("¡Publicado con éxito!");
+            });
         }
 
         function cargarNoticias() {
             fetch(`${BASE_DB_URL}.json`).then(res => res.json()).then(data => {
-                if(!data) {
-                    document.getElementById('noticias-container').innerHTML = "<p style='text-align:center; opacity:0.5;'>No hay primicias por ahora...</p>";
-                    return;
-                }
-                const todas = Object.values(data).filter(n => n && n.id);
+                if(!data) return;
+                const todas = Object.values(data);
                 
-                // --- FILTRAR OFICIALES ---
-                const oficiales = todas.filter(n => n.casa === "OFICIAL").sort((a,b) => b.id - a.id);
-                const listaOficialHTML = oficiales.length > 0 ? oficiales.map(n => `
+                // Oficiales
+                const oficiales = todas.filter(n => n.casa === "OFICIAL").reverse();
+                document.getElementById('noticias-oficiales-lista').innerHTML = oficiales.map(n => `
                     <div class="noticia-oficial">
-                        <img src="https://cdn-icons-png.flaticon.com/512/1057/1057106.png" class="sello-oficial">
-                        <small style="color:#d4af37;">ESTRELLA DEL PROFETA | ${n.fecha}</small>
                         <h2>${n.titulo}</h2>
-                        <p style="font-size:15px; border-left: 2px solid #d4af37; padding-left: 10px;">${n.texto}</p>
-                        <div style="font-family:'Cinzel'; font-size:12px; text-align:right;">— ${n.autor}</div>
-                    </div>
-                `).join('') : "<p style='text-align:center; opacity:0.5;'>Esperando comunicados del Ministerio...</p>";
-                document.getElementById('noticias-oficiales-lista').innerHTML = listaOficialHTML;
-
-                // --- FILTRAR CHISMES ---
-                const chismes = todas.filter(n => n.casa !== "OFICIAL");
-                
-                // PODIO (Solo chismes)
-                const masVotados = [...chismes].sort((a,b) => (b.votos || 0) - (a.votos || 0)).slice(0, 3);
-                document.getElementById('podio').innerHTML = masVotados.map((n, i) => `
-                    <div class="podio-card">
-                        <span style="font-family:'Cinzel'; color:#7d0000; font-size:12px;">#${i+1} TOP ESCÁNDALO</span><br>
-                        <b style="font-size:15px;">${n.titulo}</b><br>
-                        <small>🔥 ${n.votos || 0} votos</small>
+                        <p>${n.texto}</p>
+                        <small>— ${n.autor}</small>
                     </div>
                 `).join('');
 
-                // LISTA DE CHISMES
-                const lista = chismes.sort((a,b) => b.id - a.id);
-                document.getElementById('noticias-container').innerHTML = lista.map(n => {
-                    const vtd = yaVoto(n.id);
-                    const isVoc = n.tipo === 'vociferadora';
-                    const customStyle = isVoc ? 
-                        `background-color: ${n.color}22; border: 4px solid ${n.color}; box-shadow: 0 0 20px ${n.color}33;` : '';
-                    
-                    return `
-                        <div class="noticia-item ${isVoc ? 'vociferadora-style' : ''}" style="${customStyle}">
-                            <span class="casa-tag ${n.casa}">${n.casa}</span>
-                            <div style="font-size:11px; margin: 10px
-                            
+                // Chismes
+                const chismes = todas.filter(n => n.casa !== "OFICIAL").reverse();
+                document.getElementById('noticias-container').innerHTML = chismes.map(n => `
+                    <div class="noticia-item">
+                        <span class="casa-tag ${n.casa}">${n.casa}</span>
+                        <h2>${n.titulo}</h2>
+                        <p>${n.texto}</p>
+                        <small>POR: ${n.autor} | ${n.fecha}</small>
+                    </div>
+                `).join('');
+            });
+        }
+
+        window.onload = cargarNoticias;
+    </script>
+</body>
+</html>
