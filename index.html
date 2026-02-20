@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>El Profeta Rebelde - Hogwarts Orión</title>
+    <style>
+        body {
+            margin: 0;
+            background: #1a150f url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+            font-family: 'Cinzel', serif;
+            color: #2c1e11;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Estilo Pergamino */
+        .paper {
+            background: #f4e4bc;
+            width: 90%;
+            max-width: 800px;
+            padding: 40px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.5), inset 0 0 50px rgba(0,0,0,0.1);
+            border: 1px solid #d2b48c;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Cabecera del Periódico */
+        header {
+            text-align: center;
+            border-bottom: 4px double #2c1e11;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+        }
+
+        header h1 {
+            font-size: 50px;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            font-family: 'Old English Text MT', serif;
+        }
+
+        .meta-info {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 14px;
+            border-top: 2px solid #2c1e11;
+            padding-top: 5px;
+        }
+
+        /* Sección de Noticias */
+        .noticia-item {
+            border-bottom: 1px dashed #a88e6d;
+            padding: 20px 0;
+            animation: fadeIn 1s ease-in;
+        }
+
+        .noticia-item h2 {
+            margin: 0 0 10px 0;
+            color: #7d0000;
+            text-decoration: underline;
+        }
+
+        .noticia-item p {
+            line-height: 1.6;
+            font-family: 'Georgia', serif;
+            font-size: 18px;
+        }
+
+        /* Vociferadoras (Efecto de grito) */
+        .vociferadora {
+            background: #ffcccc;
+            border: 2px solid #7d0000;
+            padding: 15px;
+            margin: 20px 0;
+            font-weight: bold;
+            color: #7d0000;
+            transform: rotate(-1deg);
+            box-shadow: 3px 3px 10px rgba(125,0,0,0.2);
+        }
+
+        /* Formulario para ti (Oculto o al final) */
+        .admin-panel {
+            background: #2c1e11;
+            color: #f4e4bc;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 50px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        input, textarea, select, button {
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background: #7d0000;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="paper">
+        <header>
+            <h1>El Profeta Rebelde</h1>
+            <div class="meta-info">
+                <span>Edición: Nº 001</span>
+                <span id="fecha-actual"></span>
+                <span>Precio: 5 Galeones</span>
+            </div>
+        </header>
+
+        <div id="noticias-container">
+            <p style="text-align: center;">Desenrollando el pergamino... las noticias están llegando vía lechuza.</p>
+        </div>
+
+        <div class="admin-panel">
+            <h3>✍️ Redactar Noticia</h3>
+            <input type="text" id="admin-titulo" placeholder="Título impactante...">
+            <textarea id="admin-cuerpo" rows="4" placeholder="Escribe el chisme o noticia aquí..."></textarea>
+            <select id="admin-tipo">
+                <option value="normal">Noticia Estándar</option>
+                <option value="vociferadora">CARTA VOCIFERADORA 💌</option>
+                <option value="primicia">¡PRIMICIA DEL SAUCE! 🌳</option>
+            </select>
+            <button onclick="publicarNoticia()">Hechizar y Publicar ✨</button>
+        </div>
+    </div>
+
+    <script>
+        // USAREMOS UNA CARPETA NUEVA EN TU FIREBASE LLAMADA "periodico"
+        const DB_URL = "https://apertura-de-huevos-default-rtdb.firebaseio.com/periodico.json";
+
+        // Mostrar fecha actual
+        document.getElementById('fecha-actual').innerText = new Date().toLocaleDateString('es-ES', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+        function publicarNoticia() {
+            const titulo = document.getElementById('admin-titulo').value;
+            const cuerpo = document.getElementById('admin-cuerpo').value;
+            const tipo = document.getElementById('admin-tipo').value;
+
+            if(!titulo || !cuerpo) return alert("¡Por las barbas de Merlín! Escribe algo primero.");
+
+            let htmlNoticia = "";
+            if(tipo === "vociferadora") {
+                htmlNoticia = `
+                    <div class="vociferadora">
+                        <small>💌 CARTA VOCIFERADORA</small>
+                        <h2>${titulo}</h2>
+                        <p>${cuerpo}</p>
+                    </div>`;
+            } else {
+                htmlNoticia = `
+                    <div class="noticia-item">
+                        <small>${tipo === 'primicia' ? '🌳 PRIMICIA' : '🗞️ ACTUALIDAD'}</small>
+                        <h2>${titulo}</h2>
+                        <p>${cuerpo}</p>
+                    </div>`;
+            }
+
+            fetch(DB_URL, {
+                method: 'POST',
+                body: JSON.stringify(htmlNoticia)
+            }).then(() => {
+                document.getElementById('admin-titulo').value = "";
+                document.getElementById('admin-cuerpo').value = "";
+                cargarNoticias();
+            });
+        }
+
+        function cargarNoticias() {
+            fetch(DB_URL).then(res => res.json()).then(data => {
+                const container = document.getElementById('noticias-container');
+                if(!data) {
+                    container.innerHTML = "<p style='text-align:center;'>No hay escándalos hoy... la paz es aburrida.</p>";
+                    return;
+                }
+                let htmlFinal = "";
+                // Los mostramos en orden inverso para que la noticia nueva salga arriba
+                Object.values(data).reverse().forEach(noticia => {
+                    htmlFinal += noticia;
+                });
+                container.innerHTML = htmlFinal;
+            });
+        }
+
+        // Cargar al entrar y actualizar cada 30 segundos
+        window.onload = cargarNoticias;
+        setInterval(cargarNoticias, 30000);
+    </script>
+</body>
+</html>
