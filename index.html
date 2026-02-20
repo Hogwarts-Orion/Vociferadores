@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Profeta Rebelde - Edición de Lujo</title>
+    <title>El Profeta - Móvil</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Special+Elite&family=MedievalSharp&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Special+Elite&display=swap');
 
         :root {
             --oro: #c5a059;
@@ -17,123 +17,111 @@
 
         body {
             margin: 0;
-            background: var(--oscuro) url('https://www.transparenttextures.com/patterns/dark-matter.png');
+            background: var(--oscuro);
             color: #2c1e11;
-            display: flex; flex-direction: column; align-items: center; padding: 40px 20px;
             font-family: 'Special Elite', cursive;
+            display: flex;
+            justify-content: center;
         }
 
-        /* Contenedor Principal Extendido */
+        /* Contenedor optimizado para móviles */
         .paper {
             background: var(--pergamino) url('https://www.transparenttextures.com/patterns/paper-fibers.png');
             width: 100%;
-            max-width: 1200px; /* Más ancho */
-            padding: 60px;
-            box-shadow: 0 0 100px rgba(0,0,0,0.8), inset 0 0 50px rgba(0,0,0,0.1);
-            border: 20px solid transparent;
-            border-image: url('https://www.transparenttextures.com/patterns/60-lines.png') 30 stretch;
-            position: relative;
+            max-width: 500px; /* Tamaño ideal para celulares */
+            min-height: 100vh;
+            padding: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            border: 5px solid #8b6d45;
             box-sizing: border-box;
         }
 
         header { 
             text-align: center; 
-            border-bottom: 10px double var(--oscuro); 
-            margin-bottom: 40px; 
+            border-bottom: 5px double var(--oscuro); 
+            margin-bottom: 15px; 
         }
 
         header h1 { 
             font-family: 'Cinzel', serif; 
-            font-size: clamp(50px, 10vw, 95px); 
-            margin: 0; letter-spacing: -4px; font-weight: 900;
-            text-transform: uppercase;
+            font-size: 32px; 
+            margin: 5px 0; 
+            letter-spacing: -1px;
         }
 
-        /* Marquesina Mágica (Noticias Automáticas) */
+        .sub-header {
+            font-family: 'Cinzel';
+            font-size: 10px;
+            display: flex;
+            justify-content: space-between;
+            padding: 5px;
+            border-top: 1px solid var(--oscuro);
+        }
+
+        /* Marquesina Mágica Compacta */
         .flash-noticias {
             background: var(--oscuro);
             color: var(--oro-brillante);
-            padding: 15px;
+            padding: 8px;
             font-family: 'Cinzel';
-            font-size: 18px;
-            margin-bottom: 30px;
-            border: 2px solid var(--oro);
+            font-size: 12px;
+            margin-bottom: 15px;
             text-align: center;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-
-        .flash-content { transition: opacity 0.5s ease-in-out; }
-
-        /* Layout de 3 Columnas Estilo Clásico */
-        .newspaper-layout {
-            display: grid;
-            grid-template-columns: 250px 1fr 300px;
-            gap: 40px;
-        }
-
-        @media (max-width: 1100px) {
-            .newspaper-layout { grid-template-columns: 1fr; }
+            border-radius: 3px;
         }
 
         /* Secciones */
         .column-title {
             font-family: 'Cinzel';
-            border-bottom: 3px solid var(--oscuro);
-            margin-bottom: 20px;
-            font-size: 22px;
-            color: var(--sangre);
+            background: var(--oscuro);
+            color: var(--pergamino);
+            padding: 5px;
+            font-size: 16px;
             text-align: center;
+            margin: 20px 0 10px 0;
         }
 
-        /* Crónicas Oficiales (Escritores) */
-        .oficial-main {
+        /* Crónicas Oficiales */
+        .noticia-oficial {
             border: 2px solid var(--oro);
-            background: rgba(255, 255, 255, 0.3);
-            padding: 30px;
-            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.4);
+            padding: 15px;
+            margin-bottom: 15px;
         }
-
-        .noticia-oficial h2 { font-family: 'Cinzel'; font-size: 32px; margin: 10px 0; color: #111; }
-        .noticia-oficial img { 
-            width: 100%; border: 5px solid white; 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            filter: grayscale(0.5) sepia(0.5); margin: 20px 0;
-        }
+        .noticia-oficial h2 { font-family: 'Cinzel'; font-size: 22px; margin: 5px 0; }
+        .noticia-oficial img { width: 100%; border-radius: 3px; margin: 10px 0; }
 
         /* Chismes de Alumnos */
         .chisme-card {
             background: white;
-            padding: 25px;
-            margin-bottom: 30px;
+            padding: 15px;
+            margin-bottom: 15px;
             border: 1px solid #ccc;
-            box-shadow: 5px 5px 0px var(--oro);
-            position: relative;
+            border-left: 5px solid var(--oro);
         }
 
         .vociferadora {
-            border: 3px solid var(--sangre) !important;
-            background: #fffafa !important;
-            animation: tremor 0.2s infinite alternate;
+            border: 2px solid var(--sangre) !important;
+            background: #fff5f5 !important;
+            animation: tremor 0.3s infinite;
         }
-        @keyframes tremor { from { transform: translateX(1px); } to { transform: translateX(-1px); } }
+        @keyframes tremor { 0% { transform: rotate(0.5deg); } 100% { transform: rotate(-0.5deg); } }
 
-        /* Formulario Expandido */
+        /* Formulario Compacto */
         .envio-seccion {
-            margin-top: 60px;
             background: var(--oscuro);
-            padding: 50px;
-            border: 5px double var(--oro);
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 10px;
             color: var(--pergamino);
         }
 
-        .envio-seccion input, .envio-seccion textarea, .envio-seccion select {
-            background: #fffdf5;
-            border: 3px solid var(--oro);
-            padding: 15px;
-            font-size: 18px;
-            margin-bottom: 15px;
-            width: 100%;
+        .envio-seccion h2 { font-family: 'Cinzel'; font-size: 20px; text-align: center; color: var(--oro); margin-top: 0; }
+
+        input, textarea, select {
+            width: 100%; padding: 10px; margin-bottom: 10px;
+            border: 2px solid var(--oro); border-radius: 5px;
+            font-family: 'Special Elite'; font-size: 14px;
             box-sizing: border-box;
         }
 
@@ -141,99 +129,69 @@
             background: var(--oro-brillante);
             color: black;
             font-family: 'Cinzel';
-            font-weight: 900;
-            font-size: 24px;
-            padding: 20px;
+            font-weight: bold;
+            font-size: 18px;
+            padding: 15px;
             border: none;
-            cursor: pointer;
+            border-radius: 5px;
             width: 100%;
-            transition: 0.3s;
+            cursor: pointer;
         }
-        .btn-magico:hover { background: white; transform: scale(1.02); }
 
-        .tag { font-size: 12px; font-weight: bold; padding: 4px 10px; color: white; text-transform: uppercase; }
+        .tag { font-size: 9px; font-weight: bold; padding: 2px 5px; color: white; text-transform: uppercase; }
         .Slytherin { background: #1a472a; } .Gryffindor { background: #740001; }
         .Hufflepuff { background: #ecb939; color: black; } .Ravenclaw { background: #0e1a40; }
-        .General { background: #333; }
+        .OFICIAL { background: var(--oro); color: black; } .General { background: #444; }
+
+        .voto-btn {
+            background: var(--sangre); color: white; border: none;
+            padding: 8px; font-size: 12px; border-radius: 3px; width: 100%; margin-top: 10px;
+        }
     </style>
 </head>
 <body>
 
     <div class="paper">
         <header>
-            <h1>EL PROFETA REBELDE</h1>
-            <div style="display:flex; justify-content: space-between; font-family: 'Cinzel'; padding: 10px 0;">
-                <span>📜 VOLUMEN MMXLVI</span>
+            <h1>EL PROFETA</h1>
+            <div class="sub-header">
                 <span id="fecha-actual"></span>
-                <span>EDICIÓN NOCTURNA</span>
+                <span>EDICIÓN MÓVIL 🦉</span>
             </div>
         </header>
 
         <div class="flash-noticias">
-            <div id="flash-text" class="flash-content">📢 ÚLTIMA HORA: El Ministerio detecta rastro de magia antigua en el Bosque Prohibido...</div>
+            <div id="flash-text">📢 Cargando noticias del Ministerio...</div>
         </div>
 
-        <div class="newspaper-layout">
-            
-            <aside>
-                <div class="column-title">🏆 TOP ESCÁNDALOS</div>
-                <div id="podio-lista"></div>
-                <br>
-                <div class="column-title">🦉 BREVES MÁGICOS</div>
-                <div style="font-size: 14px; line-height: 1.6;">
-                    • Se busca lechuza perdida color café.<br>
-                    • ¿Galeones rápidos? Preguntar por los gemelos.<br>
-                    • El club de duelos se reúne a medianoche.
-                </div>
-            </aside>
+        <div class="column-title">🖋️ CRÓNICAS OFICIALES</div>
+        <div id="lista-oficial"></div>
 
-            <main>
-                <div class="column-title">🖋️ CRÓNICAS DE LOS PROFETAS</div>
-                <div id="lista-oficial" class="oficial-main"></div>
-
-                <div class="column-title">🔥 VOZ DE LOS ALUMNOS</div>
-                <div id="lista-chismes"></div>
-            </main>
-
-            <aside>
-                <div class="column-title">✨ ANUNCIOS</div>
-                <img src="https://images.unsplash.com/photo-1547032175-7fc8c7bd15b3?auto=format&fit=crop&w=300&q=80" style="width:100%; filter:sepia(1); margin-bottom:15px;">
-                <p style="font-size: 13px; text-align: center;"><i>"Sortilegios Weasley: ¡Hacemos que tu día brille o explote!"</i></p>
-                <hr>
-                <div style="text-align:center; padding: 20px; background: rgba(0,0,0,0.05);">
-                    <b>CLIMA MÁGICO</b><br>
-                    ☀️ Despejado con lluvia de grageas en el sur.
-                </div>
-            </aside>
-
-        </div>
+        <div class="column-title">🔥 VOZ DEL ALUMNO</div>
+        <div id="lista-chismes"></div>
 
         <div class="envio-seccion">
-            <h2 style="font-family:'Cinzel'; text-align:center; font-size: 35px; color: var(--oro);">ENVÍA TU PRIMICIA</h2>
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                <input type="text" id="autor-input" placeholder="Tu Firma Mágica">
-                <input type="text" id="titulo-input" placeholder="Título Impactante">
-            </div>
-            <textarea id="texto-input" rows="6" placeholder="¿Qué escándalo quieres reportar hoy?"></textarea>
-            <input type="text" id="img-input" placeholder="URL de Imagen o GIF (Opcional)">
+            <h2>🖋️ ENVIAR NOTA</h2>
+            <input type="text" id="autor-input" placeholder="Tu Firma">
+            <input type="text" id="titulo-input" placeholder="Título">
+            <textarea id="texto-input" rows="4" placeholder="¿Qué ocurrió?"></textarea>
+            <input type="text" id="img-input" placeholder="Link de Imagen/GIF (opcional)">
             
-            <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
-                <select id="casa-input">
-                    <option value="General">Categoría: General</option>
-                    <option value="Slytherin">Casa: Slytherin 🐍</option>
-                    <option value="Gryffindor">Casa: Gryffindor 🦁</option>
-                    <option value="Hufflepuff">Casa: Hufflepuff 🦡</option>
-                    <option value="Ravenclaw">Casa: Ravenclaw 🦅</option>
-                    <option value="OFICIAL">🖋️ RANGO: ESCRITOR PROFETA</option>
-                </select>
-                <select id="estilo-input">
-                    <option value="normal">Estilo Normal</option>
-                    <option value="vociferadora">Vociferadora 🔥</option>
-                </select>
-                <input type="color" id="color-input" value="#8b0000" style="padding:0; height:55px;">
-            </div>
+            <select id="casa-input">
+                <option value="General">Categoría: General</option>
+                <option value="Slytherin">Slytherin 🐍</option>
+                <option value="Gryffindor">Gryffindor 🦁</option>
+                <option value="Hufflepuff">Hufflepuff 🦡</option>
+                <option value="Ravenclaw">Ravenclaw 🦅</option>
+                <option value="OFICIAL">🖋️ ESCRITOR REAL</option>
+            </select>
             
-            <button class="btn-magico" onclick="publicarNoticia()">PUBLICAR EN EL PROFETA ✨</button>
+            <select id="estilo-input">
+                <option value="normal">Estilo Normal</option>
+                <option value="vociferadora">Vociferadora 🔥</option>
+            </select>
+            
+            <button class="btn-magico" onclick="publicarNoticia()">PUBLICAR ✨</button>
         </div>
     </div>
 
@@ -241,28 +199,22 @@
         const DB_URL = "https://profeta-9c8df-default-rtdb.firebaseio.com/periodico";
         const CLAVE_PROFETAS = "Orion2026";
 
-        // NOTICIAS AUTOMÁTICAS INVENTADAS
         const NOTICIAS_AUTO = [
-            "📢 ÚLTIMA HORA: ¡Fuga masiva de Pixies en la oficina del Director!",
-            "🗞️ PROFECÍA: Se predice un aumento de galeones para los nacidos en marzo.",
-            "🦉 MINISTERIO: Nueva ley prohibe el uso de alfombras voladoras en el Gran Comedor.",
-            "🪄 RUMOR: ¿Está el profesor de Pociones preparando una poción de amor prohibida?",
-            "🐾 CRIATURAS: Avistado un Hipogrifo albino volando sobre la torre de Astronomía.",
-            "💰 ECONOMÍA: El precio de las escobas Saeta de Fuego sube un 20% en Gringotts."
+            "📢 ÚLTIMA HORA: ¡Fuga masiva de Pixies en Hogwarts!",
+            "🗞️ PROFECÍA: Se predice un gran torneo de Quidditch.",
+            "🦉 AVISO: Las lechuzas exigen mejores snacks.",
+            "🪄 RUMOR: ¿Pociones de amor en el comedor?",
+            "🐾 ALERTA: Un Escarbato robó galeones en la entrada."
         ];
 
         let indexFlash = 0;
         setInterval(() => {
             const flash = document.getElementById('flash-text');
-            flash.style.opacity = 0;
-            setTimeout(() => {
-                indexFlash = (indexFlash + 1) % NOTICIAS_AUTO.length;
-                flash.innerText = NOTICIAS_AUTO[indexFlash];
-                flash.style.opacity = 1;
-            }, 500);
-        }, 8000);
+            indexFlash = (indexFlash + 1) % NOTICIAS_AUTO.length;
+            flash.innerText = NOTICIAS_AUTO[indexFlash];
+        }, 5000);
 
-        document.getElementById('fecha-actual').innerText = new Date().toLocaleDateString('es-ES', { weekday: 'long', day: '2-digit', month: 'long' }).toUpperCase();
+        document.getElementById('fecha-actual').innerText = new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'short' }).toUpperCase();
 
         function publicarNoticia() {
             const autor = document.getElementById('autor-input').value || "Anónimo";
@@ -271,14 +223,12 @@
             const cat = document.getElementById('casa-input').value;
             const img = document.getElementById('img-input').value;
             const estilo = document.getElementById('estilo-input').value;
-            const color = document.getElementById('color-input').value;
 
-            if(!titulo || !texto) return alert("¡Por las barbas de Merlín! Escribe algo.");
-
-            if(cat === "OFICIAL" && prompt("Llave de Profeta:") !== CLAVE_PROFETAS) return alert("Acceso denegado.");
+            if(!titulo || !texto) return alert("Escribe algo primero.");
+            if(cat === "OFICIAL" && prompt("Llave:") !== CLAVE_PROFETAS) return alert("Denegado.");
 
             const id = Date.now().toString();
-            const data = { id, autor, titulo, texto, cat, img, estilo, color, votos: 0, fecha: new Date().toLocaleString() };
+            const data = { id, autor, titulo, texto, cat, img, estilo, votos: 0, fecha: new Date().toLocaleString() };
 
             fetch(`${DB_URL}/${id}.json`, { method: 'PUT', body: JSON.stringify(data) }).then(() => location.reload());
         }
@@ -293,39 +243,23 @@
                 if(!data) return;
                 const notas = Object.values(data).filter(n => n && n.id).reverse();
 
-                // Oficiales
                 document.getElementById('lista-oficial').innerHTML = notas.filter(n => n.cat === "OFICIAL").map(n => `
                     <div class="noticia-oficial">
-                        <small>📅 ${n.fecha}</small>
+                        <span class="tag OFICIAL">Ministerio</span>
                         <h2>${n.titulo}</h2>
                         ${n.img ? `<img src="${n.img}">` : ''}
-                        <p style="font-size:18px; line-height:1.6;">${n.texto}</p>
-                        <div style="text-align:right;">— <b>${n.autor}</b></div>
-                    </div>
-                `).join('');
-
-                // Chismes
-                document.getElementById('lista-chismes').innerHTML = notas.filter(n => n.cat !== "OFICIAL").map(n => `
-                    <div class="chisme-card ${n.estilo === 'vociferadora' ? 'vociferadora' : ''}" style="border-left: 8px solid ${n.color}">
-                        <span class="tag ${n.cat}">${n.cat}</span>
-                        <h3 style="color:${n.color}; font-size:24px; margin:10px 0;">${n.titulo}</h3>
-                        ${n.img ? `<img src="${n.img}" style="width:100%; margin-bottom:10px;">` : ''}
                         <p>${n.texto}</p>
-                        <div style="display:flex; justify-content:space-between; align-items:center;">
-                            <small>Por: ${n.autor}</small>
-                            <button class="voto-btn" style="border-color:${n.color}; color:${n.color}; padding:5px 10px; cursor:pointer;" onclick="votar('${n.id}', ${n.votos || 0})">
-                                🔥 ${n.votos || 0} ¡Escandaloso!
-                            </button>
-                        </div>
+                        <small>— ${n.autor}</small>
                     </div>
                 `).join('');
 
-                // Podio
-                const top = [...notas].sort((a,b) => b.votos - a.votos).slice(0, 3);
-                document.getElementById('podio-lista').innerHTML = top.map((n, i) => `
-                    <div style="margin-bottom:10px; border-bottom:1px solid #ccc; padding-bottom:5px;">
-                        <b>#${i+1}</b> ${n.titulo} <br>
-                        <small>🔥 ${n.votos} pts</small>
+                document.getElementById('lista-chismes').innerHTML = notas.filter(n => n.cat !== "OFICIAL").map(n => `
+                    <div class="chisme-card ${n.estilo === 'vociferadora' ? 'vociferadora' : ''}">
+                        <span class="tag ${n.cat}">${n.cat}</span>
+                        <h3>${n.titulo}</h3>
+                        ${n.img ? `<img src="${n.img}" style="width:100%; margin-top:5px;">` : ''}
+                        <p>${n.texto}</p>
+                        <button class="voto-btn" onclick="votar('${n.id}', ${n.votos || 0})">🔥 ${n.votos || 0} ESCANDALOSO</button>
                     </div>
                 `).join('');
             });
