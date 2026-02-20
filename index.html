@@ -12,24 +12,27 @@
             color: #2c1e11;
             display: flex; flex-direction: column; align-items: center; padding: 20px;
             overflow-x: hidden;
+            font-family: 'Special Elite', cursive;
         }
 
         .paper {
             background: #f4e4bc;
             width: 95%; max-width: 900px; padding: 40px;
-            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            box-shadow: 0 0 60px rgba(0,0,0,0.8);
             border: 2px solid #d2b48c; position: relative;
             min-height: 100vh;
+            border-radius: 2px;
         }
 
         header { text-align: center; border-bottom: 5px double #2c1e11; margin-bottom: 30px; }
         header h1 { font-family: 'Cinzel', serif; font-size: clamp(35px, 9vw, 65px); margin: 0; letter-spacing: -2px; }
 
-        /* BANNER Y PODIO */
+        /* BANNER Y PODIO PREMIUM */
         .banner-premio {
             background: #7d0000; color: #f4e4bc; padding: 20px;
             text-align: center; font-family: 'Cinzel', serif;
             border-radius: 5px; margin-bottom: 30px; border: 3px double gold;
+            box-shadow: 0 4px 15px rgba(125,0,0,0.4);
         }
 
         .podio-container {
@@ -38,57 +41,73 @@
             background: rgba(125, 0, 0, 0.05); border-radius: 8px;
         }
         .podio-card {
-            background: #fffdf5; border: 1px solid #7d0000; padding: 10px;
-            text-align: center; border-radius: 5px;
+            background: #fffdf5; border: 1px solid #7d0000; padding: 15px;
+            text-align: center; border-radius: 5px; box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
         }
 
-        /* NOTICIAS Y VOCIFERADORAS */
+        /* NOTICIAS MEJORADAS */
         .noticia-item {
-            background: rgba(255,255,255,0.4); border: 1px solid rgba(0,0,0,0.1);
-            padding: 25px; margin-bottom: 35px; border-radius: 2px;
-            position: relative; box-shadow: 3px 3px 10px rgba(0,0,0,0.05);
-            transition: transform 0.3s;
+            background: #fdf8e9; /* Color pergamino claro */
+            border: 1px solid rgba(0,0,0,0.1);
+            padding: 25px; margin-bottom: 35px; border-radius: 4px;
+            position: relative; box-shadow: 4px 4px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
         }
+        .noticia-item:hover { transform: translateY(-5px); box-shadow: 6px 10px 20px rgba(0,0,0,0.1); }
 
+        /* EFECTO VOCIFERADORA REAL */
         .vociferadora-style {
+            transform: rotate(-1deg) scale(1.02);
             border: 4px solid #7d0000 !important;
-            transform: rotate(-1deg);
-            box-shadow: 8px 8px 0 rgba(0,0,0,0.2) !important;
+            font-weight: bold;
+        }
+        .vociferadora-style h2 {
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+            animation: shake 0.5s infinite alternate;
         }
 
-        .casa-tag { padding: 3px 8px; border-radius: 3px; font-size: 10px; color: white; font-weight: bold; }
+        @keyframes shake {
+            from { transform: rotate(-0.5deg); }
+            to { transform: rotate(0.5deg); }
+        }
+
+        .casa-tag { padding: 4px 10px; border-radius: 3px; font-size: 11px; color: white; font-weight: bold; text-transform: uppercase; }
         .Slytherin { background: #1a472a; } .Gryffindor { background: #740001; }
         .Hufflepuff { background: #ecb939; color: black; } .Ravenclaw { background: #0e1a40; }
         .General { background: #2c1e11; }
 
-        /* FORMULARIO */
+        /* FORMULARIO PREMIUM */
         .envio-box {
-            background: #2c1e11; color: #f4e4bc; padding: 30px;
-            border-radius: 15px; margin-top: 50px;
+            background: #2c1e11; color: #f4e4bc; padding: 35px;
+            border-radius: 15px; margin-top: 50px; border: 2px solid #d4af37;
         }
+        .envio-box h3 { font-family: 'Cinzel', serif; color: #d4af37; margin-top: 0; text-align: center; font-size: 24px; }
+        
         .color-picker-container {
-            display: none; /* Se activa solo con vociferadora */
-            margin: 10px 0;
-            text-align: center;
-            border: 1px dashed gold;
-            padding: 10px;
+            display: none; margin: 15px 0; text-align: center;
+            border: 1px dashed #d4af37; padding: 15px; border-radius: 8px; background: rgba(255,255,255,0.05);
         }
 
         input, textarea, select {
             width: 100%; padding: 12px; margin: 10px 0; border-radius: 5px;
-            border: 1px solid gold; background: #1a150f; color: white;
+            border: 1px solid #d4af37; background: #1a150f; color: #f4e4bc;
+            font-family: 'Special Elite', cursive; font-size: 16px;
         }
         
         .btn-enviar {
-            background: gold; color: #000; border: none; padding: 15px;
+            background: #d4af37; color: #1a150f; border: none; padding: 18px;
             width: 100%; font-family: 'Cinzel', serif; font-weight: bold; cursor: pointer;
+            font-size: 20px; transition: 0.3s; margin-top: 10px;
         }
+        .btn-enviar:hover { background: #f4e4bc; transform: scale(1.02); }
 
         .voto-btn {
-            background: #d2b48c; border: 1px solid #2c1e11; padding: 8px 15px;
-            cursor: pointer; font-family: 'Cinzel', serif; margin-top: 10px;
+            background: #d2b48c; border: 1px solid #2c1e11; padding: 10px 20px;
+            cursor: pointer; font-family: 'Cinzel', serif; margin-top: 15px;
+            font-weight: bold; border-radius: 4px; transition: 0.2s;
         }
-        .ya-votado { background: #888 !important; cursor: not-allowed; }
+        .voto-btn:hover:not(:disabled) { background: #2c1e11; color: #f4e4bc; }
+        .ya-votado { background: #888 !important; color: #444 !important; border-color: #666 !important; cursor: not-allowed; }
     </style>
 </head>
 <body>
@@ -96,7 +115,7 @@
     <div class="paper">
         <header>
             <h1>EL PROFETA REBELDE</h1>
-            <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 13px; font-family: 'Cinzel';">
+            <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 13px; font-family: 'Cinzel'; border-top: 1px solid #2c1e11; padding-top: 5px;">
                 <span>🦉 <span id="lectores"></span> LECHUZAS LEYENDO</span>
                 <span id="fecha"></span>
             </div>
@@ -104,10 +123,10 @@
 
         <div class="banner-premio">
             🏆 <b>PREMIO AL MEJOR CHISME</b> 🏆<br>
-            <span style="font-size: 22px;">💰 15.000 GALEONES ✨</span>
+            <span style="font-size: 26px; letter-spacing: 2px;">💰 15.000 GALEONES ✨</span>
         </div>
 
-        <h3 style="font-family: 'Cinzel'; border-bottom: 2px solid #7d0000; display: inline-block;">🔥 PODIO DE LA INFAMIA</h3>
+        <h3 style="font-family: 'Cinzel'; border-bottom: 2px solid #7d0000; display: inline-block; margin-bottom: 20px;">🔥 PODIO DE LA INFAMIA</h3>
         <div id="podio" class="podio-container"></div>
 
         <div id="noticias-container"></div>
@@ -133,8 +152,8 @@
             </div>
 
             <div id="color-picker-box" class="color-picker-container">
-                <label style="font-size: 12px; color: gold;">🎨 ELIGE EL COLOR DE TU GRITO:</label><br>
-                <input type="color" id="color-vociferadora" value="#ffdfdf" style="width: 50px; height: 50px; cursor: pointer; border: none; background: none;">
+                <label style="font-size: 14px; color: #d4af37; font-weight: bold;">🎨 PERSONALIZA EL COLOR DE TU GRITO:</label><br>
+                <input type="color" id="color-vociferadora" value="#ff7878" style="width: 60px; height: 60px; cursor: pointer; border: 2px solid #d4af37; background: none; margin-top: 10px; border-radius: 50%;">
             </div>
             
             <button class="btn-enviar" onclick="enviarChisme()">HECHIZAR Y PUBLICAR ✨</button>
@@ -145,7 +164,7 @@
         const BASE_DB_URL = "https://profeta-9c8df-default-rtdb.firebaseio.com/periodico";
 
         document.getElementById('fecha').innerText = new Date().toLocaleDateString('es-ES', { weekday: 'long', day: '2-digit', month: 'long' }).toUpperCase();
-        document.getElementById('lectores').innerText = Math.floor(Math.random() * 40) + 10;
+        document.getElementById('lectores').innerText = Math.floor(Math.random() * 40) + 15;
 
         function toggleColorPicker() {
             const tipo = document.getElementById('tipo-envio').value;
@@ -187,48 +206,54 @@
 
         async function votar(id) {
             if(yaVoto(id)) return;
-            const res = await fetch(`${BASE_DB_URL}/${id}.json`);
-            const n = await res.json();
-            const nuevosVotos = (n.votos || 0) + 1;
-            await fetch(`${BASE_DB_URL}/${id}/votos.json`, { method: 'PUT', body: JSON.stringify(nuevosVotos) });
-            registrarVotoLocal(id);
-            cargarNoticias();
+            try {
+                const res = await fetch(`${BASE_DB_URL}/${id}.json`);
+                const n = await res.json();
+                const nuevosVotos = (n.votos || 0) + 1;
+                await fetch(`${BASE_DB_URL}/${id}/votos.json`, { method: 'PUT', body: JSON.stringify(nuevosVotos) });
+                registrarVotoLocal(id);
+                cargarNoticias();
+            } catch(e) { console.error(e); }
         }
 
         function cargarNoticias() {
             fetch(`${BASE_DB_URL}.json`).then(res => res.json()).then(data => {
-                if(!data) return;
-                const noticias = Object.values(data);
+                if(!data) {
+                    document.getElementById('noticias-container').innerHTML = "<p style='text-align:center; opacity:0.5;'>No hay primicias por ahora...</p>";
+                    return;
+                }
+                const noticias = Object.values(data).filter(n => n && n.id);
                 
-                // --- PODIO ---
+                // PODIO
                 const masVotados = [...noticias].sort((a,b) => (b.votos || 0) - (a.votos || 0)).slice(0, 3);
-                let podioHtml = "";
-                masVotados.forEach((n, i) => {
-                    podioHtml += `<div class="podio-card"><span>#${i+1} TOP</span><br><b>${n.titulo}</b><br><small>🔥 ${n.votos || 0}</small></div>`;
-                });
-                document.getElementById('podio').innerHTML = podioHtml;
+                document.getElementById('podio').innerHTML = masVotados.map((n, i) => `
+                    <div class="podio-card">
+                        <span style="font-family:'Cinzel'; color:#7d0000; font-size:12px;">#${i+1} TOP ESCÁNDALO</span><br>
+                        <b style="font-size:15px;">${n.titulo}</b><br>
+                        <small>🔥 ${n.votos || 0} votos</small>
+                    </div>
+                `).join('');
 
-                // --- LISTA ---
+                // LISTA
                 const lista = noticias.sort((a,b) => b.id - a.id);
-                let html = "";
-                lista.forEach(n => {
+                document.getElementById('noticias-container').innerHTML = lista.map(n => {
                     const vtd = yaVoto(n.id);
                     const isVoc = n.tipo === 'vociferadora';
-                    const bgStyle = isVoc ? `background-color: ${n.color || '#ffdfdf'} !important;` : '';
+                    const customStyle = isVoc ? 
+                        `background-color: ${n.color}22; border: 4px solid ${n.color}; box-shadow: 0 0 20px ${n.color}33;` : '';
                     
-                    html += `
-                        <div class="noticia-item ${isVoc ? 'vociferadora-style' : ''}" style="${bgStyle}">
+                    return `
+                        <div class="noticia-item ${isVoc ? 'vociferadora-style' : ''}" style="${customStyle}">
                             <span class="casa-tag ${n.casa}">${n.casa}</span>
-                            <div style="font-size:11px; margin-bottom:5px;">${n.fecha} | POR: ${n.autor}</div>
-                            <h2>${n.titulo}</h2>
+                            <div style="font-size:11px; margin: 10px 0; color:#555;">${n.fecha} | POR: ${n.autor}</div>
+                            <h2 style="${isVoc ? 'color:'+n.color : ''}">${n.titulo}</h2>
                             <p>${n.texto}</p>
                             <button class="voto-btn ${vtd ? 'ya-votado' : ''}" onclick="votar('${n.id}')" ${vtd ? 'disabled' : ''}>
-                                ${vtd ? 'Ya votaste' : '¡Es Escandaloso! 🔥'} (${n.votos || 0})
+                                ${vtd ? 'Ya votaste ✅' : '¡Es Escandaloso! 🔥'} (${n.votos || 0})
                             </button>
                         </div>
                     `;
-                });
-                document.getElementById('noticias-container').innerHTML = html;
+                }).join('');
             });
         }
 
