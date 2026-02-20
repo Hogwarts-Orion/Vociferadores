@@ -22,55 +22,61 @@
             box-shadow: 0 0 50px rgba(0,0,0,1);
         }
 
-        /* --- CABECERA --- */
         header { text-align: center; border-bottom: 4px double var(--tinta); margin-bottom: 5px; }
         header h1 { font-family: 'Cinzel', serif; font-size: 34px; margin: 0; font-weight: 900; }
         
         .meta-bar { display: flex; justify-content: space-between; padding: 3px 5px; font-size: 9px; font-family: 'Cinzel'; font-weight: bold; border-top: 1px solid #000; }
 
-        /* --- PREMIO SEMANAL --- */
         .banner-premio {
             background: linear-gradient(to right, #000, var(--oro-oscuro), #000);
             color: var(--oro); text-align: center; padding: 10px;
             font-family: 'Cinzel'; font-size: 11px; border: 1px solid var(--oro);
             margin: 10px 0; box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
-            animation: glow 2s infinite alternate;
         }
-        @keyframes glow { from { opacity: 0.8; } to { opacity: 1; box-shadow: 0 0 25px var(--oro); } }
 
-        /* --- TABLA DE LÍDERES --- */
-        .ranking-box {
-            background: rgba(0,0,0,0.05); border: 1px solid #000;
-            padding: 10px; margin-bottom: 15px; font-family: 'Cinzel';
+        /* --- ESTILOS DINÁMICOS DE TARJETAS --- */
+        .preview-card {
+            padding: 15px;
+            margin: 10px 0;
+            transition: 0.3s;
+            min-height: 100px;
+            font-family: 'Special Elite';
         }
-        .ranking-title { font-size: 10px; text-align: center; border-bottom: 1px solid #000; margin-bottom: 5px; padding-bottom: 3px; }
-        .ranking-item { display: flex; justify-content: space-between; font-size: 12px; padding: 2px 0; }
-        .top1 { color: #8b6d45; font-weight: bold; font-size: 14px; }
 
-        /* --- DECRETO REAL (NEGRO Y ORO) --- */
-        .card-oficial {
+        /* Clase Decreto */
+        .style-decreto {
             background: #000 url('https://www.transparenttextures.com/patterns/dark-leather.png') !important;
-            border: 2px solid var(--oro) !important; padding: 15px; margin-bottom: 25px;
-            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+            border: 2px solid var(--oro) !important;
+            color: var(--oro) !important;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
         }
-        .card-oficial h3 { color: var(--oro) !important; font-family: 'Cinzel'; border-bottom: 1px solid var(--oro); }
-        .card-oficial p, .card-oficial small { color: #f0f0f0 !important; }
 
-        /* --- VOCIFERADORA (ROJO Y FUEGO) --- */
-        .vociferadora {
+        /* Clase Vociferadora */
+        .style-vociferadora {
             background: linear-gradient(135deg, #8b0000 0%, #ff1a1a 100%) !important;
-            padding: 12px; margin-bottom: 20px; border: none !important;
-            animation: shake 0.2s infinite; box-shadow: 0 0 20px var(--sangre);
+            color: white !important;
+            animation: shake 0.2s infinite;
+            border: none;
         }
-        .vociferadora h3, .vociferadora p, .vociferadora small { color: white !important; }
+
         @keyframes shake { 0% { transform: rotate(0.2deg); } 100% { transform: rotate(-0.2deg); } }
 
-        /* --- UI --- */
-        .sec-title { font-family: 'Cinzel'; background: #000; color: var(--oro); text-align: center; padding: 5px; font-size: 11px; margin: 20px 0 10px 0; }
+        /* Selector de Color */
+        .color-palette {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 10px 0;
+        }
+
+        .color-opt {
+            width: 35px; height: 35px; border-radius: 50%; border: 2px solid #000; cursor: pointer;
+        }
+
+        .sec-title { font-family: 'Cinzel'; background: #000; color: var(--oro); text-align: center; padding: 5px; font-size: 11px; margin: 15px 0; }
         .btn-send { background: #000; color: var(--oro); border: 1px solid var(--oro); padding: 12px; width: 100%; font-family: 'Cinzel'; font-weight: bold; cursor: pointer; }
-        input, textarea, select { width: 100%; padding: 8px; margin: 4px 0; border: 1px solid #000; font-family: 'Special Elite'; box-sizing: border-box; }
-        .voto-btn { background: none; border: 1px solid #000; padding: 4px 8px; font-family: 'Cinzel'; font-size: 9px; cursor: pointer; }
-        .confesion-card { background: #f2e9d0; border-left: 5px solid var(--oro-oscuro); padding: 10px; margin: 10px 0; font-family: 'Special Elite'; transform: rotate(-1deg); }
+        
+        input, textarea, select { width: 100%; padding: 10px; margin: 5px 0; border: 1px solid #000; font-family: 'Special Elite'; box-sizing: border-box; background: rgba(255,255,255,0.5); }
     </style>
 </head>
 <body>
@@ -78,14 +84,8 @@
 <div class="newspaper">
     <div id="login-zone" style="text-align:center; padding: 40px 10px;">
         <h1 style="font-family:'Cinzel'">EL PROFETA</h1>
-        <input type="text" id="u-n" placeholder="Tu Nombre">
+        <input type="text" id="u-n" placeholder="Nombre de Mago/Bruja">
         <input type="password" id="u-p" placeholder="Contraseña">
-        <select id="u-h">
-            <option value="GRYFFINDOR">🦁 GRYFFINDOR</option>
-            <option value="SLYTHERIN">🐍 SLYTHERIN</option>
-            <option value="HUFFLEPUFF">🦡 HUFFLEPUFF</option>
-            <option value="RAVENCLAW">🦅 RAVENCLAW</option>
-        </select>
         <button class="btn-send" onclick="login()">ENTRAR ✨</button>
     </div>
 
@@ -93,7 +93,7 @@
         <header>
             <h1>EL PROFETA</h1>
             <div class="meta-bar">
-                <span id="f-m"></span>
+                <span id="f-m">20 FEB 2026</span>
                 <span id="h-m"></span>
                 <span onclick="logout()" style="color:var(--sangre); cursor:pointer;">SALIR</span>
             </div>
@@ -101,125 +101,91 @@
 
         <div class="banner-premio">
             🏆 PREMIO SEMANAL: 15.000 GALEONES 💰<br>
-            <small>Al mago/bruja con más "Gritos" acumulados</small>
+            <small>Basado en el impacto de tus publicaciones</small>
         </div>
 
-        <div class="ranking-box" id="ranking-list">
-            <div class="ranking-title">✦ LÍDERES DE LA SEMANA ✦</div>
-            </div>
-
-        <div id="feed-oficial"></div>
-        <div id="feed-confesiones"></div>
-        <div id="feed-comunidad"></div>
-
-        <div class="sec-title">REDACTAR</div>
-        <div class="magic-form" style="background: rgba(0,0,0,0.04); padding: 12px; border: 1px dashed #000;">
-            <select id="t-tipo" onchange="toggleForm()">
-                <option value="noticia">Publicar Noticia</option>
-                <option value="confesion">Confesión Anónima</option>
-            </select>
-            <div id="form-noticia">
-                <input type="text" id="t-t" placeholder="Título">
-                <textarea id="t-m" rows="3" placeholder="Contenido..."></textarea>
-                <div style="display:flex; gap:5px;">
-                    <select id="t-r"><option value="ALUMNO">Alumno</option><option value="OFICIAL">Escritor Real</option></select>
-                    <select id="t-e"><option value="normal">Pergamino</option><option value="vociferadora">Vociferadora 🔥</option></select>
-                </div>
-            </div>
-            <div id="form-confesion" style="display:none;">
-                <textarea id="t-conf" rows="3" placeholder="Tu secreto..."></textarea>
-                <label style="font-size:10px; font-family:'Cinzel'"><input type="checkbox" id="t-anon" checked> Anonimato</label>
-            </div>
-            <button class="btn-send" onclick="publicarTodo()">PUBLICAR ✨</button>
+        <div class="sec-title">REDACTAR PUBLICACIÓN</div>
+        
+        <label style="font-size: 10px; font-family: 'Cinzel';">1. Selecciona el Tipo de Mensaje:</label>
+        <div class="color-palette">
+            <div class="color-opt" style="background: #000; border-color: var(--oro);" onclick="setTipo('decreto')" title="Decreto Real"></div>
+            <div class="color-opt" style="background: #ff1a1a; border-color: #8b0000;" onclick="setTipo('vociferadora')" title="Vociferadora"></div>
         </div>
+
+        <div id="preview" class="preview-card style-decreto">
+            <h3 id="prev-title" style="margin:0; font-family:'Cinzel';">DECRETO OFICIAL</h3>
+            <p id="prev-text" style="font-size: 14px;">Escribe tu mensaje abajo...</p>
+        </div>
+
+        <input type="text" id="post-titulo" placeholder="Título del mensaje..." oninput="updatePreview()">
+        <textarea id="post-msg" rows="4" placeholder="Escribe aquí tu confesión o grito..." oninput="updatePreview()"></textarea>
+        
+        <button class="btn-send" onclick="enviarMensaje()">PUBLICAR EN EL PROFETA 🦉</button>
+
+        <div id="muro-mensajes">
+            </div>
     </div>
 </div>
 
 <script>
-    const DB = "https://profeta-9c8df-default-rtdb.firebaseio.com/periodico";
-    const CLAVE_REAL = "Orion2026";
-    let sesion = JSON.parse(localStorage.getItem('p_vFinal_v2'));
+    let tipoActual = 'decreto';
 
     function login() {
-        const n = document.getElementById('u-n').value.trim();
-        if(!n) return;
-        sesion = { n, h: document.getElementById('u-h').value };
-        localStorage.setItem('p_vFinal_v2', JSON.stringify(sesion));
-        start();
-    }
-    function logout() { localStorage.removeItem('p_vFinal_v2'); location.reload(); }
-    function toggleForm() {
-        const t = document.getElementById('t-tipo').value;
-        document.getElementById('form-noticia').style.display = t === 'noticia' ? 'block' : 'none';
-        document.getElementById('form-confesion').style.display = t === 'confesion' ? 'block' : 'none';
-    }
-
-    function start() {
-        if(!sesion) return;
-        document.getElementById('login-zone').style.display='none';
-        document.getElementById('main-web').style.display='block';
-        document.getElementById('f-m').innerText = new Date().toLocaleDateString('es-ES',{day:'numeric',month:'short'}).toUpperCase();
-        setInterval(()=> { document.getElementById('h-m').innerText = new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}); }, 1000);
-        load();
-    }
-
-    function publicarTodo() {
-        const tipo = document.getElementById('t-tipo').value;
-        const id = "ID"+Date.now();
-        let data = { id, autor: sesion.n, casa: sesion.h, time: Date.now(), v: {}, c: 0 };
-        if(tipo === 'noticia') {
-            const r = document.getElementById('t-r').value;
-            if(r === "OFICIAL" && prompt("Clave:") !== CLAVE_REAL) return;
-            data = {...data, tipo:'noticia', titulo: document.getElementById('t-t').value, texto: document.getElementById('t-m').value, rango:r, estilo:document.getElementById('t-e').value};
-        } else {
-            data = {...data, tipo:'confesion', texto: document.getElementById('t-conf').value, anonimo: document.getElementById('t-anon').checked};
+        const user = document.getElementById('u-n').value;
+        if(user) {
+            document.getElementById('login-zone').style.display = 'none';
+            document.getElementById('main-web').style.display = 'block';
         }
-        fetch(`${DB}/${id}.json`,{method:'PUT',body:JSON.stringify(data)}).then(()=>location.reload());
     }
 
-    function load() {
-        fetch(`${DB}.json`).then(r=>r.json()).then(data => {
-            if(!data) return;
-            const items = Object.values(data).sort((a,b)=>b.time - a.time);
-            let hOf="", hAl="", hConf="";
-            let scores = {};
+    function logout() { location.reload(); }
 
-            items.forEach(n => {
-                // Contar puntos para el ranking (solo noticias, no confesiones)
-                if(n.tipo === 'noticia') {
-                    scores[n.autor] = (scores[n.autor] || 0) + (n.c || 0);
-                    const voted = n.v && n.v[sesion.n];
-                    const cls = n.rango === "OFICIAL" ? "card-oficial" : "card-alumno";
-                    const est = n.estilo === 'vociferadora' ? 'vociferadora' : '';
-                    const html = `<div class="article ${cls} ${est}"><h3>${n.titulo}</h3><small>🖋️ ${n.autor}</small><p>${n.texto}</p><div style="text-align:right;"><button class="voto-btn" onclick="votar('${n.id}')" ${voted?'disabled':''}>${voted?'SELLADO':'🔥 GRITAR ('+(n.c||0)+')'}</button></div></div>`;
-                    if(n.rango === "OFICIAL") hOf += html; else hAl += html;
-                } else {
-                    hConf += `<div class="confesion-card"><b>🤫 CONFESIÓN:</b><br>"${n.texto}"<br><small>— ${n.anonimo?'Anónimo':n.autor}</small></div>`;
-                }
-            });
-
-            // Generar Ranking
-            const top = Object.entries(scores).sort((a,b)=>b[1]-a[1]).slice(0,3);
-            let rHtml = '<div class="ranking-title">✦ LÍDERES DE LA SEMANA ✦</div>';
-            top.forEach((s, i) => {
-                rHtml += `<div class="ranking-item ${i===0?'top1':''}"><span>${i+1}. ${s[0]}</span><span>${s[1]} 🔥</span></div>`;
-            });
-            document.getElementById('ranking-list').innerHTML = rHtml;
-
-            document.getElementById('feed-oficial').innerHTML = hOf ? `<div class="sec-title">DECRETOS REALES</div>`+hOf : "";
-            document.getElementById('feed-confesiones').innerHTML = hConf ? `<div class="sec-title">BUZÓN DE SECRETOS</div>`+hConf : "";
-            document.getElementById('feed-comunidad').innerHTML = `<div class="sec-title">NOTICIAS</div>`+hAl;
-        });
+    function setTipo(t) {
+        tipoActual = t;
+        const prev = document.getElementById('preview');
+        const tit = document.getElementById('prev-title');
+        
+        if(t === 'decreto') {
+            prev.className = 'preview-card style-decreto';
+            tit.innerText = "DECRETO OFICIAL";
+        } else {
+            prev.className = 'preview-card style-vociferadora';
+            tit.innerText = "¡VOCIFERADORA!";
+        }
     }
 
-    async function votar(id) {
-        await fetch(`${DB}/${id}/v/${sesion.n}.json`,{method:'PUT',body:'true'});
-        const res = await fetch(`${DB}/${id}/c.json`);
-        const val = await res.json() || 0;
-        await fetch(`${DB}/${id}/c.json`,{method:'PUT',body:JSON.stringify(val+1)});
-        load();
+    function updatePreview() {
+        const t = document.getElementById('post-titulo').value;
+        const m = document.getElementById('post-msg').value;
+        document.getElementById('prev-text').innerText = m || "Escribe tu mensaje abajo...";
+        if(t) document.getElementById('prev-title').innerText = t.toUpperCase();
     }
-    if(sesion) start();
+
+    function enviarMensaje() {
+        const tit = document.getElementById('post-titulo').value;
+        const msg = document.getElementById('post-msg').value;
+        if(!msg) return alert("¡El pergamino está vacío!");
+
+        const muro = document.getElementById('muro-mensajes');
+        const nuevaCard = document.createElement('div');
+        nuevaCard.className = `preview-card style-${tipoActual}`;
+        nuevaCard.innerHTML = `<h3 style="font-family:'Cinzel'; margin:0;">${tit || (tipoActual=='decreto'?'DECRETO':'GRITO')}</h3><p>${msg}</p>`;
+        
+        muro.prepend(nuevaCard);
+        
+        // Limpiar campos
+        document.getElementById('post-titulo').value = "";
+        document.getElementById('post-msg').value = "";
+        updatePreview();
+        alert("🦉 Tu mensaje ha sido enviado por lechuza.");
+    }
+
+    // Hora
+    setInterval(() => {
+        const d = new Date();
+        document.getElementById('h-m').innerText = d.toLocaleTimeString();
+    }, 1000);
 </script>
+
 </body>
 </html>
