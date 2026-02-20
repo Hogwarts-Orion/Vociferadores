@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Profeta - Edición de Oro</title>
+    <title>El Profeta - Edición de Oro y Galeones</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Special+Elite&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap');
 
@@ -47,30 +47,35 @@
         .ranking-item { display: flex; justify-content: space-between; font-size: 12px; padding: 2px 0; }
         .top1 { color: #8b6d45; font-weight: bold; font-size: 14px; }
 
-        /* --- DECRETO REAL (NEGRO Y ORO) --- */
+        /* --- ESTILOS DE ARTÍCULOS --- */
+        .article { padding: 15px; margin-bottom: 25px; position: relative; }
+
         .card-oficial {
             background: #000 url('https://www.transparenttextures.com/patterns/dark-leather.png') !important;
-            border: 2px solid var(--oro) !important; padding: 15px; margin-bottom: 25px;
+            border: 2px solid var(--oro) !important;
             box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
         }
-        .card-oficial h3 { color: var(--oro) !important; font-family: 'Cinzel'; border-bottom: 1px solid var(--oro); }
-        .card-oficial p, .card-oficial small { color: #f0f0f0 !important; }
+        .card-oficial h3 { color: var(--oro); font-family: 'Cinzel'; border-bottom: 1px solid var(--oro); margin-top: 0; }
+        .card-oficial p, .card-oficial small { color: #f0f0f0; }
 
-        /* --- VOCIFERADORA (ROJO Y FUEGO) --- */
         .vociferadora {
-            background: linear-gradient(135deg, #8b0000 0%, #ff1a1a 100%) !important;
-            padding: 12px; margin-bottom: 20px; border: none !important;
-            animation: shake 0.2s infinite; box-shadow: 0 0 20px var(--sangre);
+            background: linear-gradient(135deg, #8b0000 0%, #ff1a1a 100%);
+            border: none; animation: shake 0.2s infinite; 
+            box-shadow: 0 0 20px var(--sangre); color: white;
         }
-        .vociferadora h3, .vociferadora p, .vociferadora small { color: white !important; }
+        .vociferadora h3 { color: white; margin-top: 0; border-bottom: 1px solid rgba(255,255,255,0.3); }
+
         @keyframes shake { 0% { transform: rotate(0.2deg); } 100% { transform: rotate(-0.2deg); } }
 
         /* --- UI --- */
         .sec-title { font-family: 'Cinzel'; background: #000; color: var(--oro); text-align: center; padding: 5px; font-size: 11px; margin: 20px 0 10px 0; }
-        .btn-send { background: #000; color: var(--oro); border: 1px solid var(--oro); padding: 12px; width: 100%; font-family: 'Cinzel'; font-weight: bold; cursor: pointer; }
-        input, textarea, select { width: 100%; padding: 8px; margin: 4px 0; border: 1px solid #000; font-family: 'Special Elite'; box-sizing: border-box; }
-        .voto-btn { background: none; border: 1px solid #000; padding: 4px 8px; font-family: 'Cinzel'; font-size: 9px; cursor: pointer; }
-        .confesion-card { background: #f2e9d0; border-left: 5px solid var(--oro-oscuro); padding: 10px; margin: 10px 0; font-family: 'Special Elite'; transform: rotate(-1deg); }
+        .btn-send { background: #000; color: var(--oro); border: 1px solid var(--oro); padding: 12px; width: 100%; font-family: 'Cinzel'; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        input, textarea, select { width: 100%; padding: 8px; margin: 4px 0; border: 1px solid #000; font-family: 'Special Elite'; box-sizing: border-box; background: rgba(255,255,255,0.5); }
+        .voto-btn { background: rgba(0,0,0,0.2); border: 1px solid currentColor; padding: 4px 8px; font-family: 'Cinzel'; font-size: 9px; cursor: pointer; color: inherit; }
+        .confesion-card { background: #f2e9d0; border-left: 5px solid var(--oro-oscuro); padding: 10px; margin: 10px 0; font-family: 'Special Elite'; transform: rotate(-1deg); box-shadow: 2px 2px 5px rgba(0,0,0,0.1); }
+        
+        .color-picker-container { display: flex; align-items: center; gap: 10px; margin: 5px 0; font-family: 'Cinzel'; font-size: 10px; }
+        .color-picker-container input { width: 40px; height: 25px; padding: 0; border: none; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -104,9 +109,7 @@
             <small>Al mago/bruja con más "Gritos" acumulados</small>
         </div>
 
-        <div class="ranking-box" id="ranking-list">
-            <div class="ranking-title">✦ LÍDERES DE LA SEMANA ✦</div>
-            </div>
+        <div class="ranking-box" id="ranking-list"></div>
 
         <div id="feed-oficial"></div>
         <div id="feed-confesiones"></div>
@@ -118,14 +121,20 @@
                 <option value="noticia">Publicar Noticia</option>
                 <option value="confesion">Confesión Anónima</option>
             </select>
+            
             <div id="form-noticia">
                 <input type="text" id="t-t" placeholder="Título">
                 <textarea id="t-m" rows="3" placeholder="Contenido..."></textarea>
                 <div style="display:flex; gap:5px;">
-                    <select id="t-r"><option value="ALUMNO">Alumno</option><option value="OFICIAL">Escritor Real</option></select>
-                    <select id="t-e"><option value="normal">Pergamino</option><option value="vociferadora">Vociferadora 🔥</option></select>
+                    <select id="t-r" onchange="checkColorVisibility()"><option value="ALUMNO">Alumno</option><option value="OFICIAL">Escritor Real</option></select>
+                    <select id="t-e" onchange="checkColorVisibility()"><option value="normal">Pergamino</option><option value="vociferadora">Vociferadora 🔥</option></select>
+                </div>
+                <div id="color-custom" class="color-picker-container" style="display:none;">
+                    <span>COLOR DE MAGIA:</span>
+                    <input type="color" id="t-color" value="#ff1a1a">
                 </div>
             </div>
+
             <div id="form-confesion" style="display:none;">
                 <textarea id="t-conf" rows="3" placeholder="Tu secreto..."></textarea>
                 <label style="font-size:10px; font-family:'Cinzel'"><input type="checkbox" id="t-anon" checked> Anonimato</label>
@@ -148,10 +157,20 @@
         start();
     }
     function logout() { localStorage.removeItem('p_vFinal_v2'); location.reload(); }
+    
     function toggleForm() {
         const t = document.getElementById('t-tipo').value;
         document.getElementById('form-noticia').style.display = t === 'noticia' ? 'block' : 'none';
         document.getElementById('form-confesion').style.display = t === 'confesion' ? 'block' : 'none';
+        checkColorVisibility();
+    }
+
+    function checkColorVisibility() {
+        const estilo = document.getElementById('t-e').value;
+        const rango = document.getElementById('t-r').value;
+        const picker = document.getElementById('color-custom');
+        // Mostrar color si es vociferadora O si es oficial
+        picker.style.display = (estilo === 'vociferadora' || rango === 'OFICIAL') ? 'flex' : 'none';
     }
 
     function start() {
@@ -167,10 +186,19 @@
         const tipo = document.getElementById('t-tipo').value;
         const id = "ID"+Date.now();
         let data = { id, autor: sesion.n, casa: sesion.h, time: Date.now(), v: {}, c: 0 };
+        
         if(tipo === 'noticia') {
             const r = document.getElementById('t-r').value;
-            if(r === "OFICIAL" && prompt("Clave:") !== CLAVE_REAL) return;
-            data = {...data, tipo:'noticia', titulo: document.getElementById('t-t').value, texto: document.getElementById('t-m').value, rango:r, estilo:document.getElementById('t-e').value};
+            if(r === "OFICIAL" && prompt("Clave de Escritor Real:") !== CLAVE_REAL) return;
+            data = {
+                ...data, 
+                tipo:'noticia', 
+                titulo: document.getElementById('t-t').value, 
+                texto: document.getElementById('t-m').value, 
+                rango: r, 
+                estilo: document.getElementById('t-e').value,
+                color: document.getElementById('t-color').value
+            };
         } else {
             data = {...data, tipo:'confesion', texto: document.getElementById('t-conf').value, anonimo: document.getElementById('t-anon').checked};
         }
@@ -185,20 +213,39 @@
             let scores = {};
 
             items.forEach(n => {
-                // Contar puntos para el ranking (solo noticias, no confesiones)
                 if(n.tipo === 'noticia') {
                     scores[n.autor] = (scores[n.autor] || 0) + (n.c || 0);
                     const voted = n.v && n.v[sesion.n];
-                    const cls = n.rango === "OFICIAL" ? "card-oficial" : "card-alumno";
-                    const est = n.estilo === 'vociferadora' ? 'vociferadora' : '';
-                    const html = `<div class="article ${cls} ${est}"><h3>${n.titulo}</h3><small>🖋️ ${n.autor}</small><p>${n.texto}</p><div style="text-align:right;"><button class="voto-btn" onclick="votar('${n.id}')" ${voted?'disabled':''}>${voted?'SELLADO':'🔥 GRITAR ('+(n.c||0)+')'}</button></div></div>`;
-                    if(n.rango === "OFICIAL") hOf += html; else hAl += html;
+                    const isVoc = n.estilo === 'vociferadora';
+                    const isOfi = n.rango === 'OFICIAL';
+                    
+                    // Lógica de color personalizado
+                    let customStyle = "";
+                    if(isVoc) {
+                        customStyle = `style="background: linear-gradient(135deg, #000 0%, ${n.color || '#ff1a1a'} 100%); box-shadow: 0 0 20px ${n.color || '#ff1a1a'};"`;
+                    } else if(isOfi && n.color) {
+                        customStyle = `style="border-color: ${n.color} !important; box-shadow: 0 5px 20px ${n.color}66;"`;
+                    }
+
+                    const html = `
+                        <div class="article ${isOfi ? 'card-oficial' : 'card-alumno'} ${isVoc ? 'vociferadora' : ''}" ${customStyle}>
+                            <h3 ${isOfi && n.color ? `style="color:${n.color}; border-color:${n.color}"` : ''}>${n.titulo}</h3>
+                            <small>🖋️ ${n.autor} [${n.casa}]</small>
+                            <p>${n.texto}</p>
+                            <div style="text-align:right;">
+                                <button class="voto-btn" onclick="votar('${n.id}')" ${voted?'disabled':''}>
+                                    ${voted ? '✉️ SELLADO' : '🔥 GRITAR ('+(n.c||0)+')'}
+                                </button>
+                            </div>
+                        </div>`;
+                    
+                    if(isOfi) hOf += html; else hAl += html;
                 } else {
                     hConf += `<div class="confesion-card"><b>🤫 CONFESIÓN:</b><br>"${n.texto}"<br><small>— ${n.anonimo?'Anónimo':n.autor}</small></div>`;
                 }
             });
 
-            // Generar Ranking
+            // Ranking
             const top = Object.entries(scores).sort((a,b)=>b[1]-a[1]).slice(0,3);
             let rHtml = '<div class="ranking-title">✦ LÍDERES DE LA SEMANA ✦</div>';
             top.forEach((s, i) => {
