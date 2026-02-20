@@ -38,35 +38,39 @@
         }
         @keyframes glow { from { opacity: 0.8; } to { opacity: 1; box-shadow: 0 0 25px var(--oro); } }
 
+        /* --- TABLA DE LÍDERES --- */
+        .ranking-box {
+            background: rgba(0,0,0,0.05); border: 1px solid #000;
+            padding: 10px; margin-bottom: 15px; font-family: 'Cinzel';
+        }
+        .ranking-title { font-size: 10px; text-align: center; border-bottom: 1px solid #000; margin-bottom: 5px; padding-bottom: 3px; }
+        .ranking-item { display: flex; justify-content: space-between; font-size: 12px; padding: 2px 0; }
+        .top1 { color: #8b6d45; font-weight: bold; font-size: 14px; }
+
         /* --- DECRETO REAL (NEGRO Y ORO) --- */
         .card-oficial {
             background: #000 url('https://www.transparenttextures.com/patterns/dark-leather.png') !important;
-            border: 2px solid var(--oro) !important; padding: 15px; margin-bottom: 10px;
+            border: 2px solid var(--oro) !important; padding: 15px; margin-bottom: 25px;
             box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
         }
-        .card-oficial h3 { color: var(--oro) !important; font-family: 'Cinzel'; border-bottom: 1px solid var(--oro); margin: 0 0 10px 0; }
+        .card-oficial h3 { color: var(--oro) !important; font-family: 'Cinzel'; border-bottom: 1px solid var(--oro); }
         .card-oficial p, .card-oficial small { color: #f0f0f0 !important; }
 
         /* --- VOCIFERADORA (ROJO Y FUEGO) --- */
         .vociferadora {
             background: linear-gradient(135deg, #8b0000 0%, #ff1a1a 100%) !important;
-            padding: 12px; margin-bottom: 10px; border: none !important;
+            padding: 12px; margin-bottom: 20px; border: none !important;
             animation: shake 0.2s infinite; box-shadow: 0 0 20px var(--sangre);
         }
-        .vociferadora h3, .vociferadora p, .vociferadora small { color: white !important; margin: 0 0 10px 0; }
+        .vociferadora h3, .vociferadora p, .vociferadora small { color: white !important; }
         @keyframes shake { 0% { transform: rotate(0.2deg); } 100% { transform: rotate(-0.2deg); } }
-
-        /* --- PALETA DE COLORES --- */
-        .palette { display: flex; gap: 10px; justify-content: center; margin: 10px 0; }
-        .dot { width: 30px; height: 30px; border-radius: 50%; border: 2px solid #000; cursor: pointer; transition: 0.2s; }
-        .dot:hover { transform: scale(1.1); }
 
         /* --- UI --- */
         .sec-title { font-family: 'Cinzel'; background: #000; color: var(--oro); text-align: center; padding: 5px; font-size: 11px; margin: 20px 0 10px 0; }
         .btn-send { background: #000; color: var(--oro); border: 1px solid var(--oro); padding: 12px; width: 100%; font-family: 'Cinzel'; font-weight: bold; cursor: pointer; }
         input, textarea, select { width: 100%; padding: 8px; margin: 4px 0; border: 1px solid #000; font-family: 'Special Elite'; box-sizing: border-box; }
-        
-        #preview-area { margin-top: 15px; border-top: 1px dashed #000; padding-top: 15px; }
+        .voto-btn { background: none; border: 1px solid #000; padding: 4px 8px; font-family: 'Cinzel'; font-size: 9px; cursor: pointer; }
+        .confesion-card { background: #f2e9d0; border-left: 5px solid var(--oro-oscuro); padding: 10px; margin: 10px 0; font-family: 'Special Elite'; transform: rotate(-1deg); }
     </style>
 </head>
 <body>
@@ -98,72 +102,4 @@
         <div class="banner-premio">
             🏆 PREMIO SEMANAL: 15.000 GALEONES 💰<br>
             <small>Al mago/bruja con más "Gritos" acumulados</small>
-        </div>
-
-        <div class="sec-title">REDACTAR PUBLICACIÓN</div>
-        
-        <p style="text-align:center; font-size:10px; font-family:'Cinzel'; margin:0;">Elige estilo de pergamino:</p>
-        <div class="palette">
-            <div class="dot" style="background:#000; border-color:var(--oro);" onclick="setMode('decreto')" title="Decreto Real"></div>
-            <div class="dot" style="background:var(--sangre);" onclick="setMode('vociferadora')" title="Vociferadora"></div>
-        </div>
-
-        <input type="text" id="post-title" placeholder="Asunto / Título...">
-        <textarea id="post-text" rows="4" placeholder="Escribe tu mensaje aquí..."></textarea>
-        
-        <button class="btn-send" onclick="publicar()">ENVIAR POR LECHUZA 🦉</button>
-
-        <div id="preview-area">
-            </div>
-    </div>
-</div>
-
-<script>
-    let currentMode = 'decreto';
-
-    function setMode(mode) {
-        currentMode = mode;
-        const dots = document.querySelectorAll('.dot');
-        dots.forEach(d => d.style.transform = 'scale(1)');
-        event.target.style.transform = 'scale(1.3)';
-    }
-
-    function login() {
-        if(document.getElementById('u-n').value) {
-            document.getElementById('login-zone').style.display = 'none';
-            document.getElementById('main-web').style.display = 'block';
-            document.getElementById('f-m').innerText = new Date().toLocaleDateString();
-        }
-    }
-
-    function logout() { location.reload(); }
-
-    function publicar() {
-        const title = document.getElementById('post-title').value || "SIN TÍTULO";
-        const text = document.getElementById('post-text').value;
-        if(!text) return alert("Escribe algo en el pergamino.");
-
-        const container = document.getElementById('preview-area');
-        const card = document.createElement('div');
-        
-        if(currentMode === 'decreto') {
-            card.className = 'card-oficial';
-            card.innerHTML = `<h3>${title.toUpperCase()}</h3><p>${text}</p><small>— Firmado oficialmente</small>`;
-        } else {
-            card.className = 'vociferadora';
-            card.innerHTML = `<h3>¡${title.toUpperCase()}!</h3><p>${text.toUpperCase()}</p><small>⚠️ ESTE MENSAJE SE DESTRUIRÁ</small>`;
-        }
-
-        container.prepend(card);
-        document.getElementById('post-title').value = "";
-        document.getElementById('post-text').value = "";
-    }
-
-    setInterval(() => {
-        const d = new Date();
-        document.getElementById('h-m').innerText = d.toLocaleTimeString();
-    }, 1000);
-</script>
-
-</body>
-</html>
+            
