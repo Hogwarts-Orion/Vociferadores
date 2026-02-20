@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Profeta Rebelde - Edición Pro</title>
+    <title>El Profeta - Edición de Lujo</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Special+Elite&display=swap');
 
         :root {
-            --oro: #c5a059; --sangre: #8b0000; --pergamino: #fdf5e6; --oscuro: #1a150f;
+            --oro: #c5a059; --oro-bril: #d4af37; --sangre: #8b0000;
+            --pergamino: #f4e4bc; --oscuro: #1a150f;
         }
 
         body {
@@ -16,212 +17,241 @@
             font-family: 'Special Elite', cursive; display: flex; justify-content: center;
         }
 
-        /* --- CONTENEDOR PRINCIPAL --- */
+        /* --- CONTENEDOR MÁGICO --- */
         .paper {
-            background: var(--pergamino);
-            width: 100%; max-width: 480px; min-height: 100vh;
-            padding: 20px; box-sizing: border-box;
-            border-left: 5px solid var(--oro); border-right: 5px solid var(--oro);
-            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+            background: var(--pergamino) url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+            width: 100%; max-width: 500px; min-height: 100vh;
+            padding: 25px; box-sizing: border-box;
+            border: 8px double #8b6d45; box-shadow: 0 0 60px rgba(0,0,0,0.8);
         }
 
-        header { text-align: center; border-bottom: 3px solid var(--oscuro); margin-bottom: 20px; }
-        header h1 { font-family: 'Cinzel', serif; font-size: 32px; margin: 10px 0; letter-spacing: -1px; }
+        header { text-align: center; border-bottom: 5px double var(--oscuro); margin-bottom: 20px; padding-bottom: 10px; }
+        header h1 { font-family: 'Cinzel', serif; font-size: 38px; margin: 0; letter-spacing: -2px; }
+        .meta-data { font-family: 'Cinzel'; font-size: 11px; display: flex; justify-content: space-between; font-weight: bold; }
 
-        /* --- MARQUESINA DE NOTICIAS INVENTADAS --- */
+        /* --- MARQUESINA --- */
         .marquee {
-            background: #000; color: var(--oro); padding: 8px;
-            font-family: 'Cinzel'; font-size: 11px; text-align: center;
-            margin-bottom: 20px; border-radius: 4px; overflow: hidden;
+            background: var(--oscuro); color: var(--oro-bril); padding: 8px;
+            font-family: 'Cinzel'; font-size: 12px; text-align: center;
+            margin-bottom: 25px; border-radius: 4px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
-        /* --- TARJETAS DE NOTICIAS --- */
+        /* --- NOTICIAS --- */
         .card {
-            background: white; border: 1px solid #ddd; padding: 15px;
-            margin-bottom: 20px; border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            transition: 0.3s; position: relative;
+            background: white; border: 1px solid rgba(0,0,0,0.1); padding: 18px;
+            margin-bottom: 25px; box-shadow: 5px 5px 0px rgba(0,0,0,0.1);
+            position: relative; transition: 0.3s;
         }
-
-        .card h3 { font-family: 'Cinzel'; margin: 0 0 10px 0; color: var(--sangre); }
-        .card img { width: 100%; border-radius: 5px; margin: 10px 0; }
-        .card p { font-size: 14px; line-height: 1.5; margin: 5px 0; }
+        .card h3 { font-family: 'Cinzel'; margin: 5px 0; font-size: 22px; }
+        .card img { width: 100%; border-radius: 3px; margin: 10px 0; border: 1px solid #ddd; }
         
-        .tag { font-size: 9px; padding: 3px 8px; border-radius: 4px; color: white; font-weight: bold; text-transform: uppercase; }
-        .Slytherin { background: #1a472a; } .Gryffindor { background: #740001; }
-        .Hufflepuff { background: #ecb939; color: black; } .Ravenclaw { background: #0e1a40; }
-        .OFICIAL { background: var(--oro); color: black; }
-
-        /* --- VOCIFERADORA --- */
-        .vociferadora { border: 2px solid var(--sangre); animation: shake 0.3s infinite; background: #fff5f5; }
-        @keyframes shake { 0% { transform: rotate(0.5deg); } 100% { transform: rotate(-0.5deg); } }
+        .vociferadora { border: 3px solid var(--sangre) !important; background: #fff5f5 !important; animation: tremor 0.2s infinite; }
+        @keyframes tremor { 0% { transform: rotate(0.4deg); } 100% { transform: rotate(-0.4deg); } }
 
         /* --- FORMULARIO --- */
         .form-box {
-            background: #f0f0f0; padding: 20px; border-radius: 12px;
-            border: 2px solid var(--oro); margin-top: 30px;
+            background: var(--oscuro); color: var(--pergamino); padding: 25px;
+            border-radius: 15px; border: 3px solid var(--oro); margin-top: 40px;
         }
+        .form-box h3 { font-family: 'Cinzel'; text-align: center; color: var(--oro); margin-top: 0; }
+        
         input, textarea, select {
-            width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ccc;
-            border-radius: 6px; font-family: 'Special Elite'; box-sizing: border-box;
+            width: 100%; padding: 12px; margin: 8px 0; border-radius: 5px;
+            border: 2px solid var(--oro); font-family: 'Special Elite'; box-sizing: border-box;
         }
 
         .btn {
-            background: var(--oro); color: white; border: none; padding: 15px;
-            width: 100%; font-family: 'Cinzel'; font-weight: bold; font-size: 18px;
-            border-radius: 6px; cursor: pointer; margin-top: 10px;
+            background: var(--oro-bril); color: black; border: none; padding: 18px;
+            width: 100%; font-family: 'Cinzel'; font-weight: 900; font-size: 18px;
+            border-radius: 5px; cursor: pointer; margin-top: 10px;
         }
 
-        /* --- PARTICULAS --- */
-        .sparkle {
-            position: absolute; width: 4px; height: 4px; background: var(--oro);
-            border-radius: 50%; pointer-events: none; animation: pop 0.6s linear forwards;
+        .tag { font-size: 10px; padding: 3px 8px; color: white; border-radius: 3px; font-weight: bold; text-transform: uppercase; }
+        .Slytherin { background: #1a472a; } .Gryffindor { background: #740001; }
+        .Hufflepuff { background: #ecb939; color: black; } .Ravenclaw { background: #0e1a40; }
+        .OFICIAL { background: var(--oro); color: black; } .General { background: #555; }
+
+        .voto-btn {
+            background: none; border: 1px solid var(--sangre); color: var(--sangre);
+            padding: 8px; width: 100%; cursor: pointer; font-weight: bold; font-family: 'Cinzel';
         }
+        .voto-btn.voted { background: var(--sangre); color: white; opacity: 0.6; cursor: default; }
+
+        .sparkle { position: absolute; width: 5px; height: 5px; background: var(--oro-bril); border-radius: 50%; pointer-events: none; animation: pop 0.6s linear forwards; }
         @keyframes pop { 100% { transform: translate(var(--x), var(--y)); opacity: 0; } }
     </style>
 </head>
-<body onclick="spark(event)">
+<body onclick="crearChispas(event)">
 
 <div class="paper">
-    <div id="login-screen" style="text-align: center; padding-top: 50px;">
-        <h1 style="font-family:'Cinzel'">EL PROFETA</h1>
-        <p>Inicia sesión para leer y publicar</p>
-        <input type="text" id="login-name" placeholder="Tu Nombre Mágico">
-        <select id="login-house">
+    <div id="pantalla-login" style="text-align:center; padding-top:60px;">
+        <h1 style="font-family:'Cinzel'">IDENTIFICACIÓN</h1>
+        <input type="text" id="log-name" placeholder="Tu Nombre o Alias">
+        <select id="log-house">
             <option value="Gryffindor">Gryffindor 🦁</option>
             <option value="Slytherin">Slytherin 🐍</option>
             <option value="Hufflepuff">Hufflepuff 🦡</option>
             <option value="Ravenclaw">Ravenclaw 🦅</option>
         </select>
-        <button class="btn" onclick="doLogin()">ENTRAR ✨</button>
+        <button class="btn" onclick="login()">ENTRAR AL MINISTERIO ✨</button>
     </div>
 
-    <div id="main-content" style="display:none;">
+    <div id="web-principal" style="display:none;">
         <header>
-            <h1>EL PROFETA REBELDE</h1>
-            <div id="user-info" style="font-size: 10px; color: #666; padding-bottom: 5px;"></div>
+            <div class="meta-data">
+                <span id="fecha-mágica"></span>
+                <span onclick="logout()" style="cursor:pointer; color:var(--sangre)">CERRAR SESIÓN</span>
+            </div>
+            <h1>EL PROFETA</h1>
+            <div style="font-size:12px; font-weight:bold; letter-spacing:2px; margin-top:5px;">DIARIO INDEPENDIENTE DE ORIÓN</div>
         </header>
 
         <div class="marquee" id="news-flash">📢 Cargando noticias del Ministerio...</div>
 
-        <div id="feed"></div>
+        <div id="feed-oficial"></div>
+        <div id="feed-alumnos"></div>
 
         <div class="form-box">
-            <h3 style="text-align:center; font-family:'Cinzel'; margin:0;">🖋️ NUEVA NOTICIA</h3>
-            <input type="text" id="post-tit" placeholder="Título">
-            <textarea id="post-msg" rows="3" placeholder="Contenido..."></textarea>
-            <input type="text" id="post-img" placeholder="URL de imagen (opcional)">
-            <select id="post-type">
-                <option value="normal">Estilo Normal</option>
-                <option value="vociferadora">Vociferadora 🔥</option>
-            </select>
-            <button class="btn" onclick="sendPost()">PUBLICAR ✨</button>
-            <button onclick="logout()" style="background:none; border:none; color:grey; font-size:10px; width:100%; margin-top:10px;">Cerrar Sesión</button>
+            <h3>🖋️ REDACTAR PRIMICIA</h3>
+            <input type="text" id="p-titulo" placeholder="Título de la noticia">
+            <textarea id="p-texto" rows="4" placeholder="¿Qué escándalo has presenciado?"></textarea>
+            <input type="text" id="p-img" placeholder="Link de Imagen o GIF">
+            
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                <select id="p-rango">
+                    <option value="General">Rango: General</option>
+                    <option value="OFICIAL">Rango: ESCRITOR REAL</option>
+                </select>
+                <select id="p-estilo">
+                    <option value="normal">Estilo: Normal</option>
+                    <option value="vociferadora">Estilo: Vociferadora 🔥</option>
+                </select>
+            </div>
+
+            <div style="display:flex; align-items:center; gap:10px; margin-top:10px;">
+                <label style="font-size:12px; color:var(--oro)">COLOR DE TINTA:</label>
+                <input type="color" id="p-color" value="#8b0000" style="width:40px; height:40px; border:none; background:none; padding:0;">
+            </div>
+            
+            <button class="btn" onclick="publicar()">HECHIZAR Y PUBLICAR ✨</button>
         </div>
     </div>
 </div>
 
-<audio id="sound-magic" src="https://assets.mixkit.co/active_storage/sfx/2014/2014-preview.mp3"></audio>
+<audio id="snd-magic" src="https://assets.mixkit.co/active_storage/sfx/2014/2014-preview.mp3"></audio>
+<audio id="snd-write" src="https://www.soundjay.com/misc/sounds/writing-on-paper-1.mp3"></audio>
 
 <script>
-    const DB = "https://profeta-9c8df-default-rtdb.firebaseio.com/periodico";
-    let user = JSON.parse(localStorage.getItem('mago_user'));
-    let myVotes = JSON.parse(localStorage.getItem('votos_db')) || [];
+    const DB_URL = "https://profeta-9c8df-default-rtdb.firebaseio.com/periodico";
+    const CLAVE_ESCRITOR = "Orion2026";
+    let sesion = JSON.parse(localStorage.getItem('mago_sesion_v5'));
+    let misVotos = JSON.parse(localStorage.getItem('votos_v5')) || [];
 
-    const NEWS = [
-        "📢 ÚLTIMA HORA: Gringotts reporta una brecha en la bóveda 713.",
-        "🗞️ RUMOR: ¿Vuelve el Torneo de los Tres Magos este año?",
-        "🦉 AVISO: Retrasos en el correo por tormenta de nieve mágica.",
-        "🐾 CRIATURAS: Un Escarbato suelto en el Ministerio de Magia.",
-        "🪄 MODA: Las túnicas de terciopelo son tendencia en Hogsmeade."
+    const NOTICIAS_AUTO = [
+        "📢 ÚLTIMA HORA: El Ministro de Magia declara estado de alerta.",
+        "🗞️ PROFECÍA: Orión marcará el inicio de una nueva era.",
+        "🦉 AVISO: Se prohíben los fuegos artificiales en los pasillos.",
+        "🪄 RUMOR: ¿Pociones prohibidas en el baño del tercer piso?",
+        "🐾 CRIATURAS: Se busca Hipogrifo extraviado cerca del bosque."
     ];
 
     setInterval(() => {
-        document.getElementById('news-flash').innerText = NEWS[Math.floor(Math.random()*NEWS.length)];
-    }, 5000);
+        document.getElementById('news-flash').innerText = NOTICIAS_AUTO[Math.floor(Math.random()*NOTICIAS_AUTO.length)];
+    }, 6000);
 
-    function spark(e) {
-        for(let i=0; i<5; i++){
+    function crearChispas(e) {
+        for(let i=0; i<6; i++){
             let s = document.createElement('div');
             s.className = 'sparkle';
             s.style.left = e.pageX+'px'; s.style.top = e.pageY+'px';
-            s.style.setProperty('--x', (Math.random()*60-30)+'px');
-            s.style.setProperty('--y', (Math.random()*60-30)+'px');
+            s.style.setProperty('--x', (Math.random()*70-35)+'px');
+            s.style.setProperty('--y', (Math.random()*70-35)+'px');
             document.body.appendChild(s);
             setTimeout(() => s.remove(), 600);
         }
     }
 
-    function doLogin() {
-        const n = document.getElementById('login-name').value;
-        const h = document.getElementById('login-house').value;
-        if(!n) return alert("Escribe tu nombre");
-        user = { n, h };
-        localStorage.setItem('mago_user', JSON.stringify(user));
-        document.getElementById('sound-magic').play();
-        showWeb();
+    function login() {
+        const n = document.getElementById('log-name').value.trim();
+        const h = document.getElementById('log-house').value;
+        if(!n) return alert("Identifícate, por favor.");
+        sesion = { n, h };
+        localStorage.setItem('mago_sesion_v5', JSON.stringify(sesion));
+        document.getElementById('snd-magic').play();
+        mostrarWeb();
     }
 
-    function logout() { localStorage.removeItem('mago_user'); location.reload(); }
+    function logout() { localStorage.removeItem('mago_sesion_v5'); location.reload(); }
 
-    function showWeb() {
-        if(!user) return;
-        document.getElementById('login-screen').style.display = 'none';
-        document.getElementById('main-content').style.display = 'block';
-        document.getElementById('user-info').innerText = `Mago: ${user.n} | ${user.h}`;
-        loadPosts();
+    function mostrarWeb() {
+        if(!sesion) return;
+        document.getElementById('pantalla-login').style.display = 'none';
+        document.getElementById('web-principal').style.display = 'block';
+        document.getElementById('fecha-mágica').innerText = new Date().toLocaleDateString('es-ES', { weekday:'short', day:'2-digit', month:'short' }).toUpperCase();
+        cargarNoticias();
     }
 
-    function sendPost() {
-        const t = document.getElementById('post-tit').value;
-        const m = document.getElementById('post-msg').value;
-        const img = document.getElementById('post-img').value;
-        const sty = document.getElementById('post-type').value;
+    function publicar() {
+        const t = document.getElementById('p-titulo').value.trim();
+        const m = document.getElementById('p-texto').value.trim();
+        const img = document.getElementById('p-img').value;
+        const ran = document.getElementById('p-rango').value;
+        const est = document.getElementById('p-estilo').value;
+        const col = document.getElementById('p-color').value;
 
-        if(!t || !m) return alert("Completa los campos");
+        if(!t || !m) return alert("Faltan datos en el pergamino.");
+        if(ran === "OFICIAL" && prompt("Contraseña de Escritor:") !== CLAVE_ESCRITOR) return;
 
-        document.getElementById('sound-magic').play();
-        const id = "P" + Date.now();
-        const data = { id, titulo: t, texto: m, img, estilo: sty, autor: user.n, casa: user.h, votos: 0 };
+        document.getElementById('snd-write').play();
+        const id = "ID_" + Date.now();
+        const data = { id, titulo: t, texto: m, img, rango: ran, estilo: est, color: col, autor: sesion.n, casa: sesion.h, votos: 0, time: Date.now() };
 
-        fetch(`${DB}/${id}.json`, { method: 'PUT', body: JSON.stringify(data) }).then(() => location.reload());
+        fetch(`${DB_URL}/${id}.json`, { method: 'PUT', body: JSON.stringify(data) }).then(() => location.reload());
     }
 
-    function loadPosts() {
-        fetch(`${DB}.json`).then(r => r.json()).then(data => {
+    function cargarNoticias() {
+        fetch(`${DB_URL}.json`).then(r => r.json()).then(data => {
             if(!data) return;
-            const posts = Object.values(data).reverse();
-            document.getElementById('feed').innerHTML = posts.map(p => {
-                const voted = myVotes.includes(p.id);
-                return `
-                <div class="card ${p.estilo === 'vociferadora' ? 'vociferadora' : ''}">
-                    <span class="tag ${p.casa}">${p.casa || 'General'}</span>
-                    <h3>${p.titulo}</h3>
-                    ${p.img ? `<img src="${p.img}">` : ''}
-                    <p>${p.texto}</p>
-                    <div style="display:flex; justify-content:space-between; align-items:center;">
-                        <small>🖊️ ${p.autor}</small>
-                        <button onclick="vote('${p.id}', ${p.votos || 0})" 
-                            style="border:1px solid var(--oro); background:none; cursor:pointer;"
-                            ${voted ? 'disabled' : ''}>
-                            ${voted ? '✅' : '🔥 ' + (p.votos || 0)}
-                        </button>
+            const notas = Object.values(data).filter(n => n && n.id).sort((a,b) => b.time - a.time);
+            
+            let oficialHTML = "";
+            let alumnosHTML = "";
+
+            notas.forEach(n => {
+                const yaVoto = misVotos.includes(n.id);
+                const html = `
+                    <div class="card ${n.estilo === 'vociferadora' ? 'vociferadora' : ''}" style="border-left: 8px solid ${n.color || '#000'}">
+                        <span class="tag ${n.rango === 'OFICIAL' ? 'OFICIAL' : n.casa}">${n.rango === 'OFICIAL' ? 'Escritor Real' : n.casa}</span>
+                        <h3 style="color:${n.color || '#000'}">${n.titulo}</h3>
+                        ${n.img ? `<img src="${n.img}">` : ''}
+                        <p>${n.texto}</p>
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <small>🖊️ ${n.autor}</small>
+                            <button class="voto-btn ${yaVoto ? 'voted' : ''}" onclick="votar('${n.id}', ${n.votos || 0})" ${yaVoto ? 'disabled' : ''}>
+                                ${yaVoto ? '✅ REGISTRADO' : '🔥 ' + (n.votos || 0) + ' GRITOS'}
+                            </button>
+                        </div>
                     </div>
-                </div>`;
-            }).join('');
+                `;
+                if(n.rango === "OFICIAL") oficialHTML += html;
+                else alumnosHTML += html;
+            });
+
+            document.getElementById('feed-oficial').innerHTML = oficialHTML ? `<h2 style="font-family:Cinzel; border-bottom:2px solid var(--oro);">🖋️ CRÓNICAS REALES</h2>` + oficialHTML : "";
+            document.getElementById('feed-alumnos').innerHTML = `<h2 style="font-family:Cinzel; border-bottom:2px solid var(--oro); margin-top:30px;">🔥 CHISMES DEL COLEGIO</h2>` + alumnosHTML;
         });
     }
 
-    async function vote(id, v) {
-        if(myVotes.includes(id)) return;
-        myVotes.push(id);
-        localStorage.setItem('votos_db', JSON.stringify(myVotes));
-        document.getElementById('sound-magic').play();
-        await fetch(`${DB}/${id}/votos.json`, { method: 'PUT', body: JSON.stringify(v + 1) });
-        loadPosts();
+    async function votar(id, v) {
+        if(misVotos.includes(id)) return;
+        document.getElementById('snd-magic').play();
+        misVotos.push(id);
+        localStorage.setItem('votos_v5', JSON.stringify(misVotos));
+        await fetch(`${DB_URL}/${id}/votos.json`, { method: 'PUT', body: JSON.stringify(v + 1) });
+        cargarNoticias();
     }
 
-    if(user) showWeb();
+    if(sesion) mostrarWeb();
 </script>
 </body>
 </html>
