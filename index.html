@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Profeta - Móvil</title>
+    <title>El Profeta Rebelde - Edición Móvil Premium</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Special+Elite&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Special+Elite&family=MedievalSharp&display=swap');
 
         :root {
             --oro: #c5a059;
@@ -17,135 +17,114 @@
 
         body {
             margin: 0;
-            background: var(--oscuro);
+            background: var(--oscuro) url('https://www.transparenttextures.com/patterns/dark-matter.png');
             color: #2c1e11;
+            display: flex; justify-content: center;
             font-family: 'Special Elite', cursive;
-            display: flex;
-            justify-content: center;
+            padding: 10px;
         }
 
-        /* Contenedor optimizado para móviles */
+        /* Contenedor Adaptable */
         .paper {
             background: var(--pergamino) url('https://www.transparenttextures.com/patterns/paper-fibers.png');
             width: 100%;
-            max-width: 500px; /* Tamaño ideal para celulares */
-            min-height: 100vh;
-            padding: 15px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-            border: 5px solid #8b6d45;
+            max-width: 600px;
+            padding: 20px;
+            box-shadow: 0 0 40px rgba(0,0,0,0.8);
+            border: 8px double #8b6d45;
             box-sizing: border-box;
+            position: relative;
         }
 
         header { 
             text-align: center; 
-            border-bottom: 5px double var(--oscuro); 
-            margin-bottom: 15px; 
+            border-bottom: 6px double var(--oscuro); 
+            margin-bottom: 20px; 
         }
-
         header h1 { 
             font-family: 'Cinzel', serif; 
-            font-size: 32px; 
-            margin: 5px 0; 
-            letter-spacing: -1px;
+            font-size: clamp(28px, 8vw, 45px); 
+            margin: 5px 0; letter-spacing: -2px; font-weight: 900;
         }
 
-        .sub-header {
-            font-family: 'Cinzel';
-            font-size: 10px;
-            display: flex;
-            justify-content: space-between;
-            padding: 5px;
-            border-top: 1px solid var(--oscuro);
-        }
-
-        /* Marquesina Mágica Compacta */
+        /* Marquesina Dinámica */
         .flash-noticias {
             background: var(--oscuro);
             color: var(--oro-brillante);
-            padding: 8px;
+            padding: 10px;
             font-family: 'Cinzel';
-            font-size: 12px;
-            margin-bottom: 15px;
+            font-size: 13px;
+            margin-bottom: 20px;
+            border: 1px solid var(--oro);
             text-align: center;
-            border-radius: 3px;
+            border-radius: 4px;
         }
 
-        /* Secciones */
-        .column-title {
-            font-family: 'Cinzel';
+        /* Estilo de Crónicas Oficiales */
+        .seccion-oficial {
+            border: 3px solid var(--oro);
+            background: rgba(255, 255, 255, 0.5);
+            padding: 15px;
+            margin-bottom: 30px;
+            box-shadow: inset 0 0 10px rgba(197, 160, 89, 0.3);
+        }
+        .seccion-oficial h2 { font-family: 'Cinzel'; font-size: 24px; color: var(--sangre); margin-top: 0; }
+
+        /* Estilo de Noticias de Alumnos */
+        .noticia-item {
+            background: #fffdf5;
+            padding: 18px;
+            margin-bottom: 20px;
+            border: 1px solid #d2b48c;
+            box-shadow: 4px 4px 0px rgba(0,0,0,0.1);
+            position: relative;
+            transition: 0.3s;
+        }
+
+        .vociferadora-style {
+            border: 3px solid var(--sangre) !important;
+            animation: shake 0.4s infinite alternate;
+        }
+        @keyframes shake { from { transform: rotate(-0.5deg); } to { transform: rotate(0.5deg); } }
+
+        /* Formulario Estilo Único */
+        .envio-box {
             background: var(--oscuro);
             color: var(--pergamino);
-            padding: 5px;
-            font-size: 16px;
-            text-align: center;
-            margin: 20px 0 10px 0;
+            padding: 25px;
+            border-radius: 12px;
+            border: 3px solid var(--oro);
+            margin-top: 40px;
         }
-
-        /* Crónicas Oficiales */
-        .noticia-oficial {
-            border: 2px solid var(--oro);
-            background: rgba(255, 255, 255, 0.4);
-            padding: 15px;
-            margin-bottom: 15px;
-        }
-        .noticia-oficial h2 { font-family: 'Cinzel'; font-size: 22px; margin: 5px 0; }
-        .noticia-oficial img { width: 100%; border-radius: 3px; margin: 10px 0; }
-
-        /* Chismes de Alumnos */
-        .chisme-card {
-            background: white;
-            padding: 15px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-left: 5px solid var(--oro);
-        }
-
-        .vociferadora {
-            border: 2px solid var(--sangre) !important;
-            background: #fff5f5 !important;
-            animation: tremor 0.3s infinite;
-        }
-        @keyframes tremor { 0% { transform: rotate(0.5deg); } 100% { transform: rotate(-0.5deg); } }
-
-        /* Formulario Compacto */
-        .envio-seccion {
-            background: var(--oscuro);
-            padding: 20px;
-            margin-top: 30px;
-            border-radius: 10px;
-            color: var(--pergamino);
-        }
-
-        .envio-seccion h2 { font-family: 'Cinzel'; font-size: 20px; text-align: center; color: var(--oro); margin-top: 0; }
+        .envio-box h3 { font-family: 'Cinzel'; text-align: center; color: var(--oro); margin-top: 0; }
 
         input, textarea, select {
-            width: 100%; padding: 10px; margin-bottom: 10px;
-            border: 2px solid var(--oro); border-radius: 5px;
-            font-family: 'Special Elite'; font-size: 14px;
-            box-sizing: border-box;
+            width: 100%; padding: 12px; margin: 8px 0; 
+            border: 2px solid var(--oro); background: #fffdf5;
+            font-family: 'Special Elite'; font-size: 15px; box-sizing: border-box;
         }
 
-        .btn-magico {
+        /* Selector de Color Personalizado */
+        .color-group {
+            display: flex; align-items: center; gap: 10px; margin: 10px 0;
+            background: rgba(255,255,255,0.1); padding: 10px; border-radius: 5px;
+        }
+
+        .btn-enviar {
             background: var(--oro-brillante);
-            color: black;
-            font-family: 'Cinzel';
-            font-weight: bold;
-            font-size: 18px;
-            padding: 15px;
-            border: none;
-            border-radius: 5px;
-            width: 100%;
-            cursor: pointer;
+            color: #000; border: none; padding: 18px;
+            width: 100%; font-family: 'Cinzel'; font-weight: 900;
+            font-size: 20px; cursor: pointer; border-radius: 5px;
         }
 
-        .tag { font-size: 9px; font-weight: bold; padding: 2px 5px; color: white; text-transform: uppercase; }
+        .tag { font-size: 10px; padding: 3px 7px; color: white; font-weight: bold; border-radius: 2px; }
         .Slytherin { background: #1a472a; } .Gryffindor { background: #740001; }
         .Hufflepuff { background: #ecb939; color: black; } .Ravenclaw { background: #0e1a40; }
-        .OFICIAL { background: var(--oro); color: black; } .General { background: #444; }
+        .OFICIAL { background: var(--oro); color: #000; } .General { background: #444; }
 
         .voto-btn {
-            background: var(--sangre); color: white; border: none;
-            padding: 8px; font-size: 12px; border-radius: 3px; width: 100%; margin-top: 10px;
+            background: #f4e4bc; border: 1px solid var(--sangre); color: var(--sangre);
+            padding: 7px; font-weight: bold; width: 100%; cursor: pointer; margin-top: 10px;
         }
     </style>
 </head>
@@ -154,44 +133,51 @@
     <div class="paper">
         <header>
             <h1>EL PROFETA</h1>
-            <div class="sub-header">
+            <div style="font-family:'Cinzel'; font-size:11px; display:flex; justify-content:space-between; padding-top:5px;">
                 <span id="fecha-actual"></span>
-                <span>EDICIÓN MÓVIL 🦉</span>
+                <span>EDICIÓN REBELDE 🦉</span>
             </div>
         </header>
 
         <div class="flash-noticias">
-            <div id="flash-text">📢 Cargando noticias del Ministerio...</div>
+            <div id="flash-text">📢 RUMOR: ¿Vuelven los mortífagos? El Ministerio guarda silencio...</div>
         </div>
 
-        <div class="column-title">🖋️ CRÓNICAS OFICIALES</div>
-        <div id="lista-oficial"></div>
+        <div class="seccion-oficial">
+            <h2>🖋️ CRÓNICAS OFICIALES</h2>
+            <div id="lista-oficial"></div>
+        </div>
 
-        <div class="column-title">🔥 VOZ DEL ALUMNO</div>
         <div id="lista-chismes"></div>
 
-        <div class="envio-seccion">
-            <h2>🖋️ ENVIAR NOTA</h2>
-            <input type="text" id="autor-input" placeholder="Tu Firma">
-            <input type="text" id="titulo-input" placeholder="Título">
-            <textarea id="texto-input" rows="4" placeholder="¿Qué ocurrió?"></textarea>
-            <input type="text" id="img-input" placeholder="Link de Imagen/GIF (opcional)">
+        <div class="envio-box">
+            <h3>🕵️ REDACTAR PRIMICIA</h3>
+            <input type="text" id="autor-env" placeholder="Tu Firma (Anónimo)">
+            <input type="text" id="titulo-env" placeholder="Título Impactante">
+            <textarea id="texto-env" rows="4" placeholder="Cuéntanos el escándalo..."></textarea>
+            <input type="text" id="img-env" placeholder="URL de Imagen o GIF">
             
-            <select id="casa-input">
-                <option value="General">Categoría: General</option>
-                <option value="Slytherin">Slytherin 🐍</option>
-                <option value="Gryffindor">Gryffindor 🦁</option>
-                <option value="Hufflepuff">Hufflepuff 🦡</option>
-                <option value="Ravenclaw">Ravenclaw 🦅</option>
-                <option value="OFICIAL">🖋️ ESCRITOR REAL</option>
-            </select>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                <select id="casa-env">
+                    <option value="General">Categoría: General</option>
+                    <option value="Slytherin">Slytherin 🐍</option>
+                    <option value="Gryffindor">Gryffindor 🦁</option>
+                    <option value="Hufflepuff">Hufflepuff 🦡</option>
+                    <option value="Ravenclaw">Ravenclaw 🦅</option>
+                    <option value="OFICIAL">🖋️ ESCRITOR REAL</option>
+                </select>
+                <select id="estilo-env">
+                    <option value="normal">Estilo Normal</option>
+                    <option value="vociferadora">Vociferadora 🔥</option>
+                </select>
+            </div>
+
+            <div class="color-group">
+                <label style="font-size:12px;">🎨 COLOR DE TINTA:</label>
+                <input type="color" id="color-env" value="#8b0000" style="width:40px; height:40px; padding:0; border:none; background:none;">
+            </div>
             
-            <select id="estilo-input">
-                <option value="normal">Estilo Normal</option>
-                <option value="vociferadora">Vociferadora 🔥</option>
-            </select>
-            
-            <button class="btn-magico" onclick="publicarNoticia()">PUBLICAR ✨</button>
+            <button class="btn-enviar" onclick="publicar()">HECHIZAR Y PUBLICAR ✨</button>
         </div>
     </div>
 
@@ -200,72 +186,74 @@
         const CLAVE_PROFETAS = "Orion2026";
 
         const NOTICIAS_AUTO = [
-            "📢 ÚLTIMA HORA: ¡Fuga masiva de Pixies en Hogwarts!",
-            "🗞️ PROFECÍA: Se predice un gran torneo de Quidditch.",
-            "🦉 AVISO: Las lechuzas exigen mejores snacks.",
-            "🪄 RUMOR: ¿Pociones de amor en el comedor?",
-            "🐾 ALERTA: Un Escarbato robó galeones en la entrada."
+            "📢 ÚLTIMA HORA: El Ministerio detecta magia antigua en el bosque.",
+            "🗞️ PROFECÍA: Se predice un gran cambio en la casa Hufflepuff.",
+            "🦉 AVISO: Las lechuzas del correo están en huelga de mimos.",
+            "🪄 RUMOR: ¿Nuevos pasadizos secretos descubiertos?",
+            "🐾 ALERTA: Un Escarbato ha robado el reloj del Prefecto."
         ];
 
-        let indexFlash = 0;
+        let idx = 0;
         setInterval(() => {
-            const flash = document.getElementById('flash-text');
-            indexFlash = (indexFlash + 1) % NOTICIAS_AUTO.length;
-            flash.innerText = NOTICIAS_AUTO[indexFlash];
-        }, 5000);
+            idx = (idx + 1) % NOTICIAS_AUTO.length;
+            document.getElementById('flash-text').innerText = NOTICIAS_AUTO[idx];
+        }, 6000);
 
-        document.getElementById('fecha-actual').innerText = new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'short' }).toUpperCase();
+        document.getElementById('fecha-actual').innerText = new Date().toLocaleDateString('es-ES', { weekday: 'short', day: '2-digit', month: 'short' }).toUpperCase();
 
-        function publicarNoticia() {
-            const autor = document.getElementById('autor-input').value || "Anónimo";
-            const titulo = document.getElementById('titulo-input').value;
-            const texto = document.getElementById('texto-input').value;
-            const cat = document.getElementById('casa-input').value;
-            const img = document.getElementById('img-input').value;
-            const estilo = document.getElementById('estilo-input').value;
+        function publicar() {
+            const autor = document.getElementById('autor-env').value || "Anónimo";
+            const titulo = document.getElementById('titulo-env-env').value; // CORRECCIÓN ID
+            const texto = document.getElementById('texto-env').value;
+            const cat = document.getElementById('casa-env').value;
+            const img = document.getElementById('img-env').value;
+            const estilo = document.getElementById('estilo-env').value;
+            const color = document.getElementById('color-env').value;
 
-            if(!titulo || !texto) return alert("Escribe algo primero.");
-            if(cat === "OFICIAL" && prompt("Llave:") !== CLAVE_PROFETAS) return alert("Denegado.");
+            // Arreglar error de ID si fuera necesario
+            const realTitulo = document.getElementById('titulo-env').value;
+
+            if(!realTitulo || !texto) return alert("Faltan datos.");
+            if(cat === "OFICIAL" && prompt("Llave de Escritor:") !== CLAVE_PROFETAS) return alert("No autorizado.");
 
             const id = Date.now().toString();
-            const data = { id, autor, titulo, texto, cat, img, estilo, votos: 0, fecha: new Date().toLocaleString() };
+            const data = { id, autor, titulo: realTitulo, texto, cat, img, estilo, color, votos: 0, fecha: new Date().toLocaleString() };
 
             fetch(`${DB_URL}/${id}.json`, { method: 'PUT', body: JSON.stringify(data) }).then(() => location.reload());
         }
 
         async function votar(id, actual) {
             await fetch(`${DB_URL}/${id}/votos.json`, { method: 'PUT', body: JSON.stringify(actual + 1) });
-            cargarDatos();
+            cargar();
         }
 
-        function cargarDatos() {
+        function cargar() {
             fetch(`${DB_URL}.json`).then(r => r.json()).then(data => {
                 if(!data) return;
                 const notas = Object.values(data).filter(n => n && n.id).reverse();
 
                 document.getElementById('lista-oficial').innerHTML = notas.filter(n => n.cat === "OFICIAL").map(n => `
-                    <div class="noticia-oficial">
-                        <span class="tag OFICIAL">Ministerio</span>
-                        <h2>${n.titulo}</h2>
-                        ${n.img ? `<img src="${n.img}">` : ''}
-                        <p>${n.texto}</p>
+                    <div style="border-bottom: 2px solid var(--oro); padding: 10px 0;">
+                        <h3 style="font-family:Cinzel; margin:0;">${n.titulo}</h3>
+                        ${n.img ? `<img src="${n.img}" style="width:100%; border:2px solid var(--oro); margin:10px 0;">` : ''}
+                        <p style="font-size:14px;">${n.texto}</p>
                         <small>— ${n.autor}</small>
                     </div>
                 `).join('');
 
                 document.getElementById('lista-chismes').innerHTML = notas.filter(n => n.cat !== "OFICIAL").map(n => `
-                    <div class="chisme-card ${n.estilo === 'vociferadora' ? 'vociferadora' : ''}">
+                    <div class="noticia-item ${n.estilo === 'vociferadora' ? 'vociferadora-style' : ''}" style="border-left: 8px solid ${n.color}">
                         <span class="tag ${n.cat}">${n.cat}</span>
-                        <h3>${n.titulo}</h3>
-                        ${n.img ? `<img src="${n.img}" style="width:100%; margin-top:5px;">` : ''}
+                        <h3 style="color:${n.color}; margin: 10px 0; font-family:Cinzel;">${n.titulo}</h3>
+                        ${n.img ? `<img src="${n.img}" style="width:100%; border-radius:5px;">` : ''}
                         <p>${n.texto}</p>
-                        <button class="voto-btn" onclick="votar('${n.id}', ${n.votos || 0})">🔥 ${n.votos || 0} ESCANDALOSO</button>
+                        <button class="voto-btn" onclick="votar('${n.id}', ${n.votos || 0})">🔥 ${n.votos || 0} ¡ES ESCANDALOSO!</button>
                     </div>
                 `).join('');
             });
         }
 
-        window.onload = cargarDatos;
+        window.onload = cargar;
     </script>
 </body>
 </html>
