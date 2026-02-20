@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Profeta - Edición de Oro</title>
+    <title>El Profeta - Edición de Oro y Galeones</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Special+Elite&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap');
 
@@ -56,14 +56,20 @@
         .card-oficial h3 { color: var(--oro) !important; font-family: 'Cinzel'; border-bottom: 1px solid var(--oro); }
         .card-oficial p, .card-oficial small { color: #f0f0f0 !important; }
 
-        /* --- VOCIFERADORA (ROJO Y FUEGO) --- */
+        /* --- VOCIFERADORA DINÁMICA --- */
         .vociferadora {
-            background: linear-gradient(135deg, #8b0000 0%, #ff1a1a 100%) !important;
+            background: var(--v-c, linear-gradient(135deg, #8b0000 0%, #ff1a1a 100%)) !important;
             padding: 12px; margin-bottom: 20px; border: none !important;
-            animation: shake 0.2s infinite; box-shadow: 0 0 20px var(--sangre);
+            animation: shake 0.2s infinite; box-shadow: 0 0 20px rgba(0,0,0,0.3);
         }
         .vociferadora h3, .vociferadora p, .vociferadora small { color: white !important; }
         @keyframes shake { 0% { transform: rotate(0.2deg); } 100% { transform: rotate(-0.2deg); } }
+
+        /* --- PALETA DE COLORES --- */
+        .c-palette { display: flex; gap: 8px; justify-content: center; margin-top: 10px; }
+        .c-dot { width: 22px; height: 22px; border-radius: 50%; cursor: pointer; border: 2px solid rgba(0,0,0,0.2); transition: 0.2s; }
+        .c-dot:hover { transform: scale(1.2); }
+        .c-dot.active { border-color: #000; box-shadow: 0 0 5px #000; }
 
         /* --- UI --- */
         .sec-title { font-family: 'Cinzel'; background: #000; color: var(--oro); text-align: center; padding: 5px; font-size: 11px; margin: 20px 0 10px 0; }
@@ -106,7 +112,7 @@
 
         <div class="ranking-box" id="ranking-list">
             <div class="ranking-title">✦ LÍDERES DE LA SEMANA ✦</div>
-            </div>
+        </div>
 
         <div id="feed-oficial"></div>
         <div id="feed-confesiones"></div>
@@ -123,7 +129,17 @@
                 <textarea id="t-m" rows="3" placeholder="Contenido..."></textarea>
                 <div style="display:flex; gap:5px;">
                     <select id="t-r"><option value="ALUMNO">Alumno</option><option value="OFICIAL">Escritor Real</option></select>
-                    <select id="t-e"><option value="normal">Pergamino</option><option value="vociferadora">Vociferadora 🔥</option></select>
+                    <select id="t-e" onchange="checkVoci()"><option value="normal">Pergamino</option><option value="vociferadora">Vociferadora 🔥</option></select>
+                </div>
+                <div id="paleta-voci" style="display:none; text-align:center; margin-top:10px;">
+                    <small style="font-family:'Cinzel'; font-size:9px;">Color de la Vociferadora:</small>
+                    <div class="c-palette">
+                        <div class="c-dot active" style="background:linear-gradient(135deg, #8b0000, #ff1a1a);" onclick="selC(this, 'linear-gradient(135deg, #8b0000, #ff1a1a)')"></div>
+                        <div class="c-dot" style="background:linear-gradient(135deg, #001f3f, #0074D9);" onclick="selC(this, 'linear-gradient(135deg, #001f3f, #0074D9)')"></div>
+                        <div class="c-dot" style="background:linear-gradient(135deg, #111, #444);" onclick="selC(this, 'linear-gradient(135deg, #111, #444)')"></div>
+                        <div class="c-dot" style="background:linear-gradient(135deg, #1d331d, #2ecc71);" onclick="selC(this, 'linear-gradient(135deg, #1d331d, #2ecc71)')"></div>
+                        <div class="c-dot" style="background:linear-gradient(135deg, #4b0082, #8e44ad);" onclick="selC(this, 'linear-gradient(135deg, #4b0082, #8e44ad)')"></div>
+                    </div>
                 </div>
             </div>
             <div id="form-confesion" style="display:none;">
@@ -139,6 +155,18 @@
     const DB = "https://profeta-9c8df-default-rtdb.firebaseio.com/periodico";
     const CLAVE_REAL = "Orion2026";
     let sesion = JSON.parse(localStorage.getItem('p_vFinal_v2'));
+    let vColor = 'linear-gradient(135deg, #8b0000, #ff1a1a)';
+
+    function checkVoci() {
+        const est = document.getElementById('t-e').value;
+        document.getElementById('paleta-voci').style.display = est === 'vociferadora' ? 'block' : 'none';
+    }
+
+    function selC(el, color) {
+        vColor = color;
+        document.querySelectorAll('.c-dot').forEach(d => d.classList.remove('active'));
+        el.classList.add('active');
+    }
 
     function login() {
         const n = document.getElementById('u-n').value.trim();
@@ -170,7 +198,7 @@
         if(tipo === 'noticia') {
             const r = document.getElementById('t-r').value;
             if(r === "OFICIAL" && prompt("Clave:") !== CLAVE_REAL) return;
-            data = {...data, tipo:'noticia', titulo: document.getElementById('t-t').value, texto: document.getElementById('t-m').value, rango:r, estilo:document.getElementById('t-e').value};
+            data = {...data, tipo:'noticia', titulo: document.getElementById('t-t').value, texto: document.getElementById('t-m').value, rango:r, estilo:document.getElementById('t-e').value, color: vColor};
         } else {
             data = {...data, tipo:'confesion', texto: document.getElementById('t-conf').value, anonimo: document.getElementById('t-anon').checked};
         }
@@ -185,25 +213,22 @@
             let scores = {};
 
             items.forEach(n => {
-                // Contar puntos para el ranking (solo noticias, no confesiones)
                 if(n.tipo === 'noticia') {
                     scores[n.autor] = (scores[n.autor] || 0) + (n.c || 0);
                     const voted = n.v && n.v[sesion.n];
                     const cls = n.rango === "OFICIAL" ? "card-oficial" : "card-alumno";
                     const est = n.estilo === 'vociferadora' ? 'vociferadora' : '';
-                    const html = `<div class="article ${cls} ${est}"><h3>${n.titulo}</h3><small>🖋️ ${n.autor}</small><p>${n.texto}</p><div style="text-align:right;"><button class="voto-btn" onclick="votar('${n.id}')" ${voted?'disabled':''}>${voted?'SELLADO':'🔥 GRITAR ('+(n.c||0)+')'}</button></div></div>`;
+                    // Aplicamos el color guardado usando la variable CSS --v-c
+                    const html = `<div class="article ${cls} ${est}" style="--v-c: ${n.color || ''}"><h3>${n.titulo}</h3><small>🖋️ ${n.autor}</small><p>${n.texto}</p><div style="text-align:right;"><button class="voto-btn" onclick="votar('${n.id}')" ${voted?'disabled':''}>${voted?'SELLADO':'🔥 GRITAR ('+(n.c||0)+')'}</button></div></div>`;
                     if(n.rango === "OFICIAL") hOf += html; else hAl += html;
                 } else {
                     hConf += `<div class="confesion-card"><b>🤫 CONFESIÓN:</b><br>"${n.texto}"<br><small>— ${n.anonimo?'Anónimo':n.autor}</small></div>`;
                 }
             });
 
-            // Generar Ranking
             const top = Object.entries(scores).sort((a,b)=>b[1]-a[1]).slice(0,3);
             let rHtml = '<div class="ranking-title">✦ LÍDERES DE LA SEMANA ✦</div>';
-            top.forEach((s, i) => {
-                rHtml += `<div class="ranking-item ${i===0?'top1':''}"><span>${i+1}. ${s[0]}</span><span>${s[1]} 🔥</span></div>`;
-            });
+            top.forEach((s, i) => { rHtml += `<div class="ranking-item ${i===0?'top1':''}"><span>${i+1}. ${s[0]}</span><span>${s[1]} 🔥</span></div>`; });
             document.getElementById('ranking-list').innerHTML = rHtml;
 
             document.getElementById('feed-oficial').innerHTML = hOf ? `<div class="sec-title">DECRETOS REALES</div>`+hOf : "";
