@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Profeta - Edición Legendaria</title>
+    <title>El Profeta - Edición Hechizada</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Special+Elite&display=swap');
 
@@ -18,50 +18,56 @@
             overflow-x: hidden; touch-action: manipulation;
         }
 
-        /* --- CONTENEDOR PRINCIPAL --- */
         .paper {
             background: var(--pergamino) url('https://www.transparenttextures.com/patterns/paper-fibers.png');
             width: 100%; max-width: 500px; min-height: 100vh;
             padding: 20px; box-sizing: border-box;
             border: 10px double #8b6d45; box-shadow: 0 0 60px rgba(0,0,0,0.9);
-            position: relative;
         }
 
         header { text-align: center; border-bottom: 6px double var(--oscuro); margin-bottom: 20px; padding-bottom: 10px; }
-        header h1 { font-family: 'Cinzel', serif; font-size: 38px; margin: 0; letter-spacing: -1px; }
+        header h1 { font-family: 'Cinzel', serif; font-size: 38px; margin: 0; }
         
-        .info-header { 
-            display: flex; justify-content: space-between; font-family: 'Cinzel'; 
-            font-size: 10px; font-weight: bold; border-top: 1px solid #000; padding-top: 5px;
-        }
+        .info-header { display: flex; justify-content: space-between; font-family: 'Cinzel'; font-size: 10px; border-top: 1px solid #000; padding-top: 5px; }
 
-        /* --- NOTICIAS ESTILIZADAS --- */
+        /* --- TARJETAS --- */
         .card {
             background: rgba(255,255,255,0.7); border: 1px solid rgba(0,0,0,0.1);
-            padding: 15px; margin-bottom: 25px; border-radius: 2px;
-            box-shadow: 8px 8px 0px rgba(0,0,0,0.1); position: relative;
-            transition: 0.3s;
+            padding: 15px; margin-bottom: 25px; box-shadow: 8px 8px 0px rgba(0,0,0,0.1);
+            position: relative; transition: 0.3s;
         }
-        
-        .card h3 { font-family: 'Cinzel'; margin: 5px 0 10px 0; font-size: 24px; line-height: 1; }
-        .card img { width: 100%; border: 1px solid #999; margin: 10px 0; border-radius: 3px; }
 
-        /* --- EFECTO VOCIFERADORA --- */
+        /* --- EFECTO MÁGICO VOCIFERADORA --- */
         .vociferadora {
             border: 3px solid var(--sangre) !important;
             background: #fff0f0 !important;
-            animation: tremor 0.3s infinite alternate, glow 1.5s infinite;
-            box-shadow: 0 0 20px rgba(139, 0, 0, 0.4) !important;
+            animation: tremor 0.2s infinite alternate;
+            box-shadow: 0 0 20px rgba(139, 0, 0, 0.5) !important;
         }
-        @keyframes tremor { 0% { transform: rotate(0.5deg); } 100% { transform: rotate(-0.5deg); } }
-        @keyframes glow { 0% { box-shadow: 0 0 5px var(--sangre); } 50% { box-shadow: 0 0 25px var(--sangre); } 100% { box-shadow: 0 0 5px var(--sangre); } }
+
+        /* Animación de la LETRA de la Vociferadora */
+        .vociferadora h3, .vociferadora p {
+            color: var(--sangre) !important;
+            text-shadow: 0 0 8px rgba(255, 0, 0, 0.6), 0 0 2px var(--oro-bril);
+            animation: scream-text 1.5s infinite ease-in-out;
+            display: block;
+        }
+
+        @keyframes scream-text {
+            0%, 100% { transform: scale(1); filter: brightness(1); letter-spacing: 0px; }
+            50% { transform: scale(1.02); filter: brightness(1.5); letter-spacing: 1px; }
+        }
+
+        @keyframes tremor {
+            0% { transform: rotate(0.8deg) translate(1px, 1px); }
+            100% { transform: rotate(-0.8deg) translate(-1px, -1px); }
+        }
 
         /* --- TAGS --- */
         .tag { font-size: 9px; padding: 4px 8px; color: white; border-radius: 3px; font-weight: bold; text-transform: uppercase; }
         .Gryffindor { background: #740001; } .Slytherin { background: #1a472a; }
         .Hufflepuff { background: #ecb939; color: black; } .Ravenclaw { background: #0e1a40; }
-        .OFICIAL { background: var(--oro); color: black; font-weight: 900; }
-        .General { background: #444; }
+        .OFICIAL { background: var(--oro); color: black; }
 
         /* --- FORMULARIO --- */
         .form-box {
@@ -75,13 +81,10 @@
         .btn {
             background: var(--oro-bril); color: black; border: none; padding: 18px;
             width: 100%; font-family: 'Cinzel'; font-weight: 900; font-size: 20px;
-            cursor: pointer; border-radius: 5px; margin-top: 10px;
+            cursor: pointer; border-radius: 5px;
         }
 
-        .voto-btn {
-            background: none; border: 2px solid var(--sangre); color: var(--sangre);
-            width: 100%; padding: 10px; font-weight: bold; cursor: pointer; font-family: 'Cinzel';
-        }
+        .voto-btn { background: none; border: 2px solid var(--sangre); color: var(--sangre); width: 100%; padding: 10px; cursor: pointer; font-family: 'Cinzel'; }
         .voto-btn.voted { background: var(--sangre); color: white; opacity: 0.5; }
     </style>
 </head>
@@ -89,7 +92,7 @@
 
 <div class="paper">
     <div id="pantalla-login" style="text-align:center; padding-top:60px;">
-        <h1 style="font-family:'Cinzel'">ACCESO MÁGICO</h1>
+        <h1 style="font-family:'Cinzel'">EL PROFETA</h1>
         <input type="text" id="user-n" placeholder="Tu Nombre...">
         <select id="user-h">
             <option value="Gryffindor">Gryffindor 🦁</option>
@@ -97,14 +100,14 @@
             <option value="Hufflepuff">Hufflepuff 🦡</option>
             <option value="Ravenclaw">Ravenclaw 🦅</option>
         </select>
-        <button class="btn" onclick="iniciar()">IDENTIFICARSE ✨</button>
+        <button class="btn" onclick="iniciar()">ENTRAR ✨</button>
     </div>
 
     <div id="web-contenido" style="display:none;">
         <header>
             <div class="info-header">
                 <span id="fecha-actual"></span>
-                <span onclick="cerrar()" style="color:var(--sangre); cursor:pointer;">CERRAR SESIÓN</span>
+                <span onclick="cerrar()" style="color:var(--sangre); cursor:pointer;">SALIR</span>
             </div>
             <h1>EL PROFETA</h1>
             <div id="user-tag" style="font-size:11px; margin-top:5px; font-weight:bold;"></div>
@@ -114,10 +117,10 @@
         <div id="feed-comunidad"></div>
 
         <div class="form-box">
-            <h3 style="text-align:center; font-family:'Cinzel'; color:var(--oro); margin:0;">🖋️ NUEVA PRIMICIA</h3>
-            <input type="text" id="post-tit" placeholder="Título impactante">
-            <textarea id="post-msg" rows="4" placeholder="Escribe tu noticia aquí..."></textarea>
-            <input type="text" id="post-img" placeholder="Link de Imagen o GIF (opcional)">
+            <h3 style="text-align:center; font-family:'Cinzel'; color:var(--oro); margin:0;">🖋️ REDACTAR</h3>
+            <input type="text" id="post-tit" placeholder="Título">
+            <textarea id="post-msg" rows="4" placeholder="¿Qué quieres decir?"></textarea>
+            <input type="text" id="post-img" placeholder="URL imagen (opcional)">
             
             <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
                 <select id="post-ran">
@@ -135,7 +138,7 @@
                 <input type="color" id="post-col" value="#8b0000" style="width:40px; height:40px; border:none; background:none;">
             </div>
 
-            <button class="btn" onclick="publicar()">PUBLICAR AHORA ✨</button>
+            <button class="btn" onclick="publicar()">PUBLICAR ✨</button>
         </div>
     </div>
 </div>
@@ -145,21 +148,21 @@
 
 <script>
     const DB = "https://profeta-9c8df-default-rtdb.firebaseio.com/periodico";
-    const PASS_ADMIN = "Orion2026";
-    let mago = JSON.parse(localStorage.getItem('sesion_v6'));
-    let votos = JSON.parse(localStorage.getItem('votos_v6')) || [];
+    const PASS = "Orion2026";
+    let mago = JSON.parse(localStorage.getItem('sesion_v7'));
+    let votos = JSON.parse(localStorage.getItem('votos_v7')) || [];
 
     function iniciar() {
         const n = document.getElementById('user-n').value.trim();
         const h = document.getElementById('user-h').value;
-        if(!n) return alert("Escribe tu nombre.");
+        if(!n) return;
         mago = { n, h };
-        localStorage.setItem('sesion_v6', JSON.stringify(mago));
+        localStorage.setItem('sesion_v7', JSON.stringify(mago));
         document.getElementById('snd-magic').play();
         mostrar();
     }
 
-    function cerrar() { localStorage.removeItem('sesion_v6'); location.reload(); }
+    function cerrar() { localStorage.removeItem('sesion_v7'); location.reload(); }
 
     function mostrar() {
         if(!mago) return;
@@ -179,7 +182,7 @@
         const col = document.getElementById('post-col').value;
 
         if(!t || !m) return alert("Falta contenido.");
-        if(ran === "OFICIAL" && prompt("Llave de Escritor:") !== PASS_ADMIN) return;
+        if(ran === "OFICIAL" && prompt("Llave:") !== PASS) return;
 
         document.getElementById('snd-write').play();
         const id = "ID_" + Date.now();
@@ -192,12 +195,10 @@
         fetch(`${DB}.json`).then(r => r.json()).then(data => {
             if(!data) return;
             const notas = Object.values(data).filter(n => n && n.id).sort((a,b) => b.time - a.time);
-            
-            let htmlOficial = "";
-            let htmlGral = "";
+            let hOficial = ""; let hGral = "";
 
             notas.forEach(n => {
-                const yaVoto = votos.includes(n.id);
+                const yaV = votos.includes(n.id);
                 const item = `
                     <div class="card ${n.estilo === 'vociferadora' ? 'vociferadora' : ''}" style="border-left: 8px solid ${n.color || '#000'}">
                         <span class="tag ${n.rango === 'OFICIAL' ? 'OFICIAL' : n.casa}">${n.rango === 'OFICIAL' ? 'ESCRITOR REAL' : n.casa}</span>
@@ -206,18 +207,16 @@
                         <p>${n.texto}</p>
                         <div style="display:flex; justify-content:space-between; align-items:center;">
                             <small>🖊️ ${n.autor}</small>
-                            <button class="voto-btn ${yaVoto ? 'voted' : ''}" onclick="votar('${n.id}', ${n.votos || 0})" ${yaVoto ? 'disabled' : ''}>
-                                ${yaVoto ? '✅' : '🔥 ' + (n.votos || 0)}
+                            <button class="voto-btn ${yaV ? 'voted' : ''}" onclick="votar('${n.id}', ${n.votos || 0})" ${yaV ? 'disabled' : ''}>
+                                ${yaV ? '✅' : '🔥 ' + (n.votos || 0)}
                             </button>
                         </div>
                     </div>
                 `;
-                if(n.rango === "OFICIAL") htmlOficial += item;
-                else htmlGral += item;
+                if(n.rango === "OFICIAL") hOficial += item; else hGral += item;
             });
-
-            document.getElementById('feed-oficial').innerHTML = htmlOficial ? `<h2 style="font-family:Cinzel;">🖋️ CRÓNICAS REALES</h2>` + htmlOficial : "";
-            document.getElementById('feed-comunidad').innerHTML = `<h2 style="font-family:Cinzel; margin-top:30px;">🔥 ÚLTIMAS PRIMICIAS</h2>` + htmlGral;
+            document.getElementById('feed-oficial').innerHTML = hOficial ? `<h2 style="font-family:Cinzel;">🖋️ OFICIAL</h2>` + hOficial : "";
+            document.getElementById('feed-comunidad').innerHTML = `<h2 style="font-family:Cinzel; margin-top:30px;">🔥 ÚLTIMAS PRIMICIAS</h2>` + hGral;
         });
     }
 
@@ -225,11 +224,10 @@
         if(votos.includes(id)) return;
         document.getElementById('snd-magic').play();
         votos.push(id);
-        localStorage.setItem('votos_v6', JSON.stringify(votos));
+        localStorage.setItem('votos_v7', JSON.stringify(votos));
         await fetch(`${DB}/${id}/votos.json`, { method: 'PUT', body: JSON.stringify(v + 1) });
         cargar();
     }
-
     if(mago) mostrar();
 </script>
 </body>
