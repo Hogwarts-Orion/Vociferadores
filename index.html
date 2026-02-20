@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Profeta - Edición de Lujo</title>
+    <title>El Profeta - Edición Legendaria</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Special+Elite&display=swap');
 
@@ -15,125 +15,127 @@
         body {
             margin: 0; background: var(--oscuro); color: #2c1e11;
             font-family: 'Special Elite', cursive; display: flex; justify-content: center;
+            overflow-x: hidden; touch-action: manipulation;
         }
 
-        /* --- CONTENEDOR MÁGICO --- */
+        /* --- CONTENEDOR PRINCIPAL --- */
         .paper {
             background: var(--pergamino) url('https://www.transparenttextures.com/patterns/paper-fibers.png');
             width: 100%; max-width: 500px; min-height: 100vh;
-            padding: 25px; box-sizing: border-box;
-            border: 8px double #8b6d45; box-shadow: 0 0 60px rgba(0,0,0,0.8);
+            padding: 20px; box-sizing: border-box;
+            border: 10px double #8b6d45; box-shadow: 0 0 60px rgba(0,0,0,0.9);
+            position: relative;
         }
 
-        header { text-align: center; border-bottom: 5px double var(--oscuro); margin-bottom: 20px; padding-bottom: 10px; }
-        header h1 { font-family: 'Cinzel', serif; font-size: 38px; margin: 0; letter-spacing: -2px; }
-        .meta-data { font-family: 'Cinzel'; font-size: 11px; display: flex; justify-content: space-between; font-weight: bold; }
-
-        /* --- MARQUESINA --- */
-        .marquee {
-            background: var(--oscuro); color: var(--oro-bril); padding: 8px;
-            font-family: 'Cinzel'; font-size: 12px; text-align: center;
-            margin-bottom: 25px; border-radius: 4px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-
-        /* --- NOTICIAS --- */
-        .card {
-            background: white; border: 1px solid rgba(0,0,0,0.1); padding: 18px;
-            margin-bottom: 25px; box-shadow: 5px 5px 0px rgba(0,0,0,0.1);
-            position: relative; transition: 0.3s;
-        }
-        .card h3 { font-family: 'Cinzel'; margin: 5px 0; font-size: 22px; }
-        .card img { width: 100%; border-radius: 3px; margin: 10px 0; border: 1px solid #ddd; }
+        header { text-align: center; border-bottom: 6px double var(--oscuro); margin-bottom: 20px; padding-bottom: 10px; }
+        header h1 { font-family: 'Cinzel', serif; font-size: 38px; margin: 0; letter-spacing: -1px; }
         
-        .vociferadora { border: 3px solid var(--sangre) !important; background: #fff5f5 !important; animation: tremor 0.2s infinite; }
-        @keyframes tremor { 0% { transform: rotate(0.4deg); } 100% { transform: rotate(-0.4deg); } }
+        .info-header { 
+            display: flex; justify-content: space-between; font-family: 'Cinzel'; 
+            font-size: 10px; font-weight: bold; border-top: 1px solid #000; padding-top: 5px;
+        }
+
+        /* --- NOTICIAS ESTILIZADAS --- */
+        .card {
+            background: rgba(255,255,255,0.7); border: 1px solid rgba(0,0,0,0.1);
+            padding: 15px; margin-bottom: 25px; border-radius: 2px;
+            box-shadow: 8px 8px 0px rgba(0,0,0,0.1); position: relative;
+            transition: 0.3s;
+        }
+        
+        .card h3 { font-family: 'Cinzel'; margin: 5px 0 10px 0; font-size: 24px; line-height: 1; }
+        .card img { width: 100%; border: 1px solid #999; margin: 10px 0; border-radius: 3px; }
+
+        /* --- EFECTO VOCIFERADORA --- */
+        .vociferadora {
+            border: 3px solid var(--sangre) !important;
+            background: #fff0f0 !important;
+            animation: tremor 0.3s infinite alternate, glow 1.5s infinite;
+            box-shadow: 0 0 20px rgba(139, 0, 0, 0.4) !important;
+        }
+        @keyframes tremor { 0% { transform: rotate(0.5deg); } 100% { transform: rotate(-0.5deg); } }
+        @keyframes glow { 0% { box-shadow: 0 0 5px var(--sangre); } 50% { box-shadow: 0 0 25px var(--sangre); } 100% { box-shadow: 0 0 5px var(--sangre); } }
+
+        /* --- TAGS --- */
+        .tag { font-size: 9px; padding: 4px 8px; color: white; border-radius: 3px; font-weight: bold; text-transform: uppercase; }
+        .Gryffindor { background: #740001; } .Slytherin { background: #1a472a; }
+        .Hufflepuff { background: #ecb939; color: black; } .Ravenclaw { background: #0e1a40; }
+        .OFICIAL { background: var(--oro); color: black; font-weight: 900; }
+        .General { background: #444; }
 
         /* --- FORMULARIO --- */
         .form-box {
             background: var(--oscuro); color: var(--pergamino); padding: 25px;
             border-radius: 15px; border: 3px solid var(--oro); margin-top: 40px;
         }
-        .form-box h3 { font-family: 'Cinzel'; text-align: center; color: var(--oro); margin-top: 0; }
-        
         input, textarea, select {
             width: 100%; padding: 12px; margin: 8px 0; border-radius: 5px;
             border: 2px solid var(--oro); font-family: 'Special Elite'; box-sizing: border-box;
         }
-
         .btn {
             background: var(--oro-bril); color: black; border: none; padding: 18px;
-            width: 100%; font-family: 'Cinzel'; font-weight: 900; font-size: 18px;
-            border-radius: 5px; cursor: pointer; margin-top: 10px;
+            width: 100%; font-family: 'Cinzel'; font-weight: 900; font-size: 20px;
+            cursor: pointer; border-radius: 5px; margin-top: 10px;
         }
-
-        .tag { font-size: 10px; padding: 3px 8px; color: white; border-radius: 3px; font-weight: bold; text-transform: uppercase; }
-        .Slytherin { background: #1a472a; } .Gryffindor { background: #740001; }
-        .Hufflepuff { background: #ecb939; color: black; } .Ravenclaw { background: #0e1a40; }
-        .OFICIAL { background: var(--oro); color: black; } .General { background: #555; }
 
         .voto-btn {
-            background: none; border: 1px solid var(--sangre); color: var(--sangre);
-            padding: 8px; width: 100%; cursor: pointer; font-weight: bold; font-family: 'Cinzel';
+            background: none; border: 2px solid var(--sangre); color: var(--sangre);
+            width: 100%; padding: 10px; font-weight: bold; cursor: pointer; font-family: 'Cinzel';
         }
-        .voto-btn.voted { background: var(--sangre); color: white; opacity: 0.6; cursor: default; }
-
-        .sparkle { position: absolute; width: 5px; height: 5px; background: var(--oro-bril); border-radius: 50%; pointer-events: none; animation: pop 0.6s linear forwards; }
-        @keyframes pop { 100% { transform: translate(var(--x), var(--y)); opacity: 0; } }
+        .voto-btn.voted { background: var(--sangre); color: white; opacity: 0.5; }
     </style>
 </head>
-<body onclick="crearChispas(event)">
+<body>
 
 <div class="paper">
     <div id="pantalla-login" style="text-align:center; padding-top:60px;">
-        <h1 style="font-family:'Cinzel'">IDENTIFICACIÓN</h1>
-        <input type="text" id="log-name" placeholder="Tu Nombre o Alias">
-        <select id="log-house">
+        <h1 style="font-family:'Cinzel'">ACCESO MÁGICO</h1>
+        <input type="text" id="user-n" placeholder="Tu Nombre...">
+        <select id="user-h">
             <option value="Gryffindor">Gryffindor 🦁</option>
             <option value="Slytherin">Slytherin 🐍</option>
             <option value="Hufflepuff">Hufflepuff 🦡</option>
             <option value="Ravenclaw">Ravenclaw 🦅</option>
         </select>
-        <button class="btn" onclick="login()">ENTRAR AL MINISTERIO ✨</button>
+        <button class="btn" onclick="iniciar()">IDENTIFICARSE ✨</button>
     </div>
 
-    <div id="web-principal" style="display:none;">
+    <div id="web-contenido" style="display:none;">
         <header>
-            <div class="meta-data">
-                <span id="fecha-mágica"></span>
-                <span onclick="logout()" style="cursor:pointer; color:var(--sangre)">CERRAR SESIÓN</span>
+            <div class="info-header">
+                <span id="fecha-actual"></span>
+                <span onclick="cerrar()" style="color:var(--sangre); cursor:pointer;">CERRAR SESIÓN</span>
             </div>
             <h1>EL PROFETA</h1>
-            <div style="font-size:12px; font-weight:bold; letter-spacing:2px; margin-top:5px;">DIARIO INDEPENDIENTE DE ORIÓN</div>
+            <div id="user-tag" style="font-size:11px; margin-top:5px; font-weight:bold;"></div>
         </header>
 
-        <div class="marquee" id="news-flash">📢 Cargando noticias del Ministerio...</div>
-
         <div id="feed-oficial"></div>
-        <div id="feed-alumnos"></div>
+        <div id="feed-comunidad"></div>
 
         <div class="form-box">
-            <h3>🖋️ REDACTAR PRIMICIA</h3>
-            <input type="text" id="p-titulo" placeholder="Título de la noticia">
-            <textarea id="p-texto" rows="4" placeholder="¿Qué escándalo has presenciado?"></textarea>
-            <input type="text" id="p-img" placeholder="Link de Imagen o GIF">
+            <h3 style="text-align:center; font-family:'Cinzel'; color:var(--oro); margin:0;">🖋️ NUEVA PRIMICIA</h3>
+            <input type="text" id="post-tit" placeholder="Título impactante">
+            <textarea id="post-msg" rows="4" placeholder="Escribe tu noticia aquí..."></textarea>
+            <input type="text" id="post-img" placeholder="Link de Imagen o GIF (opcional)">
             
             <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
-                <select id="p-rango">
-                    <option value="General">Rango: General</option>
-                    <option value="OFICIAL">Rango: ESCRITOR REAL</option>
+                <select id="post-ran">
+                    <option value="General">General</option>
+                    <option value="OFICIAL">Escritor Real</option>
                 </select>
-                <select id="p-estilo">
-                    <option value="normal">Estilo: Normal</option>
-                    <option value="vociferadora">Estilo: Vociferadora 🔥</option>
+                <select id="post-est">
+                    <option value="normal">Estilo Normal</option>
+                    <option value="vociferadora">Vociferadora 🔥</option>
                 </select>
-            </div>
-
-            <div style="display:flex; align-items:center; gap:10px; margin-top:10px;">
-                <label style="font-size:12px; color:var(--oro)">COLOR DE TINTA:</label>
-                <input type="color" id="p-color" value="#8b0000" style="width:40px; height:40px; border:none; background:none; padding:0;">
             </div>
             
-            <button class="btn" onclick="publicar()">HECHIZAR Y PUBLICAR ✨</button>
+            <div style="display:flex; align-items:center; gap:10px; margin-top:10px;">
+                <label style="font-size:12px; color:var(--oro)">COLOR TINTA:</label>
+                <input type="color" id="post-col" value="#8b0000" style="width:40px; height:40px; border:none; background:none;">
+            </div>
+
+            <button class="btn" onclick="publicar()">PUBLICAR AHORA ✨</button>
         </div>
     </div>
 </div>
@@ -142,116 +144,93 @@
 <audio id="snd-write" src="https://www.soundjay.com/misc/sounds/writing-on-paper-1.mp3"></audio>
 
 <script>
-    const DB_URL = "https://profeta-9c8df-default-rtdb.firebaseio.com/periodico";
-    const CLAVE_ESCRITOR = "Orion2026";
-    let sesion = JSON.parse(localStorage.getItem('mago_sesion_v5'));
-    let misVotos = JSON.parse(localStorage.getItem('votos_v5')) || [];
+    const DB = "https://profeta-9c8df-default-rtdb.firebaseio.com/periodico";
+    const PASS_ADMIN = "Orion2026";
+    let mago = JSON.parse(localStorage.getItem('sesion_v6'));
+    let votos = JSON.parse(localStorage.getItem('votos_v6')) || [];
 
-    const NOTICIAS_AUTO = [
-        "📢 ÚLTIMA HORA: El Ministro de Magia declara estado de alerta.",
-        "🗞️ PROFECÍA: Orión marcará el inicio de una nueva era.",
-        "🦉 AVISO: Se prohíben los fuegos artificiales en los pasillos.",
-        "🪄 RUMOR: ¿Pociones prohibidas en el baño del tercer piso?",
-        "🐾 CRIATURAS: Se busca Hipogrifo extraviado cerca del bosque."
-    ];
-
-    setInterval(() => {
-        document.getElementById('news-flash').innerText = NOTICIAS_AUTO[Math.floor(Math.random()*NOTICIAS_AUTO.length)];
-    }, 6000);
-
-    function crearChispas(e) {
-        for(let i=0; i<6; i++){
-            let s = document.createElement('div');
-            s.className = 'sparkle';
-            s.style.left = e.pageX+'px'; s.style.top = e.pageY+'px';
-            s.style.setProperty('--x', (Math.random()*70-35)+'px');
-            s.style.setProperty('--y', (Math.random()*70-35)+'px');
-            document.body.appendChild(s);
-            setTimeout(() => s.remove(), 600);
-        }
-    }
-
-    function login() {
-        const n = document.getElementById('log-name').value.trim();
-        const h = document.getElementById('log-house').value;
-        if(!n) return alert("Identifícate, por favor.");
-        sesion = { n, h };
-        localStorage.setItem('mago_sesion_v5', JSON.stringify(sesion));
+    function iniciar() {
+        const n = document.getElementById('user-n').value.trim();
+        const h = document.getElementById('user-h').value;
+        if(!n) return alert("Escribe tu nombre.");
+        mago = { n, h };
+        localStorage.setItem('sesion_v6', JSON.stringify(mago));
         document.getElementById('snd-magic').play();
-        mostrarWeb();
+        mostrar();
     }
 
-    function logout() { localStorage.removeItem('mago_sesion_v5'); location.reload(); }
+    function cerrar() { localStorage.removeItem('sesion_v6'); location.reload(); }
 
-    function mostrarWeb() {
-        if(!sesion) return;
+    function mostrar() {
+        if(!mago) return;
         document.getElementById('pantalla-login').style.display = 'none';
-        document.getElementById('web-principal').style.display = 'block';
-        document.getElementById('fecha-mágica').innerText = new Date().toLocaleDateString('es-ES', { weekday:'short', day:'2-digit', month:'short' }).toUpperCase();
-        cargarNoticias();
+        document.getElementById('web-contenido').style.display = 'block';
+        document.getElementById('user-tag').innerText = `🦉 ${mago.n} de ${mago.h}`;
+        document.getElementById('fecha-actual').innerText = new Date().toLocaleDateString('es-ES', { weekday:'short', day:'2-digit', month:'short' }).toUpperCase();
+        cargar();
     }
 
     function publicar() {
-        const t = document.getElementById('p-titulo').value.trim();
-        const m = document.getElementById('p-texto').value.trim();
-        const img = document.getElementById('p-img').value;
-        const ran = document.getElementById('p-rango').value;
-        const est = document.getElementById('p-estilo').value;
-        const col = document.getElementById('p-color').value;
+        const t = document.getElementById('post-tit').value.trim();
+        const m = document.getElementById('post-msg').value.trim();
+        const img = document.getElementById('post-img').value;
+        const ran = document.getElementById('post-ran').value;
+        const est = document.getElementById('post-est').value;
+        const col = document.getElementById('post-col').value;
 
-        if(!t || !m) return alert("Faltan datos en el pergamino.");
-        if(ran === "OFICIAL" && prompt("Contraseña de Escritor:") !== CLAVE_ESCRITOR) return;
+        if(!t || !m) return alert("Falta contenido.");
+        if(ran === "OFICIAL" && prompt("Llave de Escritor:") !== PASS_ADMIN) return;
 
         document.getElementById('snd-write').play();
         const id = "ID_" + Date.now();
-        const data = { id, titulo: t, texto: m, img, rango: ran, estilo: est, color: col, autor: sesion.n, casa: sesion.h, votos: 0, time: Date.now() };
+        const data = { id, titulo: t, texto: m, img, rango: ran, estilo: est, color: col, autor: mago.n, casa: mago.h, votos: 0, time: Date.now() };
 
-        fetch(`${DB_URL}/${id}.json`, { method: 'PUT', body: JSON.stringify(data) }).then(() => location.reload());
+        fetch(`${DB}/${id}.json`, { method: 'PUT', body: JSON.stringify(data) }).then(() => location.reload());
     }
 
-    function cargarNoticias() {
-        fetch(`${DB_URL}.json`).then(r => r.json()).then(data => {
+    function cargar() {
+        fetch(`${DB}.json`).then(r => r.json()).then(data => {
             if(!data) return;
             const notas = Object.values(data).filter(n => n && n.id).sort((a,b) => b.time - a.time);
             
-            let oficialHTML = "";
-            let alumnosHTML = "";
+            let htmlOficial = "";
+            let htmlGral = "";
 
             notas.forEach(n => {
-                const yaVoto = misVotos.includes(n.id);
-                const html = `
+                const yaVoto = votos.includes(n.id);
+                const item = `
                     <div class="card ${n.estilo === 'vociferadora' ? 'vociferadora' : ''}" style="border-left: 8px solid ${n.color || '#000'}">
-                        <span class="tag ${n.rango === 'OFICIAL' ? 'OFICIAL' : n.casa}">${n.rango === 'OFICIAL' ? 'Escritor Real' : n.casa}</span>
+                        <span class="tag ${n.rango === 'OFICIAL' ? 'OFICIAL' : n.casa}">${n.rango === 'OFICIAL' ? 'ESCRITOR REAL' : n.casa}</span>
                         <h3 style="color:${n.color || '#000'}">${n.titulo}</h3>
                         ${n.img ? `<img src="${n.img}">` : ''}
                         <p>${n.texto}</p>
                         <div style="display:flex; justify-content:space-between; align-items:center;">
                             <small>🖊️ ${n.autor}</small>
                             <button class="voto-btn ${yaVoto ? 'voted' : ''}" onclick="votar('${n.id}', ${n.votos || 0})" ${yaVoto ? 'disabled' : ''}>
-                                ${yaVoto ? '✅ REGISTRADO' : '🔥 ' + (n.votos || 0) + ' GRITOS'}
+                                ${yaVoto ? '✅' : '🔥 ' + (n.votos || 0)}
                             </button>
                         </div>
                     </div>
                 `;
-                if(n.rango === "OFICIAL") oficialHTML += html;
-                else alumnosHTML += html;
+                if(n.rango === "OFICIAL") htmlOficial += item;
+                else htmlGral += item;
             });
 
-            document.getElementById('feed-oficial').innerHTML = oficialHTML ? `<h2 style="font-family:Cinzel; border-bottom:2px solid var(--oro);">🖋️ CRÓNICAS REALES</h2>` + oficialHTML : "";
-            document.getElementById('feed-alumnos').innerHTML = `<h2 style="font-family:Cinzel; border-bottom:2px solid var(--oro); margin-top:30px;">🔥 CHISMES DEL COLEGIO</h2>` + alumnosHTML;
+            document.getElementById('feed-oficial').innerHTML = htmlOficial ? `<h2 style="font-family:Cinzel;">🖋️ CRÓNICAS REALES</h2>` + htmlOficial : "";
+            document.getElementById('feed-comunidad').innerHTML = `<h2 style="font-family:Cinzel; margin-top:30px;">🔥 ÚLTIMAS PRIMICIAS</h2>` + htmlGral;
         });
     }
 
     async function votar(id, v) {
-        if(misVotos.includes(id)) return;
+        if(votos.includes(id)) return;
         document.getElementById('snd-magic').play();
-        misVotos.push(id);
-        localStorage.setItem('votos_v5', JSON.stringify(misVotos));
-        await fetch(`${DB_URL}/${id}/votos.json`, { method: 'PUT', body: JSON.stringify(v + 1) });
-        cargarNoticias();
+        votos.push(id);
+        localStorage.setItem('votos_v6', JSON.stringify(votos));
+        await fetch(`${DB}/${id}/votos.json`, { method: 'PUT', body: JSON.stringify(v + 1) });
+        cargar();
     }
 
-    if(sesion) mostrarWeb();
+    if(mago) mostrar();
 </script>
 </body>
 </html>
