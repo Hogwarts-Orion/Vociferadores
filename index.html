@@ -27,6 +27,31 @@
         header { text-align: center; border-bottom: 5px double #2c1e11; margin-bottom: 30px; }
         header h1 { font-family: 'Cinzel', serif; font-size: clamp(35px, 9vw, 65px); margin: 0; letter-spacing: -2px; }
 
+        /* SECCIÓN OFICIAL - ESTILO CANVA/PREMIUM */
+        .seccion-oficial {
+            border: 3px solid #d4af37;
+            background: #fffdf5;
+            padding: 20px;
+            margin-bottom: 40px;
+            position: relative;
+            box-shadow: inset 0 0 15px rgba(212, 175, 55, 0.2);
+        }
+        .seccion-oficial::before {
+            content: "🖋️ CRÓNICAS OFICIALES DE ORIÓN";
+            position: absolute; top: -15px; left: 20px;
+            background: #d4af37; color: #1a150f;
+            padding: 2px 15px; font-family: 'Cinzel'; font-size: 14px; font-weight: bold;
+        }
+        .noticia-oficial {
+            border-bottom: 1px double #d4af37;
+            padding: 20px 0;
+        }
+        .noticia-oficial:last-child { border: none; }
+        .noticia-oficial h2 { font-family: 'Cinzel'; color: #8b0000; margin: 5px 0; }
+        .sello-oficial {
+            float: right; width: 60px; opacity: 0.8; filter: sepia(1);
+        }
+
         /* BANNER Y PODIO PREMIUM */
         .banner-premio {
             background: #7d0000; color: #f4e4bc; padding: 20px;
@@ -47,7 +72,7 @@
 
         /* NOTICIAS MEJORADAS */
         .noticia-item {
-            background: #fdf8e9; /* Color pergamino claro */
+            background: #fdf8e9;
             border: 1px solid rgba(0,0,0,0.1);
             padding: 25px; margin-bottom: 35px; border-radius: 4px;
             position: relative; box-shadow: 4px 4px 15px rgba(0,0,0,0.05);
@@ -55,7 +80,6 @@
         }
         .noticia-item:hover { transform: translateY(-5px); box-shadow: 6px 10px 20px rgba(0,0,0,0.1); }
 
-        /* EFECTO VOCIFERADORA REAL */
         .vociferadora-style {
             transform: rotate(-1deg) scale(1.02);
             border: 4px solid #7d0000 !important;
@@ -66,10 +90,7 @@
             animation: shake 0.5s infinite alternate;
         }
 
-        @keyframes shake {
-            from { transform: rotate(-0.5deg); }
-            to { transform: rotate(0.5deg); }
-        }
+        @keyframes shake { from { transform: rotate(-0.5deg); } to { transform: rotate(0.5deg); } }
 
         .casa-tag { padding: 4px 10px; border-radius: 3px; font-size: 11px; color: white; font-weight: bold; text-transform: uppercase; }
         .Slytherin { background: #1a472a; } .Gryffindor { background: #740001; }
@@ -121,6 +142,12 @@
             </div>
         </header>
 
+        <div class="seccion-oficial" id="contenedor-oficial">
+            <div id="noticias-oficiales-lista">
+                <p style="text-align:center; font-style: italic;">Consultando los archivos del Ministerio...</p>
+            </div>
+        </div>
+
         <div class="banner-premio">
             🏆 <b>PREMIO AL MEJOR CHISME</b> 🏆<br>
             <span style="font-size: 26px; letter-spacing: 2px;">💰 15.000 GALEONES ✨</span>
@@ -144,6 +171,7 @@
                     <option value="Gryffindor">Casa: Gryffindor 🦁</option>
                     <option value="Hufflepuff">Casa: Hufflepuff 🦡</option>
                     <option value="Ravenclaw">Casa: Ravenclaw 🦅</option>
+                    <option value="OFICIAL">🖋️ Rango: Escritor del Profeta</option>
                 </select>
                 <select id="tipo-envio" onchange="toggleColorPicker()">
                     <option value="normal">Estilo: Normal 🗞️</option>
@@ -162,6 +190,7 @@
 
     <script>
         const BASE_DB_URL = "https://profeta-9c8df-default-rtdb.firebaseio.com/periodico";
+        const CLAVE_ESCRITOR = "Orion2026"; // Cambia esta clave para los escritores reales
 
         document.getElementById('fecha').innerText = new Date().toLocaleDateString('es-ES', { weekday: 'long', day: '2-digit', month: 'long' }).toUpperCase();
         document.getElementById('lectores').innerText = Math.floor(Math.random() * 40) + 15;
@@ -191,6 +220,12 @@
             const color = document.getElementById('color-vociferadora').value;
 
             if(!titulo || !texto) return alert("¡Por Merlín! No dejes campos vacíos.");
+
+            // Verificación de Rango Escritor
+            if (casa === "OFICIAL") {
+                const pass = prompt("Introduce la llave mágica de Escritor:");
+                if (pass !== CLAVE_ESCRITOR) return alert("¡Muggle detectado! No tienes permiso para crónicas oficiales.");
+            }
 
             const id = Date.now().toString();
             const data = {
@@ -222,10 +257,26 @@
                     document.getElementById('noticias-container').innerHTML = "<p style='text-align:center; opacity:0.5;'>No hay primicias por ahora...</p>";
                     return;
                 }
-                const noticias = Object.values(data).filter(n => n && n.id);
+                const todas = Object.values(data).filter(n => n && n.id);
                 
-                // PODIO
-                const masVotados = [...noticias].sort((a,b) => (b.votos || 0) - (a.votos || 0)).slice(0, 3);
+                // --- FILTRAR OFICIALES ---
+                const oficiales = todas.filter(n => n.casa === "OFICIAL").sort((a,b) => b.id - a.id);
+                const listaOficialHTML = oficiales.length > 0 ? oficiales.map(n => `
+                    <div class="noticia-oficial">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1057/1057106.png" class="sello-oficial">
+                        <small style="color:#d4af37;">ESTRELLA DEL PROFETA | ${n.fecha}</small>
+                        <h2>${n.titulo}</h2>
+                        <p style="font-size:15px; border-left: 2px solid #d4af37; padding-left: 10px;">${n.texto}</p>
+                        <div style="font-family:'Cinzel'; font-size:12px; text-align:right;">— ${n.autor}</div>
+                    </div>
+                `).join('') : "<p style='text-align:center; opacity:0.5;'>Esperando comunicados del Ministerio...</p>";
+                document.getElementById('noticias-oficiales-lista').innerHTML = listaOficialHTML;
+
+                // --- FILTRAR CHISMES ---
+                const chismes = todas.filter(n => n.casa !== "OFICIAL");
+                
+                // PODIO (Solo chismes)
+                const masVotados = [...chismes].sort((a,b) => (b.votos || 0) - (a.votos || 0)).slice(0, 3);
                 document.getElementById('podio').innerHTML = masVotados.map((n, i) => `
                     <div class="podio-card">
                         <span style="font-family:'Cinzel'; color:#7d0000; font-size:12px;">#${i+1} TOP ESCÁNDALO</span><br>
@@ -234,8 +285,8 @@
                     </div>
                 `).join('');
 
-                // LISTA
-                const lista = noticias.sort((a,b) => b.id - a.id);
+                // LISTA DE CHISMES
+                const lista = chismes.sort((a,b) => b.id - a.id);
                 document.getElementById('noticias-container').innerHTML = lista.map(n => {
                     const vtd = yaVoto(n.id);
                     const isVoc = n.tipo === 'vociferadora';
@@ -245,19 +296,5 @@
                     return `
                         <div class="noticia-item ${isVoc ? 'vociferadora-style' : ''}" style="${customStyle}">
                             <span class="casa-tag ${n.casa}">${n.casa}</span>
-                            <div style="font-size:11px; margin: 10px 0; color:#555;">${n.fecha} | POR: ${n.autor}</div>
-                            <h2 style="${isVoc ? 'color:'+n.color : ''}">${n.titulo}</h2>
-                            <p>${n.texto}</p>
-                            <button class="voto-btn ${vtd ? 'ya-votado' : ''}" onclick="votar('${n.id}')" ${vtd ? 'disabled' : ''}>
-                                ${vtd ? 'Ya votaste ✅' : '¡Es Escandaloso! 🔥'} (${n.votos || 0})
-                            </button>
-                        </div>
-                    `;
-                }).join('');
-            });
-        }
-
-        window.onload = cargarNoticias;
-    </script>
-</body>
-</html>
+                            <div style="font-size:11px; margin: 10px
+                            
