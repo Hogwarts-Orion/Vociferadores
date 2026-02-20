@@ -4,65 +4,91 @@
     <meta charset="UTF-8">
     <title>El Profeta Rebelde - Hogwarts Orión</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Special+Elite&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Special+Elite&family=MedievalSharp&display=swap');
 
         body {
             margin: 0;
             background: #1a150f url('https://www.transparenttextures.com/patterns/paper-fibers.png');
             color: #2c1e11;
             display: flex; flex-direction: column; align-items: center; padding: 20px;
+            overflow-x: hidden;
         }
 
         .paper {
             background: #f4e4bc;
-            width: 95%; max-width: 800px; padding: 40px;
-            box-shadow: 5px 5px 20px rgba(0,0,0,0.6);
-            border: 1px solid #d2b48c; position: relative;
+            width: 95%; max-width: 900px; padding: 40px;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            border: 2px solid #d2b48c; position: relative;
+            min-height: 100vh;
         }
 
-        header { text-align: center; border-bottom: 4px double #2c1e11; margin-bottom: 20px; }
-        header h1 { font-family: 'Cinzel', serif; font-size: clamp(30px, 8vw, 55px); margin: 0; }
+        header { text-align: center; border-bottom: 5px double #2c1e11; margin-bottom: 30px; }
+        header h1 { font-family: 'Cinzel', serif; font-size: clamp(35px, 9vw, 65px); margin: 0; letter-spacing: -2px; }
 
+        /* BANNER Y PODIO */
         .banner-premio {
-            background: #7d0000; color: #f4e4bc; padding: 15px;
+            background: #7d0000; color: #f4e4bc; padding: 20px;
             text-align: center; font-family: 'Cinzel', serif;
-            border-radius: 5px; margin-bottom: 30px; border: 2px gold double;
+            border-radius: 5px; margin-bottom: 30px; border: 3px double gold;
         }
 
+        .podio-container {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px; margin-bottom: 40px; border: 2px solid #7d0000; padding: 15px;
+            background: rgba(125, 0, 0, 0.05); border-radius: 8px;
+        }
+        .podio-card {
+            background: #fffdf5; border: 1px solid #7d0000; padding: 10px;
+            text-align: center; border-radius: 5px;
+        }
+
+        /* NOTICIAS Y VOCIFERADORAS */
         .noticia-item {
-            background: rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.1);
-            padding: 20px; margin-bottom: 30px; position: relative;
-        }
-        .noticia-item h2 { font-family: 'Cinzel', serif; color: #7d0000; margin-top: 0; }
-        .noticia-item p { font-family: 'Special Elite', cursive; font-size: 18px; line-height: 1.4; word-wrap: break-word;}
-        .autor-tag { font-weight: bold; font-size: 11px; text-transform: uppercase; color: #555; margin-bottom: 10px;}
-
-        .voto-btn {
-            background: #d2b48c; border: 1px solid #2c1e11; padding: 10px 20px;
-            cursor: pointer; font-family: 'Cinzel', serif; font-size: 13px;
-            transition: 0.3s; border-radius: 4px; font-weight: bold;
-        }
-        .voto-btn:hover { background: #2c1e11; color: #f4e4bc; }
-        
-        /* Estilo para botón ya votado */
-        .voto-btn.ya-votado {
-            background: #a0a0a0; color: #444; cursor: not-allowed; border-color: #777;
+            background: rgba(255,255,255,0.4); border: 1px solid rgba(0,0,0,0.1);
+            padding: 25px; margin-bottom: 35px; border-radius: 2px;
+            position: relative; box-shadow: 3px 3px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
         }
 
+        .vociferadora-style {
+            border: 4px solid #7d0000 !important;
+            transform: rotate(-1deg);
+            box-shadow: 8px 8px 0 rgba(0,0,0,0.2) !important;
+        }
+
+        .casa-tag { padding: 3px 8px; border-radius: 3px; font-size: 10px; color: white; font-weight: bold; }
+        .Slytherin { background: #1a472a; } .Gryffindor { background: #740001; }
+        .Hufflepuff { background: #ecb939; color: black; } .Ravenclaw { background: #0e1a40; }
+        .General { background: #2c1e11; }
+
+        /* FORMULARIO */
         .envio-box {
-            background: rgba(44, 30, 17, 0.05); border: 2px dashed #2c1e11;
-            padding: 25px; margin-top: 40px; border-radius: 10px;
+            background: #2c1e11; color: #f4e4bc; padding: 30px;
+            border-radius: 15px; margin-top: 50px;
         }
+        .color-picker-container {
+            display: none; /* Se activa solo con vociferadora */
+            margin: 10px 0;
+            text-align: center;
+            border: 1px dashed gold;
+            padding: 10px;
+        }
+
         input, textarea, select {
             width: 100%; padding: 12px; margin: 10px 0; border-radius: 5px;
-            border: 1px solid #2c1e11; background: #fffdf5; box-sizing: border-box; font-family: 'Special Elite', cursive;
+            border: 1px solid gold; background: #1a150f; color: white;
         }
+        
         .btn-enviar {
-            background: #7d0000; color: #fff; border: none; padding: 15px;
-            width: 100%; font-family: 'Cinzel', serif; cursor: pointer; font-size: 18px;
+            background: gold; color: #000; border: none; padding: 15px;
+            width: 100%; font-family: 'Cinzel', serif; font-weight: bold; cursor: pointer;
         }
 
-        .vociferadora { background: #ffdfdf !important; border: 3px solid #7d0000 !important; }
+        .voto-btn {
+            background: #d2b48c; border: 1px solid #2c1e11; padding: 8px 15px;
+            cursor: pointer; font-family: 'Cinzel', serif; margin-top: 10px;
+        }
+        .ya-votado { background: #888 !important; cursor: not-allowed; }
     </style>
 </head>
 <body>
@@ -70,132 +96,139 @@
     <div class="paper">
         <header>
             <h1>EL PROFETA REBELDE</h1>
-            <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 12px;">
-                <span>EDICIÓN ANTI-TRAMPAS - 2026</span>
+            <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 13px; font-family: 'Cinzel';">
+                <span>🦉 <span id="lectores"></span> LECHUZAS LEYENDO</span>
                 <span id="fecha"></span>
             </div>
         </header>
 
         <div class="banner-premio">
-            🏆 <b>PREMIO AL MEJOR CHISME DE LA SEMANA:</b><br>
-            💰 15.000 GALEONES Y ✨ 30.000 PUNTOS
+            🏆 <b>PREMIO AL MEJOR CHISME</b> 🏆<br>
+            <span style="font-size: 22px;">💰 15.000 GALEONES ✨</span>
         </div>
 
-        <div id="noticias-container">
-            <p style="text-align: center;">Buscando primicias...</p>
-        </div>
+        <h3 style="font-family: 'Cinzel'; border-bottom: 2px solid #7d0000; display: inline-block;">🔥 PODIO DE LA INFAMIA</h3>
+        <div id="podio" class="podio-container"></div>
+
+        <div id="noticias-container"></div>
 
         <div class="envio-box">
-            <h3 style="text-align: center; font-family: 'Cinzel', serif;">🕵️ ENVIAR UNA PRIMICIA</h3>
-            <input type="text" id="nombre-envio" placeholder="Tu nombre (Vacío = Anónimo)">
+            <h3>🕵️ REDACTAR PRIMICIA</h3>
+            <input type="text" id="nombre-envio" placeholder="Tu firma (Vacio = Anónimo)">
             <input type="text" id="titulo-envio" placeholder="Título impactante...">
-            <textarea id="texto-envio" rows="4" placeholder="¿Qué has visto hoy?"></textarea>
-            <select id="tipo-envio">
-                <option value="normal">Noticia Normal 🗞️</option>
-                <option value="vociferadora">Vociferadora 💌 (Grito)</option>
-            </select>
-            <button class="btn-enviar" onclick="enviarChisme()">PUBLICAR CHISME ✨</button>
+            <textarea id="texto-envio" rows="4" placeholder="¿Qué escándalo has presenciado?"></textarea>
+            
+            <div style="display: flex; gap: 10px;">
+                <select id="casa-envio">
+                    <option value="General">Categoría: General</option>
+                    <option value="Slytherin">Casa: Slytherin 🐍</option>
+                    <option value="Gryffindor">Casa: Gryffindor 🦁</option>
+                    <option value="Hufflepuff">Casa: Hufflepuff 🦡</option>
+                    <option value="Ravenclaw">Casa: Ravenclaw 🦅</option>
+                </select>
+                <select id="tipo-envio" onchange="toggleColorPicker()">
+                    <option value="normal">Estilo: Normal 🗞️</option>
+                    <option value="vociferadora">Estilo: Vociferadora 💌</option>
+                </select>
+            </div>
+
+            <div id="color-picker-box" class="color-picker-container">
+                <label style="font-size: 12px; color: gold;">🎨 ELIGE EL COLOR DE TU GRITO:</label><br>
+                <input type="color" id="color-vociferadora" value="#ffdfdf" style="width: 50px; height: 50px; cursor: pointer; border: none; background: none;">
+            </div>
+            
+            <button class="btn-enviar" onclick="enviarChisme()">HECHIZAR Y PUBLICAR ✨</button>
         </div>
     </div>
 
     <script>
-        // TU URL DE FIREBASE
         const BASE_DB_URL = "https://profeta-9c8df-default-rtdb.firebaseio.com/periodico";
 
-        document.getElementById('fecha').innerText = new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' }).toUpperCase();
+        document.getElementById('fecha').innerText = new Date().toLocaleDateString('es-ES', { weekday: 'long', day: '2-digit', month: 'long' }).toUpperCase();
+        document.getElementById('lectores').innerText = Math.floor(Math.random() * 40) + 10;
 
-        // FUNCIÓN PARA VER SI YA VOTÓ POR ESTA NOTICIA
-        function yaVoto(id) {
-            const votosRealizados = JSON.parse(localStorage.getItem('votos_hogwarts') || '{}');
-            return votosRealizados[id] === true;
+        function toggleColorPicker() {
+            const tipo = document.getElementById('tipo-envio').value;
+            document.getElementById('color-picker-box').style.display = (tipo === 'vociferadora') ? 'block' : 'none';
         }
 
-        // REGISTRAR VOTO EN EL NAVEGADOR
+        function yaVoto(id) {
+            const v = JSON.parse(localStorage.getItem('votos_hogwarts') || '{}');
+            return v[id] === true;
+        }
+
         function registrarVotoLocal(id) {
-            const votosRealizados = JSON.parse(localStorage.getItem('votos_hogwarts') || '{}');
-            votosRealizados[id] = true;
-            localStorage.setItem('votos_hogwarts', JSON.stringify(votosRealizados));
+            const v = JSON.parse(localStorage.getItem('votos_hogwarts') || '{}');
+            v[id] = true;
+            localStorage.setItem('votos_hogwarts', JSON.stringify(v));
         }
 
         function enviarChisme() {
             const autor = document.getElementById('nombre-envio').value.trim() || "Anónimo 👤";
             const titulo = document.getElementById('titulo-envio').value.trim();
             const texto = document.getElementById('texto-envio').value.trim();
+            const casa = document.getElementById('casa-envio').value;
             const tipo = document.getElementById('tipo-envio').value;
+            const color = document.getElementById('color-vociferadora').value;
 
-            if(!titulo || !texto) return alert("Escribe el contenido.");
+            if(!titulo || !texto) return alert("¡Por Merlín! No dejes campos vacíos.");
 
             const id = Date.now().toString();
-            const nuevaNoticia = {
-                id: id,
-                autor: autor,
-                titulo: titulo,
-                texto: texto,
-                tipo: tipo,
+            const data = {
+                id, autor, titulo, texto, casa, tipo,
+                color: (tipo === 'vociferadora') ? color : 'transparent',
                 votos: 0,
                 fecha: new Date().toLocaleString()
             };
 
-            fetch(`${BASE_DB_URL}/${id}.json`, {
-                method: 'PUT',
-                body: JSON.stringify(nuevaNoticia)
-            }).then(() => {
-                document.getElementById('titulo-envio').value = "";
-                document.getElementById('texto-envio').value = "";
-                cargarNoticias();
-            });
+            fetch(`${BASE_DB_URL}/${id}.json`, { method: 'PUT', body: JSON.stringify(data) })
+            .then(() => { location.reload(); });
         }
 
         async function votar(id) {
-            if(yaVoto(id)) {
-                alert("¡Ya has dado tu opinión sobre este chisme! No se permiten votos dobles. 🚫");
-                return;
-            }
-
-            try {
-                const response = await fetch(`${BASE_DB_URL}/${id}.json`);
-                const noticia = await response.json();
-                const nuevosVotos = (noticia.votos || 0) + 1;
-
-                await fetch(`${BASE_DB_URL}/${id}/votos.json`, {
-                    method: 'PUT',
-                    body: JSON.stringify(nuevosVotos)
-                });
-                
-                registrarVotoLocal(id); // Guardar que ya votó
-                cargarNoticias(); 
-            } catch (e) {
-                console.error("Error al votar", e);
-            }
+            if(yaVoto(id)) return;
+            const res = await fetch(`${BASE_DB_URL}/${id}.json`);
+            const n = await res.json();
+            const nuevosVotos = (n.votos || 0) + 1;
+            await fetch(`${BASE_DB_URL}/${id}/votos.json`, { method: 'PUT', body: JSON.stringify(nuevosVotos) });
+            registrarVotoLocal(id);
+            cargarNoticias();
         }
 
         function cargarNoticias() {
             fetch(`${BASE_DB_URL}.json`).then(res => res.json()).then(data => {
-                const container = document.getElementById('noticias-container');
-                if(!data) {
-                    container.innerHTML = "<p style='text-align:center;'>El Profeta está en blanco...</p>";
-                    return;
-                }
+                if(!data) return;
+                const noticias = Object.values(data);
                 
-                let html = "";
-                const noticias = Object.values(data).sort((a,b) => b.id - a.id);
+                // --- PODIO ---
+                const masVotados = [...noticias].sort((a,b) => (b.votos || 0) - (a.votos || 0)).slice(0, 3);
+                let podioHtml = "";
+                masVotados.forEach((n, i) => {
+                    podioHtml += `<div class="podio-card"><span>#${i+1} TOP</span><br><b>${n.titulo}</b><br><small>🔥 ${n.votos || 0}</small></div>`;
+                });
+                document.getElementById('podio').innerHTML = podioHtml;
 
-                noticias.forEach(n => {
-                    const haVotado = yaVoto(n.id);
+                // --- LISTA ---
+                const lista = noticias.sort((a,b) => b.id - a.id);
+                let html = "";
+                lista.forEach(n => {
+                    const vtd = yaVoto(n.id);
+                    const isVoc = n.tipo === 'vociferadora';
+                    const bgStyle = isVoc ? `background-color: ${n.color || '#ffdfdf'} !important;` : '';
+                    
                     html += `
-                        <div class="noticia-item ${n.tipo === 'vociferadora' ? 'vociferadora' : ''}">
-                            <div class="autor-tag">📅 ${n.fecha || 'Reciente'} | FUENTE: ${n.autor || 'Anónimo'}</div>
-                            <h2>${n.titulo || 'Sin Título'}</h2>
-                            <p>${n.texto || ''}</p>
-                            <button class="voto-btn ${haVotado ? 'ya-votado' : ''}" 
-                                    onclick="votar('${n.id}')" 
-                                    ${haVotado ? 'disabled' : ''}>
-                                ${haVotado ? 'Ya votaste ✅' : '¡Es Escandaloso! 🔥'} (${n.votos || 0})
+                        <div class="noticia-item ${isVoc ? 'vociferadora-style' : ''}" style="${bgStyle}">
+                            <span class="casa-tag ${n.casa}">${n.casa}</span>
+                            <div style="font-size:11px; margin-bottom:5px;">${n.fecha} | POR: ${n.autor}</div>
+                            <h2>${n.titulo}</h2>
+                            <p>${n.texto}</p>
+                            <button class="voto-btn ${vtd ? 'ya-votado' : ''}" onclick="votar('${n.id}')" ${vtd ? 'disabled' : ''}>
+                                ${vtd ? 'Ya votaste' : '¡Es Escandaloso! 🔥'} (${n.votos || 0})
                             </button>
                         </div>
                     `;
                 });
-                container.innerHTML = html;
+                document.getElementById('noticias-container').innerHTML = html;
             });
         }
 
