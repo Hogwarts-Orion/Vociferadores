@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Profeta - Edición de Oro</title>
+    <title>El Profeta - Edición de Oro y Galeones</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Special+Elite&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap');
 
@@ -102,3 +102,124 @@
         <div class="banner-premio">
             🏆 PREMIO SEMANAL: 15.000 GALEONES 💰<br>
             <small>Al mago/bruja con más "Gritos" acumulados</small>
+        </div>
+
+        <div class="ranking-box" id="ranking-list">
+            <div class="ranking-title">✦ LÍDERES DE LA SEMANA ✦</div>
+            </div>
+
+        <div id="feed-oficial"></div>
+        <div id="feed-confesiones"></div>
+        <div id="feed-comunidad"></div>
+
+        <div class="sec-title">REDACTAR</div>
+        <div class="magic-form" style="background: rgba(0,0,0,0.04); padding: 12px; border: 1px dashed #000;">
+            <select id="t-tipo" onchange="toggleForm()">
+                <option value="noticia">Publicar Noticia</option>
+                <option value="confesion">Confesión Anónima</option>
+            </select>
+            <div id="form-noticia">
+                <input type="text" id="t-t" placeholder="Título">
+                <textarea id="t-m" rows="3" placeholder="Contenido..."></textarea>
+                <div style="display:flex; gap:5px;">
+                    <select id="t-r"><option value="ALUMNO">Alumno</option><option value="OFICIAL">Escritor Real</option></select>
+                    <select id="t-e"><option value="normal">Pergamino</option><option value="vociferadora">Vociferadora 🔥</option></select>
+                </div>
+            </div>
+            <div id="form-confesion" style="display:none;">
+                <textarea id="t-conf" rows="3" placeholder="Tu secreto..."></textarea>
+                <label style="font-size:10px; font-family:'Cinzel'"><input type="checkbox" id="t-anon" checked> Anonimato</label>
+            </div>
+            <button class="btn-send" onclick="publicarTodo()">PUBLICAR ✨</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const DB = "https://profeta-9c8df-default-rtdb.firebaseio.com/periodico";
+    const CLAVE_REAL = "Orion2026";
+    let sesion = JSON.parse(localStorage.getItem('p_vFinal_v2'));
+
+    function login() {
+        const n = document.getElementById('u-n').value.trim();
+        if(!n) return;
+        sesion = { n, h: document.getElementById('u-h').value };
+        localStorage.setItem('p_vFinal_v2', JSON.stringify(sesion));
+        start();
+    }
+    function logout() { localStorage.removeItem('p_vFinal_v2'); location.reload(); }
+    function toggleForm() {
+        const t = document.getElementById('t-tipo').value;
+        document.getElementById('form-noticia').style.display = t === 'noticia' ? 'block' : 'none';
+        document.getElementById('form-confesion').style.display = t === 'confesion' ? 'block' : 'none';
+    }
+
+    function start() {
+        if(!sesion) return;
+        document.getElementById('login-zone').style.display='none';
+        document.getElementById('main-web').style.display='block';
+        document.getElementById('f-m').innerText = new Date().toLocaleDateString('es-ES',{day:'numeric',month:'short'}).toUpperCase();
+        setInterval(()=> { document.getElementById('h-m').innerText = new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}); }, 1000);
+        load();
+    }
+
+    function publicarTodo() {
+        const tipo = document.getElementById('t-tipo').value;
+        const id = "ID"+Date.now();
+        let data = { id, autor: sesion.n, casa: sesion.h, time: Date.now(), v: {}, c: 0 };
+        if(tipo === 'noticia') {
+            const r = document.getElementById('t-r').value;
+            if(r === "OFICIAL" && prompt("Clave:") !== CLAVE_REAL) return;
+            data = {...data, tipo:'noticia', titulo: document.getElementById('t-t').value, texto: document.getElementById('t-m').value, rango:r, estilo:document.getElementById('t-e').value};
+        } else {
+            data = {...data, tipo:'confesion', texto: document.getElementById('t-conf').value, anonimo: document.getElementById('t-anon').checked};
+        }
+        fetch(`${DB}/${id}.json`,{method:'PUT',body:JSON.stringify(data)}).then(()=>location.reload());
+    }
+
+    function load() {
+        fetch(`${DB}.json`).then(r=>r.json()).then(data => {
+            if(!data) return;
+            const items = Object.values(data).sort((a,b)=>b.time - a.time);
+            let hOf="", hAl="", hConf="";
+            let scores = {};
+
+            items.forEach(n => {
+                // Contar puntos para el ranking (solo noticias, no confesiones)
+                if(n.tipo === 'noticia') {
+                    scores[n.autor] = (scores[n.autor] || 0) + (n.c || 0);
+                    const voted = n.v && n.v[sesion.n];
+                    const cls = n.rango === "OFICIAL" ? "card-oficial" : "card-alumno";
+                    const est = n.estilo === 'vociferadora' ? 'vociferadora' : '';
+                    const html = `<div class="article ${cls} ${est}"><h3>${n.titulo}</h3><small>🖋️ ${n.autor}</small><p>${n.texto}</p><div style="text-align:right;"><button class="voto-btn" onclick="votar('${n.id}')" ${voted?'disabled':''}>${voted?'SELLADO':'🔥 GRITAR ('+(n.c||0)+')'}</button></div></div>`;
+                    if(n.rango === "OFICIAL") hOf += html; else hAl += html;
+                } else {
+                    hConf += `<div class="confesion-card"><b>🤫 CONFESIÓN:</b><br>"${n.texto}"<br><small>— ${n.anonimo?'Anónimo':n.autor}</small></div>`;
+                }
+            });
+
+            // Generar Ranking
+            const top = Object.entries(scores).sort((a,b)=>b[1]-a[1]).slice(0,3);
+            let rHtml = '<div class="ranking-title">✦ LÍDERES DE LA SEMANA ✦</div>';
+            top.forEach((s, i) => {
+                rHtml += `<div class="ranking-item ${i===0?'top1':''}"><span>${i+1}. ${s[0]}</span><span>${s[1]} 🔥</span></div>`;
+            });
+            document.getElementById('ranking-list').innerHTML = rHtml;
+
+            document.getElementById('feed-oficial').innerHTML = hOf ? `<div class="sec-title">DECRETOS REALES</div>`+hOf : "";
+            document.getElementById('feed-confesiones').innerHTML = hConf ? `<div class="sec-title">BUZÓN DE SECRETOS</div>`+hConf : "";
+            document.getElementById('feed-comunidad').innerHTML = `<div class="sec-title">NOTICIAS</div>`+hAl;
+        });
+    }
+
+    async function votar(id) {
+        await fetch(`${DB}/${id}/v/${sesion.n}.json`,{method:'PUT',body:'true'});
+        const res = await fetch(`${DB}/${id}/c.json`);
+        const val = await res.json() || 0;
+        await fetch(`${DB}/${id}/c.json`,{method:'PUT',body:JSON.stringify(val+1)});
+        load();
+    }
+    if(sesion) start();
+</script>
+</body>
+</html>
