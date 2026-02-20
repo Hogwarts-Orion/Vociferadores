@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Profeta - Mobile Edition</title>
+    <title>El Profeta - Edición Estelar</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Special+Elite&family=Old+Standard+TT:wght@400;700&display=swap');
 
         :root {
-            --pergamino: #e4d5b7; --tinta: #1a1a1a; 
+            --pergamino: #e4d5b7; --tinta: #1a1a1a;
             --oro: #b08d57; --oro-bril: #ffd700;
             --sangre: #ff1a1a; --fuego: #ff8c00;
         }
@@ -20,93 +20,101 @@
 
         .newspaper {
             background: var(--pergamino) url('https://www.transparenttextures.com/patterns/paper-fibers.png');
-            width: 100%; max-width: 450px; min-height: 100vh;
-            margin: auto; padding: 15px; box-sizing: border-box;
+            width: 100%; max-width: 420px; min-height: 100vh;
+            margin: auto; padding: 12px; box-sizing: border-box;
             box-shadow: 0 0 30px rgba(0,0,0,0.5); border-radius: 2px;
         }
 
         /* --- CABECERA COMPACTA --- */
-        header { text-align: center; border-bottom: 4px double var(--tinta); margin-bottom: 10px; }
-        header h1 { font-family: 'Cinzel', serif; font-size: 38px; margin: 0; letter-spacing: -1px; }
+        header { text-align: center; border-bottom: 3px double var(--tinta); margin-bottom: 8px; }
+        header h1 { font-family: 'Cinzel', serif; font-size: 32px; margin: 0; letter-spacing: -1px; }
         
         .meta-bar {
             display: flex; justify-content: space-between; border-top: 1px solid #000;
-            padding: 4px 0; font-size: 9px; font-weight: bold; font-family: 'Cinzel';
+            padding: 3px 0; font-size: 8px; font-weight: bold; font-family: 'Cinzel';
         }
 
         .ticker-wrap {
-            background: #000; color: #fff; padding: 6px; 
-            margin: 10px 0; font-family: 'Special Elite'; font-size: 11px; text-align: center;
+            background: #000; color: #fff; padding: 5px;
+            margin: 8px 0; font-family: 'Special Elite'; font-size: 10px; text-align: center;
+            min-height: 15px; /* Altura mínima para que no salte */
+            display: flex; align-items: center; justify-content: center;
         }
 
-        /* --- ESTILO ESCRITOR REAL (ÚNICO) --- */
+        /* --- ESTILO ESCRITOR REAL (ORO Y NEGRO) --- */
         .card-oficial {
-            background: white url('https://www.transparenttextures.com/patterns/pinstriped-suit.png');
-            border: 3px solid var(--oro); padding: 15px; margin-bottom: 25px;
-            box-shadow: 0 0 15px var(--oro-bril); position: relative;
-            border-image: linear-gradient(to bottom, #d4af37, #8b6d45) 1;
+            background: var(--tinta) url('https://www.transparenttextures.com/patterns/diamond-upholstery.png');
+            border: 2px solid var(--oro); padding: 12px; margin-bottom: 20px;
+            box-shadow: 0 0 10px var(--oro-bril); position: relative;
         }
+        .card-oficial h3, .card-oficial p, .card-oficial small { color: var(--pergamino) !important; }
         .card-oficial::before {
-            content: "✦ EDICIÓN REAL ✦"; display: block; text-align: center;
-            font-family: 'Cinzel'; font-size: 9px; color: var(--oro); margin-bottom: 8px;
+            content: "⚜️ DECRETO REAL ⚜️"; display: block; text-align: center;
+            font-family: 'Cinzel'; font-size: 8px; color: var(--oro-bril); margin-bottom: 6px;
         }
+        .card-oficial img { filter: grayscale(1) invert(1); border-color: var(--oro) !important; }
 
-        /* --- ESTILO VOCIFERADORA (BRILLANTE Y LLAMATIVO) --- */
+        /* --- ESTILO VOCIFERADORA (COMPACTA Y ARDIENTE) --- */
         .vociferadora {
             background: linear-gradient(45deg, #8b0000, #ff4500) !important;
-            padding: 15px; margin-bottom: 25px; border: none !important;
+            padding: 12px; margin-bottom: 20px; border: none !important;
             animation: pulse-glow 1.5s infinite alternate, shake 0.2s infinite;
-            box-shadow: 0 0 25px var(--sangre); color: white !important;
+            box-shadow: 0 0 20px var(--sangre); color: white !important;
+            min-height: 80px; /* Tamaño más chico */
+            display: flex; flex-direction: column; justify-content: center;
         }
-        .vociferadora h3, .vociferadora p, .vociferadora small { 
-            color: white !important; text-shadow: 0 0 10px var(--oro-bril); 
+        .vociferadora h3, .vociferadora p, .vociferadora small {
+            color: white !important; text-shadow: 0 0 8px var(--oro-bril);
+            font-size: 15px !important; line-height: 1.2;
         }
+        .vociferadora h3 { font-size: 18px !important; } /* Título un poco más grande */
+        .vociferadora img { filter: brightness(0.8) sepia(1) hue-rotate(-20deg) !important; border-color: white !important; }
 
-        @keyframes pulse-glow {
-            from { box-shadow: 0 0 10px var(--sangre); filter: brightness(1); }
-            to { box-shadow: 0 0 30px var(--fuego); filter: brightness(1.3); }
-        }
-        @keyframes shake { 0% { transform: rotate(0.3deg); } 100% { transform: rotate(-0.3deg); } }
+
+        @keyframes pulse-glow { from { box-shadow: 0 0 8px var(--sangre); filter: brightness(1); } to { box-shadow: 0 0 25px var(--fuego); filter: brightness(1.2); } }
+        @keyframes shake { 0% { transform: rotate(0.2deg); } 100% { transform: rotate(-0.2deg); } }
 
         /* --- NOTICIA ALUMNO NORMAL --- */
         .card-alumno {
-            border-bottom: 1px solid rgba(0,0,0,0.1); padding: 15px 0; margin-bottom: 15px;
+            border-bottom: 1px dashed rgba(0,0,0,0.15); padding: 12px 0; margin-bottom: 12px;
         }
 
-        .article h3 { font-family: 'Cinzel'; font-size: 20px; margin: 0 0 5px 0; line-height: 1.1; }
-        .article img { width: 100%; border: 2px solid #000; margin: 8px 0; }
-        .article p { font-size: 15px; line-height: 1.3; text-align: justify; margin: 5px 0; }
+        .article h3 { font-family: 'Cinzel'; font-size: 18px; margin: 0 0 4px 0; line-height: 1.1; }
+        .article small { font-size: 10px; opacity: 0.8; }
+        .article img { width: 100%; border: 1px solid #000; margin: 6px 0; }
+        .article p { font-size: 14px; line-height: 1.3; text-align: justify; margin: 4px 0; }
 
         .sec-title {
             font-family: 'Cinzel'; background: var(--tinta); color: var(--pergamino);
-            text-align: center; padding: 5px; font-size: 12px; margin: 20px 0 15px 0;
+            text-align: center; padding: 6px; font-size: 11px; margin: 25px 0 15px 0;
+            letter-spacing: 2px;
         }
 
         /* --- INTERFAZ COMPACTA --- */
-        .magic-form { background: rgba(0,0,0,0.05); padding: 15px; margin-top: 30px; border: 1px dashed #000; }
+        .magic-form { background: rgba(0,0,0,0.03); padding: 12px; margin-top: 25px; border: 1px dashed #000; }
         input, textarea, select {
-            width: 100%; padding: 10px; margin: 5px 0; border: 1px solid #000;
-            font-family: 'Special Elite'; font-size: 14px; box-sizing: border-box;
+            width: 100%; padding: 8px; margin: 4px 0; border: 1px solid #000;
+            font-family: 'Special Elite'; font-size: 12px; box-sizing: border-box;
         }
         .btn-send {
-            background: var(--tinta); color: white; border: none; padding: 15px;
-            width: 100%; font-family: 'Cinzel'; font-size: 16px; cursor: pointer;
+            background: var(--tinta); color: white; border: none; padding: 12px;
+            width: 100%; font-family: 'Cinzel'; font-size: 14px; cursor: pointer; margin-top: 8px;
         }
 
         .voto-btn {
-            background: none; border: 1px solid var(--tinta); padding: 5px 10px;
-            font-family: 'Cinzel'; font-size: 10px; margin-top: 5px;
+            background: none; border: 1px solid var(--tinta); padding: 4px 8px;
+            font-family: 'Cinzel'; font-size: 9px; margin-top: 4px;
         }
-        .voto-btn:disabled { opacity: 0.4; }
+        .voto-btn:disabled { opacity: 0.3; }
     </style>
 </head>
 <body>
 
 <div class="newspaper">
-    <div id="login-screen" style="text-align:center; padding: 40px 10px;">
-        <h1 style="font-family:'Cinzel'; font-size: 30px;">ACCESO</h1>
-        <input type="text" id="u-n" placeholder="Nombre">
-        <input type="password" id="u-p" placeholder="Clave">
+    <div id="login-screen" style="text-align:center; padding: 30px 10px;">
+        <h1 style="font-family:'Cinzel'; font-size: 28px;">ACCESO MÁGICO</h1>
+        <input type="text" id="u-n" placeholder="Tu Nombre">
+        <input type="password" id="u-p" placeholder="Tu Contraseña">
         <select id="u-h">
             <option value="GRY">🦁 GRYFFINDOR</option>
             <option value="SLY">🐍 SLYTHERIN</option>
@@ -122,27 +130,27 @@
             <div class="meta-bar">
                 <span id="f-m"></span>
                 <span id="h-m"></span>
-                <span onclick="logout()" style="text-decoration:underline;">SALIR</span>
+                <span onclick="logout()" style="text-decoration:underline; color:var(--sangre);">SALIR</span>
             </div>
         </header>
 
-        <div class="ticker-wrap"><div id="tick">Cargando correspondencia...</div></div>
+        <div class="ticker-wrap"><div id="tick">Cargando noticias vía red de flu...</div></div>
 
         <div id="feed-oficial"></div>
         <div id="feed-comunidad"></div>
 
-        <div class="sec-title">🖋️ REDACTAR</div>
+        <div class="sec-title">🖋️ NUEVA PLUMA</div>
         <div class="magic-form">
             <input type="text" id="t-t" placeholder="Título">
-            <textarea id="t-m" rows="3" placeholder="Tu noticia..."></textarea>
-            <input type="text" id="t-i" placeholder="URL Foto">
+            <textarea id="t-m" rows="2" placeholder="Tu primicia..."></textarea>
+            <input type="text" id="t-i" placeholder="URL Foto (opcional)">
             <div style="display:flex; gap:5px;">
-                <select id="t-r" style="font-size: 11px;">
+                <select id="t-r" style="font-size: 10px;">
                     <option value="ALUMNO">Alumno</option>
                     <option value="OFICIAL">Escritor Real</option>
                 </select>
-                <select id="t-e" style="font-size: 11px;">
-                    <option value="normal">Normal</option>
+                <select id="t-e" style="font-size: 10px;">
+                    <option value="normal">Pergamino</option>
                     <option value="vociferadora">Vociferadora 🔥</option>
                 </select>
             </div>
@@ -154,15 +162,30 @@
 <script>
     const DB = "https://profeta-9c8df-default-rtdb.firebaseio.com/periodico";
     const CLAVE = "Orion2026";
-    let sesion = JSON.parse(localStorage.getItem('p_v11'));
+    let sesion = JSON.parse(localStorage.getItem('p_v12'));
 
-    const R_NEWS = [
-        "🦉 ¡LECHUZAS EN HUELGA!", "✨ PUNTOS PARA SLYTHERIN", "🧹 ESCOBAS VOLADORAS FALLAN", "🦁 VALOR EN GRYFFINDOR"
-    ];
+    // --- Generador de noticias random ---
+    const sujetos = ["El Ministro de Magia", "Un elfo doméstico", "La profesora McGonagall", "Harry Potter", "Un dragón de Gales", "Una lechuza mensajera", "La cerveza de mantequilla", "Un nuevo hechizo", "El sauce boxeador"];
+    const verbos = ["ha sido visto", "ha desaparecido", "ha descubierto", "ha prohibido", "ha creado", "ha volado con", "ha cantado sobre", "ha explotado"];
+    const objetos = ["en Hogsmeade", "en la Sala Común de Gryffindor", "el Quidditch", "un nuevo dulce mágico", "un misterio", "el Bosque Prohibido", "la Piedra Filosofal", "una capa invisible", "el Gran Comedor"];
+    
+    function generateHeadline() {
+        const s = sujetos[Math.floor(Math.random() * sujetos.length)];
+        const v = verbos[Math.floor(Math.random() * verbos.length)];
+        const o = objetos[Math.floor(Math.random() * objetos.length)];
+        return `${s} ${v} ${o.toUpperCase()}. ¡RUMORES!`;
+    }
 
     setInterval(() => {
-        document.getElementById('tick').innerText = R_NEWS[Math.floor(Math.random()*R_NEWS.length)];
-    }, 4000);
+        const tickElement = document.getElementById('tick');
+        if (tickElement) {
+            tickElement.style.opacity = 0; // Fade out
+            setTimeout(() => {
+                tickElement.innerText = generateHeadline();
+                tickElement.style.opacity = 1; // Fade in
+            }, 500); // Espera medio segundo para el fade out
+        }
+    }, 5000); // Cambia cada 5 segundos
 
     setInterval(() => {
         const d = new Date();
@@ -175,11 +198,11 @@
         const h = document.getElementById('u-h').value;
         if(!n || !p) return;
         sesion = { n, h };
-        localStorage.setItem('p_v11', JSON.stringify(sesion));
+        localStorage.setItem('p_v12', JSON.stringify(sesion));
         start();
     }
 
-    function logout() { localStorage.removeItem('p_v11'); location.reload(); }
+    function logout() { localStorage.removeItem('p_v12'); location.reload(); }
 
     function start() {
         if(!sesion) return;
@@ -194,7 +217,7 @@
         const m = document.getElementById('t-m').value.trim();
         const r = document.getElementById('t-r').value;
         if(!t || !m) return;
-        if(r === "OFICIAL" && prompt("Clave:") !== CLAVE) return;
+        if(r === "OFICIAL" && prompt("Clave de Escritor:") !== CLAVE) return;
 
         const id = "N" + Date.now();
         const data = {
@@ -217,7 +240,7 @@
                 const html = `
                     <div class="article ${cls} ${est}">
                         <h3>${n.titulo}</h3>
-                        <small>🖋️ ${n.autor}</small>
+                        <small>🖋️ ${n.autor} (${n.casa})</small>
                         ${n.img ? `<img src="${n.img}">` : ''}
                         <p>${n.texto}</p>
                         <div style="text-align:right;">
@@ -230,7 +253,7 @@
                 if(n.rango === "OFICIAL") hOf += html; else hAl += html;
             });
             document.getElementById('feed-oficial').innerHTML = hOf ? `<div class="sec-title">DECRETOS REALES</div>`+hOf : "";
-            document.getElementById('feed-comunidad').innerHTML = `<div class="sec-title">CHISMES</div>`+hAl;
+            document.getElementById('feed-comunidad').innerHTML = `<div class="sec-title">CHISMES DE PASILLO</div>`+hAl;
         });
     }
 
