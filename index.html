@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Profeta - Edición de Oro y Galeones</title>
+    <title>El Profeta - Edición de Oro</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Special+Elite&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap');
 
@@ -56,19 +56,14 @@
         .card-oficial h3 { color: var(--oro) !important; font-family: 'Cinzel'; border-bottom: 1px solid var(--oro); }
         .card-oficial p, .card-oficial small { color: #f0f0f0 !important; }
 
-        /* --- VOCIFERADORA (DINÁMICA) --- */
+        /* --- VOCIFERADORA (ROJO Y FUEGO) --- */
         .vociferadora {
-            background: var(--v-c, linear-gradient(135deg, #8b0000 0%, #ff1a1a 100%)) !important;
+            background: linear-gradient(135deg, #8b0000 0%, #ff1a1a 100%) !important;
             padding: 12px; margin-bottom: 20px; border: none !important;
-            animation: shake 0.2s infinite; box-shadow: 0 0 20px rgba(0,0,0,0.3);
+            animation: shake 0.2s infinite; box-shadow: 0 0 20px var(--sangre);
         }
         .vociferadora h3, .vociferadora p, .vociferadora small { color: white !important; }
         @keyframes shake { 0% { transform: rotate(0.2deg); } 100% { transform: rotate(-0.2deg); } }
-
-        /* --- ESTILOS PALETA --- */
-        .c-palette { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; margin: 8px 0; }
-        .c-dot { width: 18px; height: 18px; border-radius: 50%; cursor: pointer; border: 1px solid #000; }
-        .c-dot.active { outline: 2px solid #000; transform: scale(1.2); }
 
         /* --- UI --- */
         .sec-title { font-family: 'Cinzel'; background: #000; color: var(--oro); text-align: center; padding: 5px; font-size: 11px; margin: 20px 0 10px 0; }
@@ -128,17 +123,7 @@
                 <textarea id="t-m" rows="3" placeholder="Contenido..."></textarea>
                 <div style="display:flex; gap:5px;">
                     <select id="t-r"><option value="ALUMNO">Alumno</option><option value="OFICIAL">Escritor Real</option></select>
-                    <select id="t-e" onchange="toggleVociPal()"><option value="normal">Pergamino</option><option value="vociferadora">Vociferadora 🔥</option></select>
-                </div>
-                <div id="voci-pal" style="display:none; text-align:center; margin-top:5px;">
-                    <div class="c-palette">
-                        <div class="c-dot active" style="background:linear-gradient(135deg,#8b0000,#ff1a1a)" onclick="selC(this,'linear-gradient(135deg,#8b0000,#ff1a1a)')"></div>
-                        <div class="c-dot" style="background:linear-gradient(135deg,#001f3f,#0074D9)" onclick="selC(this,'linear-gradient(135deg,#001f3f,#0074D9)')"></div>
-                        <div class="c-dot" style="background:linear-gradient(135deg,#1d331d,#2ecc71)" onclick="selC(this,'linear-gradient(135deg,#1d331d,#2ecc71)')"></div>
-                        <div class="c-dot" style="background:linear-gradient(135deg,#4b0082,#8e44ad)" onclick="selC(this,'linear-gradient(135deg,#4b0082,#8e44ad)')"></div>
-                        <div class="c-dot" style="background:linear-gradient(135deg,#ff4500,#ffa500)" onclick="selC(this,'linear-gradient(135deg,#ff4500,#ffa500)')"></div>
-                        <div class="c-dot" style="background:linear-gradient(135deg,#111,#444)" onclick="selC(this,'linear-gradient(135deg,#111,#444)')"></div>
-                    </div>
+                    <select id="t-e"><option value="normal">Pergamino</option><option value="vociferadora">Vociferadora 🔥</option></select>
                 </div>
             </div>
             <div id="form-confesion" style="display:none;">
@@ -154,17 +139,6 @@
     const DB = "https://profeta-9c8df-default-rtdb.firebaseio.com/periodico";
     const CLAVE_REAL = "Orion2026";
     let sesion = JSON.parse(localStorage.getItem('p_vFinal_v2'));
-    let selectedColor = 'linear-gradient(135deg, #8b0000 0%, #ff1a1a 100%)';
-
-    function toggleVociPal() {
-        document.getElementById('voci-pal').style.display = document.getElementById('t-e').value === 'vociferadora' ? 'block' : 'none';
-    }
-
-    function selC(el, c) {
-        selectedColor = c;
-        document.querySelectorAll('.c-dot').forEach(d => d.classList.remove('active'));
-        el.classList.add('active');
-    }
 
     function login() {
         const n = document.getElementById('u-n').value.trim();
@@ -196,7 +170,7 @@
         if(tipo === 'noticia') {
             const r = document.getElementById('t-r').value;
             if(r === "OFICIAL" && prompt("Clave:") !== CLAVE_REAL) return;
-            data = {...data, tipo:'noticia', titulo: document.getElementById('t-t').value, texto: document.getElementById('t-m').value, rango:r, estilo:document.getElementById('t-e').value, color: selectedColor};
+            data = {...data, tipo:'noticia', titulo: document.getElementById('t-t').value, texto: document.getElementById('t-m').value, rango:r, estilo:document.getElementById('t-e').value};
         } else {
             data = {...data, tipo:'confesion', texto: document.getElementById('t-conf').value, anonimo: document.getElementById('t-anon').checked};
         }
@@ -211,19 +185,20 @@
             let scores = {};
 
             items.forEach(n => {
+                // Contar puntos para el ranking (solo noticias, no confesiones)
                 if(n.tipo === 'noticia') {
                     scores[n.autor] = (scores[n.autor] || 0) + (n.c || 0);
                     const voted = n.v && n.v[sesion.n];
                     const cls = n.rango === "OFICIAL" ? "card-oficial" : "card-alumno";
                     const est = n.estilo === 'vociferadora' ? 'vociferadora' : '';
-                    const style = n.estilo === 'vociferadora' ? `style="--v-c: ${n.color || ''}"` : '';
-                    const html = `<div class="article ${cls} ${est}" ${style}><h3>${n.titulo}</h3><small>🖋️ ${n.autor}</small><p>${n.texto}</p><div style="text-align:right;"><button class="voto-btn" onclick="votar('${n.id}')" ${voted?'disabled':''}>${voted?'SELLADO':'🔥 GRITAR ('+(n.c||0)+')'}</button></div></div>`;
+                    const html = `<div class="article ${cls} ${est}"><h3>${n.titulo}</h3><small>🖋️ ${n.autor}</small><p>${n.texto}</p><div style="text-align:right;"><button class="voto-btn" onclick="votar('${n.id}')" ${voted?'disabled':''}>${voted?'SELLADO':'🔥 GRITAR ('+(n.c||0)+')'}</button></div></div>`;
                     if(n.rango === "OFICIAL") hOf += html; else hAl += html;
                 } else {
                     hConf += `<div class="confesion-card"><b>🤫 CONFESIÓN:</b><br>"${n.texto}"<br><small>— ${n.anonimo?'Anónimo':n.autor}</small></div>`;
                 }
             });
 
+            // Generar Ranking
             const top = Object.entries(scores).sort((a,b)=>b[1]-a[1]).slice(0,3);
             let rHtml = '<div class="ranking-title">✦ LÍDERES DE LA SEMANA ✦</div>';
             top.forEach((s, i) => {
