@@ -43,6 +43,11 @@
             transition: 0.3s; border-radius: 4px; font-weight: bold;
         }
         .voto-btn:hover { background: #2c1e11; color: #f4e4bc; }
+        
+        /* Estilo para botón ya votado */
+        .voto-btn.ya-votado {
+            background: #a0a0a0; color: #444; cursor: not-allowed; border-color: #777;
+        }
 
         .envio-box {
             background: rgba(44, 30, 17, 0.05); border: 2px dashed #2c1e11;
@@ -66,38 +71,51 @@
         <header>
             <h1>EL PROFETA REBELDE</h1>
             <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 12px;">
-                <span>EDICIÓN Nº 001 - 2026</span>
+                <span>EDICIÓN ANTI-TRAMPAS - 2026</span>
                 <span id="fecha"></span>
             </div>
         </header>
 
         <div class="banner-premio">
-            🏆 <b>PREMIO AL MEJOR CHISME:</b><br>
+            🏆 <b>PREMIO AL MEJOR CHISME DE LA SEMANA:</b><br>
             💰 15.000 GALEONES Y ✨ 30.000 PUNTOS
         </div>
 
         <div id="noticias-container">
-            <p style="text-align: center;">Invocando noticias...</p>
+            <p style="text-align: center;">Buscando primicias...</p>
         </div>
 
         <div class="envio-box">
             <h3 style="text-align: center; font-family: 'Cinzel', serif;">🕵️ ENVIAR UNA PRIMICIA</h3>
-            <input type="text" id="nombre-envio" placeholder="Tu nombre (Vacio = Anónimo)">
-            <input type="text" id="titulo-envio" placeholder="Título del chisme...">
-            <textarea id="texto-envio" rows="4" placeholder="¿Qué ha pasado en Hogwarts?"></textarea>
+            <input type="text" id="nombre-envio" placeholder="Tu nombre (Vacío = Anónimo)">
+            <input type="text" id="titulo-envio" placeholder="Título impactante...">
+            <textarea id="texto-envio" rows="4" placeholder="¿Qué has visto hoy?"></textarea>
             <select id="tipo-envio">
                 <option value="normal">Noticia Normal 🗞️</option>
-                <option value="vociferadora">Vociferadora 💌</option>
+                <option value="vociferadora">Vociferadora 💌 (Grito)</option>
             </select>
-            <button class="btn-enviar" onclick="enviarChisme()">PUBLICAR ✨</button>
+            <button class="btn-enviar" onclick="enviarChisme()">PUBLICAR CHISME ✨</button>
         </div>
     </div>
 
     <script>
-        // URL de tu base de datos (Asegúrate que termine sin diagonal)
+        // TU URL DE FIREBASE
         const BASE_DB_URL = "https://profeta-9c8df-default-rtdb.firebaseio.com/periodico";
 
         document.getElementById('fecha').innerText = new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' }).toUpperCase();
+
+        // FUNCIÓN PARA VER SI YA VOTÓ POR ESTA NOTICIA
+        function yaVoto(id) {
+            const votosRealizados = JSON.parse(localStorage.getItem('votos_hogwarts') || '{}');
+            return votosRealizados[id] === true;
+        }
+
+        // REGISTRAR VOTO EN EL NAVEGADOR
+        function registrarVotoLocal(id) {
+            const votosRealizados = JSON.parse(localStorage.getItem('votos_hogwarts') || '{}');
+            votosRealizados[id] = true;
+            localStorage.setItem('votos_hogwarts', JSON.stringify(votosRealizados));
+        }
 
         function enviarChisme() {
             const autor = document.getElementById('nombre-envio').value.trim() || "Anónimo 👤";
@@ -105,9 +123,9 @@
             const texto = document.getElementById('texto-envio').value.trim();
             const tipo = document.getElementById('tipo-envio').value;
 
-            if(!titulo || !texto) return alert("Escribe el contenido de la noticia.");
+            if(!titulo || !texto) return alert("Escribe el contenido.");
 
-            const id = Date.now().toString(); // Usamos string para evitar problemas de redondeo
+            const id = Date.now().toString();
             const nuevaNoticia = {
                 id: id,
                 autor: autor,
@@ -129,21 +147,23 @@
         }
 
         async function votar(id) {
+            if(yaVoto(id)) {
+                alert("¡Ya has dado tu opinión sobre este chisme! No se permiten votos dobles. 🚫");
+                return;
+            }
+
             try {
-                // 1. Obtener la noticia específica
                 const response = await fetch(`${BASE_DB_URL}/${id}.json`);
                 const noticia = await response.json();
-                
-                // 2. Calcular nuevos votos
                 const nuevosVotos = (noticia.votos || 0) + 1;
 
-                // 3. Actualizar solo el campo de votos
                 await fetch(`${BASE_DB_URL}/${id}/votos.json`, {
                     method: 'PUT',
                     body: JSON.stringify(nuevosVotos)
                 });
                 
-                cargarNoticias(); // Refrescar para mostrar el cambio
+                registrarVotoLocal(id); // Guardar que ya votó
+                cargarNoticias(); 
             } catch (e) {
                 console.error("Error al votar", e);
             }
@@ -153,36 +173,29 @@
             fetch(`${BASE_DB_URL}.json`).then(res => res.json()).then(data => {
                 const container = document.getElementById('noticias-container');
                 if(!data) {
-                    container.innerHTML = "<p style='text-align:center;'>No hay noticias aún.</p>";
+                    container.innerHTML = "<p style='text-align:center;'>El Profeta está en blanco...</p>";
                     return;
                 }
                 
                 let html = "";
-                // Convertimos el objeto en array y ordenamos (más reciente arriba)
                 const noticias = Object.values(data).sort((a,b) => b.id - a.id);
 
                 noticias.forEach(n => {
-                    // Validamos que existan los datos para evitar el "undefined"
-                    const autor = n.autor || "Anónimo";
-                    const titulo = n.titulo || "Sin Título";
-                    const texto = n.texto || "Sin Contenido";
-                    const votos = n.votos || 0;
-                    const fecha = n.fecha || "Fecha desconocida";
-
+                    const haVotado = yaVoto(n.id);
                     html += `
                         <div class="noticia-item ${n.tipo === 'vociferadora' ? 'vociferadora' : ''}">
-                            <div class="autor-tag">📅 ${fecha} | FUENTE: ${autor}</div>
-                            <h2>${titulo}</h2>
-                            <p>${texto}</p>
-                            <button class="voto-btn" onclick="votar('${n.id}')">
-                                ¡Es Escandaloso! 🔥 (${votos})
+                            <div class="autor-tag">📅 ${n.fecha || 'Reciente'} | FUENTE: ${n.autor || 'Anónimo'}</div>
+                            <h2>${n.titulo || 'Sin Título'}</h2>
+                            <p>${n.texto || ''}</p>
+                            <button class="voto-btn ${haVotado ? 'ya-votado' : ''}" 
+                                    onclick="votar('${n.id}')" 
+                                    ${haVotado ? 'disabled' : ''}>
+                                ${haVotado ? 'Ya votaste ✅' : '¡Es Escandaloso! 🔥'} (${n.votos || 0})
                             </button>
                         </div>
                     `;
                 });
                 container.innerHTML = html;
-            }).catch(err => {
-                console.error("Error al cargar:", err);
             });
         }
 
