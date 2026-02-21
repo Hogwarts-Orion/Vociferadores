@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Profeta - Edición Oficial</title>
+    <title>El Profeta - Edición Vociferadora</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Special+Elite&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap');
 
@@ -41,12 +41,8 @@
         }
         @keyframes glow { from { opacity: 0.8; } to { opacity: 1; box-shadow: 0 0 25px var(--oro); } }
 
-        .ranking-box { background: rgba(0,0,0,0.05); border: 1px solid #000; padding: 10px; margin-bottom: 15px; font-family: 'Cinzel'; }
-        .ranking-title { font-size: 10px; text-align: center; border-bottom: 1px solid #000; margin-bottom: 5px; padding-bottom: 3px; }
-        .ranking-item { display: flex; justify-content: space-between; font-size: 12px; padding: 2px 0; }
-        .top1 { color: #8b6d45; font-weight: bold; font-size: 14px; }
-
-        .article { padding: 15px; margin-bottom: 25px; position: relative; border-bottom: 2px solid rgba(0,0,0,0.1); }
+        /* --- ARTÍCULOS Y ESTILOS --- */
+        .article { padding: 15px; margin-bottom: 25px; position: relative; border-bottom: 2px solid rgba(0,0,0,0.1); transition: 0.3s; }
         .foto-magica { width: 100%; margin: 10px 0; border: 1px solid #000; filter: sepia(0.3) contrast(1.1); box-shadow: 2px 2px 5px rgba(0,0,0,0.3); }
 
         .card-oficial {
@@ -57,13 +53,26 @@
         .card-oficial h3 { font-family: 'Cinzel'; border-bottom: 1px solid currentColor; margin-top: 0; }
         .card-oficial p, .card-oficial small { color: #f0f0f0; }
 
+        /* --- VOCIFERADORA --- */
+        .vociferadora {
+            background: linear-gradient(135deg, #8b0000 0%, #ff1a1a 100%) !important;
+            color: white !important; border: none !important;
+            animation: shake 0.2s infinite; 
+            box-shadow: 0 0 20px var(--sangre);
+        }
+        .vociferadora h3, .vociferadora p, .vociferadora small { color: white !important; }
+        @keyframes shake { 0% { transform: rotate(0.3deg); } 100% { transform: rotate(-0.3deg); } }
+
+        .ranking-box { background: rgba(0,0,0,0.05); border: 1px solid #000; padding: 10px; margin-bottom: 15px; font-family: 'Cinzel'; }
+        .ranking-title { font-size: 10px; text-align: center; border-bottom: 1px solid #000; margin-bottom: 5px; padding-bottom: 3px; }
+        .ranking-item { display: flex; justify-content: space-between; font-size: 12px; padding: 2px 0; }
+        .top1 { color: #8b6d45; font-weight: bold; font-size: 14px; }
+
         .sec-title { font-family: 'Cinzel'; background: #000; color: var(--oro); text-align: center; padding: 5px; font-size: 11px; margin: 20px 0 10px 0; }
         .btn-send { background: #000; color: var(--oro); border: 1px solid var(--oro); padding: 12px; width: 100%; font-family: 'Cinzel'; font-weight: bold; cursor: pointer; margin-top: 10px; }
         input, textarea, select { width: 100%; padding: 8px; margin: 4px 0; border: 1px solid #000; font-family: 'Special Elite'; box-sizing: border-box; background: rgba(255,255,255,0.5); }
         .voto-btn { background: rgba(0,0,0,0.2); border: 1px solid currentColor; padding: 4px 8px; font-family: 'Cinzel'; font-size: 9px; cursor: pointer; color: inherit; }
-        
-        .color-row { display: flex; align-items: center; gap: 10px; margin: 5px 0; font-family: 'Cinzel'; font-size: 10px; font-weight: bold; }
-        .color-row input { width: 40px; height: 25px; padding: 0; border: none; cursor: pointer; }
+        .confesion-card { background: #f2e9d0; border-left: 5px solid var(--oro-oscuro); padding: 10px; margin: 10px 0; font-family: 'Special Elite'; transform: rotate(-1deg); }
 
         .view-section { display: none; }
         .view-section.active { display: block; }
@@ -101,10 +110,7 @@
         </header>
 
         <div id="view-general" class="view-section active">
-            <div class="banner-premio">
-                🏆 PREMIO SEMANAL: 15.000 GALEONES 💰<br>
-                <small>Al mago/bruja con más "Gritos" acumulados</small>
-            </div>
+            <div class="banner-premio">🏆 PREMIO SEMANAL: 15.000 GALEONES 💰</div>
             <div class="ranking-box" id="ranking-list"></div>
             <div id="feed-confesiones"></div>
             <div id="feed-comunidad"></div>
@@ -118,9 +124,9 @@
                 <div id="form-noticia-alumno">
                     <input type="text" id="g-t" placeholder="Título">
                     <textarea id="g-m" rows="3" placeholder="Contenido..."></textarea>
-                    <div class="color-row">
-                        <span>AURA MÁGICA:</span>
-                        <input type="color" id="g-color" value="#0f0f0f">
+                    <div style="display:flex; align-items:center; gap:10px; font-family:'Cinzel'; font-size:10px;">
+                        <span>COLOR AURA:</span> <input type="color" id="g-color" value="#0f0f0f" style="width:40px; height:20px;">
+                        <label><input type="checkbox" id="g-voc"> ¿ES VOCIFERADORA? 🔥</label>
                     </div>
                 </div>
                 <div id="form-confesion" style="display:none;">
@@ -135,15 +141,14 @@
             <div id="feed-staff"></div>
             <div class="sec-title">PANEL DE ESCRITORES</div>
             <div id="lock-staff" style="text-align:center; padding: 15px; border: 1px dashed #000;">
-                <p style="font-size:10px; font-family:'Cinzel'">Acceso solo para plumas autorizadas</p>
-                <button class="btn-send" onclick="unlockStaff()" style="width:auto; padding:5px 20px; font-size:10px;">INTRODUCIR CLAVE</button>
+                <button class="btn-send" onclick="unlockStaff()">DESBLOQUEAR PLUMA</button>
             </div>
             <div id="editor-staff" style="display:none; background: rgba(212, 175, 55, 0.05); padding: 12px; border: 1px solid var(--oro);">
                 <input type="text" id="s-t" placeholder="TITULAR OFICIAL">
-                <textarea id="s-m" rows="4" placeholder="Cuerpo de la noticia de redacción..."></textarea>
-                <input type="text" id="s-img" placeholder="URL de la Foto de Galería">
-                <div class="color-row">
-                    <span>AURA REAL:</span>
+                <textarea id="s-m" rows="4" placeholder="Cuerpo de la noticia..."></textarea>
+                <input type="text" id="s-img" placeholder="URL de la Foto">
+                <div style="display:flex; gap:10px; font-family:'Cinzel'; font-size:10px;">
+                    <select id="s-estilo"><option value="normal">Pergamino Negro</option><option value="vociferadora">Vociferadora 🔥</option></select>
                     <input type="color" id="s-color" value="#d4af37">
                 </div>
                 <button class="btn-send" onclick="publicarTodo('STAFF')">PUBLICAR OFICIAL ✨</button>
@@ -163,11 +168,9 @@
         if(tab === 'general') {
             document.querySelectorAll('.tab')[0].classList.add('active');
             document.getElementById('view-general').classList.add('active');
-            document.getElementById('main-title').innerText = "EL PROFETA";
         } else {
             document.querySelectorAll('.tab')[1].classList.add('active');
             document.getElementById('view-staff').classList.add('active');
-            document.getElementById('main-title').innerText = "REDACCIÓN";
         }
     }
 
@@ -186,7 +189,6 @@
         start();
     }
     function logout() { localStorage.removeItem('p_vFinal_v2'); location.reload(); }
-    
     function toggleForm() {
         const t = document.getElementById('t-tipo').value;
         document.getElementById('form-noticia-alumno').style.display = t === 'noticia' ? 'block' : 'none';
@@ -207,16 +209,15 @@
         let data = { id, autor: sesion.n, casa: sesion.h, time: Date.now(), v: {}, c: 0 };
         
         if(origen === 'STAFF') {
-            data = { ...data, tipo: 'STAFF', titulo: document.getElementById('s-t').value, texto: document.getElementById('s-m').value, img: document.getElementById('s-img').value, color: document.getElementById('s-color').value };
+            data = { ...data, tipo: 'STAFF', titulo: document.getElementById('s-t').value, texto: document.getElementById('s-m').value, img: document.getElementById('s-img').value, color: document.getElementById('s-color').value, estilo: document.getElementById('s-estilo').value };
         } else {
             const tipo = document.getElementById('t-tipo').value;
             if(tipo === 'noticia') {
-                data = { ...data, tipo:'noticia', titulo: document.getElementById('g-t').value, texto: document.getElementById('g-m').value, color: document.getElementById('g-color').value };
+                data = { ...data, tipo:'noticia', titulo: document.getElementById('g-t').value, texto: document.getElementById('g-m').value, color: document.getElementById('g-color').value, estilo: document.getElementById('g-voc').checked ? 'vociferadora' : 'normal' };
             } else {
                 data = {...data, tipo:'confesion', texto: document.getElementById('t-conf').value, anonimo: document.getElementById('t-anon').checked};
             }
         }
-        if(!data.titulo && !data.texto) return alert("Escribe algo antes de enviar");
         fetch(`${DB}/${id}.json`,{method:'PUT',body:JSON.stringify(data)}).then(()=>location.reload());
     }
 
@@ -224,26 +225,24 @@
         fetch(`${DB}.json`).then(r=>r.json()).then(data => {
             if(!data) return;
             const items = Object.values(data).sort((a,b)=>b.time - a.time);
-            let hStaff="", hAl="", hConf="";
-            let scores = {};
+            let hStaff="", hAl="", hConf="", scores = {};
 
             items.forEach(n => {
                 const voted = n.v && n.v[sesion.n];
-                const imgTag = n.img ? `<img src="${n.img}" class="foto-magica">` : "";
-                const userColor = n.color || "#0f0f0f";
+                const clVoc = n.estilo === 'vociferadora' ? 'vociferadora' : '';
+                const uColor = n.color || "#0f0f0f";
 
                 if(n.tipo === 'STAFF') {
-                    hStaff += `<div class="article card-oficial" style="border-color:${userColor} !important;"><h3 style="color:${userColor}">${n.titulo}</h3><small>🖋️ REDACCIÓN CENTRAL</small>${imgTag}<p>${n.texto}</p></div>`;
+                    hStaff += `<div class="article card-oficial ${clVoc}" style="border-color:${uColor} !important;"><h3 style="color:${uColor}">${n.titulo}</h3><small>🖋️ REDACCIÓN CENTRAL</small>${n.img ? `<img src="${n.img}" class="foto-magica">` : ""}<p>${n.texto}</p></div>`;
                 } else if(n.tipo === 'noticia') {
                     scores[n.autor] = (scores[n.autor] || 0) + (n.c || 0);
-                    hAl += `<div class="article" style="border-left: 4px solid ${userColor};"><h3 style="color:${userColor}">${n.titulo}</h3><small>🖋️ ${n.autor} [${n.casa}]</small><p>${n.texto}</p><div style="text-align:right;"><button class="voto-btn" onclick="votar('${n.id}')" style="color:${userColor};" ${voted?'disabled':''}>${voted ? '✉️ SELLADO' : '🔥 GRITAR ('+(n.c||0)+')'}</button></div></div>`;
+                    hAl += `<div class="article ${clVoc}" style="border-left: 5px solid ${uColor};"><h3 style="color:${uColor}">${n.titulo}</h3><small>🖋️ ${n.autor} [${n.casa}]</small><p>${n.texto}</p><div style="text-align:right;"><button class="voto-btn" onclick="votar('${n.id}')" style="color:${uColor}">${voted ? '✉️ SELLADO' : '🔥 GRITAR ('+(n.c||0)+')'}</button></div></div>`;
                 } else {
                     hConf += `<div class="confesion-card"><b>🤫 SECRETO:</b><br>"${n.texto}"<br><small>— ${n.anonimo?'Anónimo':n.autor}</small></div>`;
                 }
             });
-
             document.getElementById('ranking-list').innerHTML = generarRanking(scores);
-            document.getElementById('feed-staff').innerHTML = hStaff || "<p style='text-align:center;font-size:10px;'>Esperando boletín oficial...</p>";
+            document.getElementById('feed-staff').innerHTML = hStaff || "<p style='text-align:center; font-size:10px;'>Sin noticias oficiales...</p>";
             document.getElementById('feed-confesiones').innerHTML = hConf ? `<div class="sec-title">BUZÓN DE SECRETOS</div>`+hConf : "";
             document.getElementById('feed-comunidad').innerHTML = `<div class="sec-title">NOTICIAS DE LA COMUNIDAD</div>`+hAl;
         });
