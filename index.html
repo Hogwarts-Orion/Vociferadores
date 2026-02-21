@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Profeta - Edición de Oro y Galeones</title>
+    <title>El Profeta - Edición de Oro</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Special+Elite&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap');
 
         :root {
             --pergamino: #e4d5b7; --tinta: #0f0f0f;
             --oro: #d4af37; --oro-oscuro: #8b6d45;
-            --sangre: #ff1a1a; --fuego: #ff4500;
+            --sangre: #ff1a1a;
         }
 
         body { margin: 0; background: #000; color: var(--tinta); font-family: 'Old Standard TT', serif; padding: 5px; }
@@ -22,60 +22,42 @@
             box-shadow: 0 0 50px rgba(0,0,0,1);
         }
 
+        /* --- NAVEGACIÓN --- */
+        .nav-tabs {
+            display: flex;
+            background: #000;
+            margin: -12px -12px 15px -12px;
+            border-bottom: 3px solid var(--oro);
+        }
+        .tab {
+            flex: 1; color: #fff; padding: 15px; text-align: center;
+            font-family: 'Cinzel'; font-size: 10px; cursor: pointer;
+            transition: 0.3s; opacity: 0.6;
+        }
+        .tab.active { opacity: 1; color: var(--oro); background: rgba(255,255,255,0.1); }
+
         header { text-align: center; border-bottom: 4px double var(--tinta); margin-bottom: 5px; }
-        header h1 { font-family: 'Cinzel', serif; font-size: 34px; margin: 0; font-weight: 900; }
+        header h1 { font-family: 'Cinzel', serif; font-size: 30px; margin: 0; font-weight: 900; }
         
-        .meta-bar { display: flex; justify-content: space-between; padding: 3px 5px; font-size: 9px; font-family: 'Cinzel'; font-weight: bold; border-top: 1px solid #000; }
+        .meta-bar { display: flex; justify-content: space-between; padding: 3px 5px; font-size: 9px; font-family: 'Cinzel'; border-top: 1px solid #000; margin-bottom: 10px; }
 
-        .banner-premio {
-            background: linear-gradient(to right, #000, var(--oro-oscuro), #000);
-            color: var(--oro); text-align: center; padding: 10px;
-            font-family: 'Cinzel'; font-size: 11px; border: 1px solid var(--oro);
-            margin: 10px 0; box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
-            animation: glow 2s infinite alternate;
-        }
-        @keyframes glow { from { opacity: 0.8; } to { opacity: 1; box-shadow: 0 0 25px var(--oro); } }
+        /* --- CONTENEDORES DE SECCIÓN --- */
+        .view-section { display: none; }
+        .view-section.active { display: block; }
 
-        .ranking-box { background: rgba(0,0,0,0.05); border: 1px solid #000; padding: 10px; margin-bottom: 15px; font-family: 'Cinzel'; }
-        .ranking-title { font-size: 10px; text-align: center; border-bottom: 1px solid #000; margin-bottom: 5px; padding-bottom: 3px; }
-        .ranking-item { display: flex; justify-content: space-between; font-size: 12px; padding: 2px 0; }
-        .top1 { color: #8b6d45; font-weight: bold; font-size: 14px; }
-
-        .article { padding: 15px; margin-bottom: 25px; position: relative; border-bottom: 1px solid rgba(0,0,0,0.1); }
-        
-        /* Estilo para fotos mágicas */
-        .foto-magica { 
-            width: 100%; margin: 10px 0; border: 1px solid #000; 
-            filter: sepia(0.3) contrast(1.1); 
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-            transition: 0.5s;
-        }
-        .foto-magica:hover { filter: sepia(0); transform: scale(1.02); }
-
+        /* --- ESTILOS DE NOTICIAS --- */
+        .article { padding: 15px; margin-bottom: 20px; border-bottom: 1px solid rgba(0,0,0,0.1); }
         .card-oficial {
-            background: #000 url('https://www.transparenttextures.com/patterns/dark-leather.png') !important;
-            border: 2px solid var(--oro) !important;
-            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+            background: #000 url('https://www.transparenttextures.com/patterns/dark-leather.png');
+            color: #fff; border: 2px solid var(--oro); padding: 15px;
         }
-        .card-oficial h3 { color: var(--oro); font-family: 'Cinzel'; border-bottom: 1px solid var(--oro); margin-top: 0; }
-        .card-oficial p, .card-oficial small { color: #f0f0f0; }
+        .card-oficial h3 { color: var(--oro); font-family: 'Cinzel'; margin-top: 0; }
+        .foto-magica { width: 100%; border: 1px solid #000; margin: 10px 0; filter: sepia(0.3); }
 
-        .vociferadora {
-            background: linear-gradient(135deg, #8b0000 0%, #ff1a1a 100%);
-            border: none; animation: shake 0.2s infinite; 
-            box-shadow: 0 0 20px var(--sangre); color: white;
-        }
-        .vociferadora h3 { color: white; margin-top: 0; border-bottom: 1px solid rgba(255,255,255,0.3); }
-
-        @keyframes shake { 0% { transform: rotate(0.2deg); } 100% { transform: rotate(-0.2deg); } }
-
+        /* --- FORMULARIOS --- */
         .sec-title { font-family: 'Cinzel'; background: #000; color: var(--oro); text-align: center; padding: 5px; font-size: 11px; margin: 20px 0 10px 0; }
-        .btn-send { background: #000; color: var(--oro); border: 1px solid var(--oro); padding: 12px; width: 100%; font-family: 'Cinzel'; font-weight: bold; cursor: pointer; margin-top: 10px; }
-        input, textarea, select { width: 100%; padding: 8px; margin: 4px 0; border: 1px solid #000; font-family: 'Special Elite'; box-sizing: border-box; background: rgba(255,255,255,0.5); }
-        .voto-btn { background: rgba(0,0,0,0.2); border: 1px solid currentColor; padding: 4px 8px; font-family: 'Cinzel'; font-size: 9px; cursor: pointer; color: inherit; }
-        .confesion-card { background: #f2e9d0; border-left: 5px solid var(--oro-oscuro); padding: 10px; margin: 10px 0; font-family: 'Special Elite'; transform: rotate(-1deg); box-shadow: 2px 2px 5px rgba(0,0,0,0.1); }
-        
-        .color-picker-container { display: flex; align-items: center; gap: 10px; margin: 5px 0; font-family: 'Cinzel'; font-size: 10px; }
+        .btn-send { background: #000; color: var(--oro); border: 1px solid var(--oro); padding: 12px; width: 100%; font-family: 'Cinzel'; font-weight: bold; cursor: pointer; }
+        input, textarea, select { width: 100%; padding: 8px; margin: 4px 0; border: 1px solid #000; font-family: 'Special Elite'; background: rgba(255,255,255,0.5); box-sizing: border-box; }
     </style>
 </head>
 <body>
@@ -84,67 +66,47 @@
     <div id="login-zone" style="text-align:center; padding: 40px 10px;">
         <h1 style="font-family:'Cinzel'">EL PROFETA</h1>
         <input type="text" id="u-n" placeholder="Tu Nombre">
-        <input type="password" id="u-p" placeholder="Contraseña">
-        <select id="u-h">
-            <option value="GRYFFINDOR">🦁 GRYFFINDOR</option>
-            <option value="SLYTHERIN">🐍 SLYTHERIN</option>
-            <option value="HUFFLEPUFF">🦡 HUFFLEPUFF</option>
-            <option value="RAVENCLAW">🦅 RAVENCLAW</option>
-        </select>
         <button class="btn-send" onclick="login()">ENTRAR ✨</button>
     </div>
 
     <div id="main-web" style="display:none;">
+        <nav class="nav-tabs">
+            <div class="tab active" onclick="changeTab('general')">MURO GENERAL</div>
+            <div class="tab" onclick="changeTab('oficial')">NOTICIAS OFICIALES 🖋️</div>
+        </nav>
+
         <header>
-            <h1>EL PROFETA</h1>
+            <h1 id="dynamic-title">EL PROFETA</h1>
             <div class="meta-bar">
                 <span id="f-m"></span>
-                <span id="h-m"></span>
-                <span onclick="logout()" style="color:var(--sangre); cursor:pointer;">SALIR</span>
+                <span onclick="location.reload()" style="color:var(--sangre); cursor:pointer;">SALIR</span>
             </div>
         </header>
 
-        <div class="banner-premio">
-            🏆 PREMIO SEMANAL: 15.000 GALEONES 💰<br>
-            <small>Al mago/bruja con más "Gritos" acumulados</small>
+        <div id="view-general" class="view-section active">
+            <div id="feed-general"></div>
+            
+            <div class="sec-title">REDACTAR EN MURO GENERAL</div>
+            <input type="text" id="g-t" placeholder="Título del chisme">
+            <textarea id="g-m" rows="3" placeholder="Contenido para todos..."></textarea>
+            <button class="btn-send" onclick="publicar('GENERAL')">PUBLICAR PARA TODOS ✨</button>
         </div>
 
-        <div class="ranking-box" id="ranking-list"></div>
+        <div id="view-oficial" class="view-section">
+            <div id="feed-oficial"></div>
 
-        <div id="feed-staff"></div>
-
-        <div id="feed-oficial"></div>
-        <div id="feed-confesiones"></div>
-        <div id="feed-comunidad"></div>
-
-        <div class="sec-title">REDACTAR</div>
-        <div class="magic-form" style="background: rgba(0,0,0,0.04); padding: 12px; border: 1px dashed #000;">
-            <select id="t-tipo" onchange="toggleForm()">
-                <option value="noticia">Publicar Noticia Alumno</option>
-                <option value="confesion">Confesión Anónima</option>
-                <option value="STAFF" id="opt-staff" disabled>🖋️ Redacción Central (Bloqueado)</option>
-            </select>
-            
-            <button id="btn-unlock" onclick="unlockStaff()" style="font-size:9px; background:none; border:1px solid #000; cursor:pointer; margin-bottom:5px;">¿Eres escritor? Pon tu clave</button>
-
-            <div id="form-noticia">
-                <input type="text" id="t-t" placeholder="Título">
-                <textarea id="t-m" rows="3" placeholder="Contenido..."></textarea>
-                
-                <div id="staff-only-fields" style="display:none;">
-                    <input type="text" id="t-img" placeholder="URL de la Imagen (Pinterest, ImgBB, etc.)">
-                    <div style="display:flex; gap:5px;">
-                        <select id="t-e" onchange="checkColorVisibility()"><option value="normal">Pergamino</option><option value="vociferadora">Vociferadora 🔥</option></select>
-                        <input type="color" id="t-color" value="#d4af37" title="Color de magia">
-                    </div>
-                </div>
+            <div class="sec-title">ESPACIO PARA ESCRITORES REALES</div>
+            <div id="lock-staff" style="text-align:center; padding: 10px; border: 1px dashed #000;">
+                <p style="font-size:10px; font-family:'Cinzel'">Solo personal autorizado puede publicar aquí</p>
+                <button class="btn-send" onclick="abrirEditorStaff()" style="width:auto; padding:5px 20px;">DESBLOQUEAR PLUMA</button>
             </div>
 
-            <div id="form-confesion" style="display:none;">
-                <textarea id="t-conf" rows="3" placeholder="Tu secreto..."></textarea>
-                <label style="font-size:10px; font-family:'Cinzel'"><input type="checkbox" id="t-anon" checked> Anonimato</label>
+            <div id="editor-staff" style="display:none; background:rgba(0,0,0,0.05); padding:10px;">
+                <input type="text" id="s-t" placeholder="TITULAR OFICIAL">
+                <textarea id="s-m" rows="4" placeholder="Cuerpo de la noticia oficial..."></textarea>
+                <input type="text" id="s-img" placeholder="URL de la Foto (Galería)">
+                <button class="btn-send" onclick="publicar('STAFF')">PUBLICAR COMO REDACTOR ✨</button>
             </div>
-            <button class="btn-send" onclick="publicarTodo()">PUBLICAR ✨</button>
         </div>
     </div>
 </div>
@@ -153,34 +115,35 @@
     const DB = "https://profeta-9c8df-default-rtdb.firebaseio.com/periodico";
     const CLAVE_REAL = "Orion2026";
     let sesion = JSON.parse(localStorage.getItem('p_vFinal_v2'));
-    let esStaff = false;
-
-    function unlockStaff() {
-        if(prompt("Clave de Redactor:") === CLAVE_REAL) {
-            esStaff = true;
-            document.getElementById('opt-staff').disabled = false;
-            document.getElementById('opt-staff').innerText = "🖋️ NOTICIA DE REDACCIÓN";
-            document.getElementById('t-tipo').value = "STAFF";
-            document.getElementById('btn-unlock').style.display = "none";
-            toggleForm();
-            alert("Acceso concedido, colega.");
-        }
-    }
 
     function login() {
         const n = document.getElementById('u-n').value.trim();
         if(!n) return;
-        sesion = { n, h: document.getElementById('u-h').value };
+        sesion = { n };
         localStorage.setItem('p_vFinal_v2', JSON.stringify(sesion));
         start();
     }
-    function logout() { localStorage.removeItem('p_vFinal_v2'); location.reload(); }
-    
-    function toggleForm() {
-        const t = document.getElementById('t-tipo').value;
-        document.getElementById('form-noticia').style.display = (t === 'noticia' || t === 'STAFF') ? 'block' : 'none';
-        document.getElementById('form-confesion').style.display = t === 'confesion' ? 'block' : 'none';
-        document.getElementById('staff-only-fields').style.display = (t === 'STAFF') ? 'block' : 'none';
+
+    function changeTab(tab) {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
+        
+        if(tab === 'general') {
+            document.querySelectorAll('.tab')[0].classList.add('active');
+            document.getElementById('view-general').classList.add('active');
+            document.getElementById('dynamic-title').innerText = "EL PROFETA";
+        } else {
+            document.querySelectorAll('.tab')[1].classList.add('active');
+            document.getElementById('view-oficial').classList.add('active');
+            document.getElementById('dynamic-title').innerText = "REDACCIÓN CENTRAL";
+        }
+    }
+
+    function abrirEditorStaff() {
+        if(prompt("Clave de Escritor:") === CLAVE_REAL) {
+            document.getElementById('lock-staff').style.display = 'none';
+            document.getElementById('editor-staff').style.display = 'block';
+        }
     }
 
     function start() {
@@ -188,22 +151,24 @@
         document.getElementById('login-zone').style.display='none';
         document.getElementById('main-web').style.display='block';
         document.getElementById('f-m').innerText = new Date().toLocaleDateString('es-ES',{day:'numeric',month:'short'}).toUpperCase();
-        setInterval(()=> { document.getElementById('h-m').innerText = new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}); }, 1000);
         load();
     }
 
-    function publicarTodo() {
-        const tipo = document.getElementById('t-tipo').value;
+    function publicar(tipo) {
         const id = "ID"+Date.now();
-        let data = { id, autor: sesion.n, casa: sesion.h, time: Date.now(), v: {}, c: 0 };
-        
+        let data = { id, autor: sesion.n, time: Date.now(), tipo };
+
         if(tipo === 'STAFF') {
-            data = { ...data, tipo: 'STAFF', titulo: document.getElementById('t-t').value, texto: document.getElementById('t-m').value, img: document.getElementById('t-img').value, estilo: document.getElementById('t-e').value, color: document.getElementById('t-color').value };
-        } else if(tipo === 'noticia') {
-            data = { ...data, tipo:'noticia', titulo: document.getElementById('t-t').value, texto: document.getElementById('t-m').value, rango: 'ALUMNO', estilo: 'normal' };
+            data.titulo = document.getElementById('s-t').value;
+            data.texto = document.getElementById('s-m').value;
+            data.img = document.getElementById('s-img').value;
         } else {
-            data = {...data, tipo:'confesion', texto: document.getElementById('t-conf').value, anonimo: document.getElementById('t-anon').checked};
+            data.titulo = document.getElementById('g-t').value;
+            data.texto = document.getElementById('g-m').value;
         }
+
+        if(!data.titulo || !data.texto) return alert("Completa los campos");
+
         fetch(`${DB}/${id}.json`,{method:'PUT',body:JSON.stringify(data)}).then(()=>location.reload());
     }
 
@@ -211,57 +176,23 @@
         fetch(`${DB}.json`).then(r=>r.json()).then(data => {
             if(!data) return;
             const items = Object.values(data).sort((a,b)=>b.time - a.time);
-            let hStaff="", hOf="", hAl="", hConf="";
-            let scores = {};
+            let hGen="", hOfi="";
 
             items.forEach(n => {
-                const voted = n.v && n.v[sesion.n];
                 const imgTag = n.img ? `<img src="${n.img}" class="foto-magica">` : "";
-
+                
                 if(n.tipo === 'STAFF') {
-                    hStaff += `
-                        <div class="article card-oficial" style="border-color:${n.color} !important;">
-                            <h3 style="color:${n.color}">${n.titulo}</h3>
-                            <small>🖋️ REDACCIÓN CENTRAL</small>
-                            ${imgTag}
-                            <p>${n.texto}</p>
-                        </div>`;
-                } else if(n.tipo === 'noticia') {
-                    scores[n.autor] = (scores[n.autor] || 0) + (n.c || 0);
-                    const html = `
-                        <div class="article card-alumno">
-                            <h3>${n.titulo}</h3>
-                            <small>🖋️ ${n.autor} [${n.casa}]</small>
-                            <p>${n.texto}</p>
-                            <div style="text-align:right;"><button class="voto-btn" onclick="votar('${n.id}')" ${voted?'disabled':''}>${voted ? '✉️ SELLADO' : '🔥 GRITAR ('+(n.c||0)+')'}</button></div>
-                        </div>`;
-                    hAl += html;
+                    hOfi += `<div class="article card-oficial"><h3>${n.titulo}</h3>${imgTag}<p>${n.texto}</p><small>🖋️ Redacción Central</small></div>`;
                 } else {
-                    hConf += `<div class="confesion-card"><b>🤫 SECRETO:</b><br>"${n.texto}"<br><small>— ${n.anonimo?'Anónimo':n.autor}</small></div>`;
+                    hGen += `<div class="article"><h3>${n.titulo}</h3><p>${n.texto}</p><small>— Enviado por: ${n.autor}</small></div>`;
                 }
             });
 
-            document.getElementById('ranking-list').innerHTML = generarRanking(scores);
-            document.getElementById('feed-staff').innerHTML = hStaff ? `<div class="sec-title">REDACCIÓN CENTRAL</div>`+hStaff : "";
-            document.getElementById('feed-confesiones').innerHTML = hConf ? `<div class="sec-title">BUZÓN DE SECRETOS</div>`+hConf : "";
-            document.getElementById('feed-comunidad').innerHTML = `<div class="sec-title">NOTICIAS DE LA COMUNIDAD</div>`+hAl;
+            document.getElementById('feed-general').innerHTML = hGen || "<p>No hay chismes hoy...</p>";
+            document.getElementById('feed-oficial').innerHTML = hOfi || "<p>Esperando noticias del Ministerio...</p>";
         });
     }
 
-    function generarRanking(scores) {
-        const top = Object.entries(scores).sort((a,b)=>b[1]-a[1]).slice(0,3);
-        let rHtml = '<div class="ranking-title">✦ LÍDERES DE LA SEMANA ✦</div>';
-        top.forEach((s, i) => { rHtml += `<div class="ranking-item ${i===0?'top1':''}"><span>${i+1}. ${s[0]}</span><span>${s[1]} 🔥</span></div>`; });
-        return rHtml;
-    }
-
-    async function votar(id) {
-        await fetch(`${DB}/${id}/v/${sesion.n}.json`,{method:'PUT',body:'true'});
-        const res = await fetch(`${DB}/${id}/c.json`);
-        const val = await res.json() || 0;
-        await fetch(`${DB}/${id}/c.json`,{method:'PUT',body:JSON.stringify(val+1)});
-        load();
-    }
     if(sesion) start();
 </script>
 </body>
