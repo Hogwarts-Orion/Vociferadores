@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Profeta - Acceso Restringido</title>
+    <title>El Profeta - Redacción Central</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Special+Elite&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap');
 
@@ -20,215 +20,160 @@
             width: 100%; max-width: 450px; min-height: 100vh;
             margin: auto; padding: 15px; box-sizing: border-box;
             box-shadow: 0 0 50px rgba(0,0,0,1);
-            position: relative;
         }
 
-        /* --- NAVEGACIÓN --- */
-        .nav-tabs { display: flex; border-bottom: 2px solid #000; margin-bottom: 15px; }
-        .tab { flex: 1; text-align: center; padding: 10px; font-family: 'Cinzel'; font-size: 11px; cursor: pointer; background: rgba(0,0,0,0.05); transition: 0.3s; }
-        .tab.active { background: #000; color: var(--oro); }
-
-        /* --- CABECERA --- */
-        header { text-align: center; border-bottom: 4px double var(--tinta); margin-bottom: 5px; }
+        header { text-align: center; border-bottom: 4px double var(--tinta); margin-bottom: 10px; }
         header h1 { font-family: 'Cinzel', serif; font-size: 34px; margin: 0; font-weight: 900; }
-        
-        .meta-bar { display: flex; justify-content: space-between; padding: 3px 5px; font-size: 9px; font-family: 'Cinzel'; font-weight: bold; border-top: 1px solid #000; }
 
-        /* --- ARTÍCULOS E IMÁGENES --- */
-        .article { padding: 15px; margin-bottom: 25px; border-bottom: 1px solid rgba(0,0,0,0.1); }
-        .img-magica { width: 100%; border: 1px solid #000; filter: sepia(0.4) contrast(1.2); margin: 10px 0; box-shadow: 2px 2px 8px rgba(0,0,0,0.2); }
+        /* --- SECCIONES --- */
+        .sec-title { font-family: 'Cinzel'; background: #000; color: var(--oro); text-align: center; padding: 6px; font-size: 12px; margin: 25px 0 15px 0; letter-spacing: 2px; }
         
+        /* --- NOTICIAS OFICIALES (ESCRITORES) --- */
         .card-oficial {
             background: #000 url('https://www.transparenttextures.com/patterns/dark-leather.png') !important;
             border: 2px solid var(--oro) !important;
-            color: #fff; padding: 15px; margin: 10px 0;
+            color: #fff; padding: 15px; margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
         }
-        .card-oficial h3 { color: var(--oro); font-family: 'Cinzel'; margin: 0; border-bottom: 1px solid var(--oro); }
+        .card-oficial h3 { color: var(--oro); font-family: 'Cinzel'; margin: 0 0 10px 0; border-bottom: 1px solid var(--oro); }
+        .img-galeria { width: 100%; border: 1px solid var(--oro); margin: 10px 0; filter: contrast(1.1) sepia(0.2); }
 
-        /* --- UI --- */
-        .sec-title { font-family: 'Cinzel'; background: #000; color: var(--oro); text-align: center; padding: 5px; font-size: 11px; margin: 20px 0 10px 0; }
-        .btn-send { background: #000; color: var(--oro); border: 1px solid var(--oro); padding: 12px; width: 100%; font-family: 'Cinzel'; font-weight: bold; cursor: pointer; margin-top: 10px; }
-        input, textarea, select { width: 100%; padding: 8px; margin: 4px 0; border: 1px solid #000; font-family: 'Special Elite'; box-sizing: border-box; background: rgba(255,255,255,0.6); }
+        /* --- NOTICIAS ALUMNOS --- */
+        .card-alumno { border-left: 3px solid #000; padding-left: 10px; margin-bottom: 20px; }
+        .card-alumno h4 { margin: 0; font-family: 'Cinzel'; text-transform: uppercase; }
 
-        /* --- MODAL DE CONTRASEÑA --- */
-        #staff-lock { text-align: center; padding: 20px; border: 2px dashed #000; margin: 10px 0; }
+        /* --- FORMULARIOS --- */
+        .zona-escritura { background: rgba(0,0,0,0.05); padding: 15px; border: 1px dashed #000; margin-top: 20px; }
+        input, textarea, select { width: 100%; padding: 8px; margin: 4px 0; border: 1px solid #000; font-family: 'Special Elite'; box-sizing: border-box; background: rgba(255,255,255,0.5); }
+        
+        .btn-magic { background: #000; color: var(--oro); border: 1px solid var(--oro); padding: 10px; width: 100%; font-family: 'Cinzel'; cursor: pointer; font-weight: bold; }
+        .btn-staff { background: var(--oro); color: #000; margin-bottom: 10px; }
+
+        .hidden { display: none; }
     </style>
 </head>
 <body>
 
 <div class="newspaper">
-    <div id="login-zone" style="text-align:center; padding: 40px 10px;">
-        <h1 style="font-family:'Cinzel'">EL PROFETA</h1>
-        <p style="font-size: 12px; margin-bottom: 20px;">Elija su acreditación</p>
-        
-        <div style="display:grid; gap:10px;">
-            <button class="btn-send" onclick="setRole('ALUMNO')">📖 INGRESAR COMO ALUMNO</button>
-            <button class="btn-send" style="background:var(--oro); color:#000;" onclick="setRole('ESCRITOR')">🖋️ ACCESO REDACCIÓN (STAFF)</button>
+    <header>
+        <h1>EL PROFETA</h1>
+        <div style="font-family:'Cinzel'; font-size:10px; font-weight:bold; display:flex; justify-content:space-between; padding: 5px;">
+            <span id="fecha"></span>
+            <span>EDICIÓN PARA MAGOS</span>
         </div>
+    </header>
+
+    <div id="feed-oficial"></div>
+
+    <div id="feed-alumnos"></div>
+
+    <div class="sec-title">REDACTAR</div>
+    
+    <button class="btn-magic" id="btn-show-alumno" onclick="abrirEditor('ALUMNO')">📝 ESCRIBIR COMO ALUMNO</button>
+    
+    <button class="btn-magic btn-staff" id="btn-show-staff" onclick="abrirEditor('STAFF')" style="margin-top:10px;">🖋️ ACCESO ESCRITORES REALES</button>
+
+    <div id="form-alumno" class="zona-escritura hidden">
+        <h4 style="font-family:'Cinzel'; margin-top:0;">Buzón de Alumnos</h4>
+        <input type="text" id="a-nombre" placeholder="Tu Nombre">
+        <input type="text" id="a-titulo" placeholder="¿Qué pasó?">
+        <textarea id="a-texto" rows="3" placeholder="Cuenta el chisme..."></textarea>
+        <button class="btn-magic" onclick="publicar('ALUMNO')">ENVIAR LECHUZA 🦉</button>
     </div>
 
-    <div id="main-web" style="display:none;">
-        <div class="nav-tabs">
-            <div class="tab active" onclick="showTab('lectura')">DIARIO DEL DÍA</div>
-            <div id="tab-redaccion" class="tab" onclick="showTab('redaccion')">ZONA DE PRENSA 🖋️</div>
-        </div>
-
-        <header>
-            <h1 id="header-title">EL PROFETA</h1>
-            <div class="meta-bar">
-                <span id="f-m"></span>
-                <span id="h-m"></span>
-                <span onclick="location.reload()" style="color:var(--sangre); cursor:pointer;">SALIR</span>
-            </div>
-        </header>
-
-        <div id="sec-lectura">
-            <div id="feed-oficial"></div>
-            <div id="feed-confesiones"></div>
-            <div id="feed-comunidad"></div>
-        </div>
-
-        <div id="sec-redaccion" style="display:none;">
-            <div id="lock-screen">
-                <div id="staff-lock">
-                    <h3 style="font-family:'Cinzel'">ÁREA RESTRINGIDA</h3>
-                    <p style="font-size: 10px;">Solo personal autorizado por el Ministerio</p>
-                    <input type="password" id="staff-pass" placeholder="Clave de Redactor">
-                    <button class="btn-send" onclick="unlockStaff()">DESBLOQUEAR PLUMA</button>
-                </div>
-            </div>
-
-            <div id="staff-editor" style="display:none;">
-                <div class="sec-title">NUEVA PUBLICACIÓN OFICIAL</div>
-                <div class="magic-form" style="background: rgba(0,0,0,0.04); padding: 12px; border: 1px dashed #000;">
-                    <input type="text" id="t-t" placeholder="Titular de la Noticia">
-                    <textarea id="t-m" rows="4" placeholder="Escribe la noticia o el chisme aquí..."></textarea>
-                    <input type="text" id="t-img" placeholder="URL de la Imagen de Galería (opcional)">
-                    
-                    <div style="display:flex; gap:5px;">
-                        <select id="t-e">
-                            <option value="normal">Estándar</option>
-                            <option value="vociferadora">Vociferadora 🔥</option>
-                        </select>
-                        <input type="color" id="t-color" value="#d4af37" title="Color de aura">
-                    </div>
-                    <button class="btn-send" onclick="publicarOficial()">PUBLICAR COMO ESCRITOR ✨</button>
-                </div>
-                
-                <div class="sec-title" style="margin-top:30px;">REDACCIÓN RÁPIDA DE ALUMNOS</div>
-                <button class="btn-send" style="background:#555;" onclick="showTab('lectura')">Ir a buzón de alumnos</button>
-            </div>
-        </div>
+    <div id="form-staff" class="zona-escritura hidden" style="border-color: var(--oro); background: rgba(212,175,55,0.05);">
+        <h4 style="font-family:'Cinzel'; color:var(--oro-oscuro); margin-top:0;">Panel de Redacción Oficial</h4>
+        <input type="password" id="s-pass" placeholder="Clave de Escritor">
+        <input type="text" id="s-titulo" placeholder="TITULAR DE PORTADA">
+        <textarea id="s-texto" rows="4" placeholder="Cuerpo de la noticia oficial..."></textarea>
+        <input type="text" id="s-img" placeholder="URL de Imagen (Galería)">
+        <button class="btn-magic btn-staff" onclick="publicar('STAFF')">PUBLICAR EN PORTADA ✨</button>
     </div>
 </div>
 
 <script>
     const DB = "https://profeta-9c8df-default-rtdb.firebaseio.com/periodico";
-    const CLAVE_SECRETA = "Orion2026";
-    let userRole = "";
+    const CLAVE_REAL = "Orion2026";
 
-    function setRole(role) {
-        userRole = role;
-        document.getElementById('login-zone').style.display = 'none';
-        document.getElementById('main-web').style.display = 'block';
+    // Poner la fecha
+    document.getElementById('fecha').innerText = new Date().toLocaleDateString('es-ES', {day:'numeric', month:'short', year:'numeric'}).toUpperCase();
+
+    function abrirEditor(tipo) {
+        document.getElementById('form-alumno').classList.add('hidden');
+        document.getElementById('form-staff').classList.add('hidden');
         
-        // Si entra como alumno, el botón de redacción le pedirá clave de todos modos
-        if(role === 'ALUMNO') {
-            document.getElementById('header-title').innerText = "EL PROFETA";
+        if(tipo === 'ALUMNO') document.getElementById('form-alumno').classList.remove('hidden');
+        if(tipo === 'STAFF') document.getElementById('form-staff').classList.remove('hidden');
+    }
+
+    function publicar(tipo) {
+        const id = "ID" + Date.now();
+        let data = { id, time: Date.now(), tipo };
+
+        if(tipo === 'STAFF') {
+            const pass = document.getElementById('s-pass').value;
+            if(pass !== CLAVE_REAL) return alert("¡Acceso Denegado! Clave incorrecta.");
+            
+            data = {
+                ...data,
+                autor: "Redacción Oficial",
+                titulo: document.getElementById('s-titulo').value,
+                texto: document.getElementById('s-texto').value,
+                img: document.getElementById('s-img').value
+            };
         } else {
-            document.getElementById('header-title').innerText = "REDACCIÓN";
-            showTab('redaccion');
+            data = {
+                ...data,
+                autor: document.getElementById('a-nombre').value || "Alumno Anónimo",
+                titulo: document.getElementById('a-titulo').value,
+                texto: document.getElementById('a-texto').value
+            };
         }
-        start();
+
+        if(!data.titulo || !data.texto) return alert("Por favor, completa los campos.");
+
+        fetch(`${DB}/${id}.json`, { method: 'PUT', body: JSON.stringify(data) })
+        .then(() => location.reload());
     }
 
-    function showTab(tab) {
-        document.getElementById('sec-lectura').style.display = tab === 'lectura' ? 'block' : 'none';
-        document.getElementById('sec-redaccion').style.display = tab === 'redaccion' ? 'block' : 'none';
-        
-        const tabs = document.querySelectorAll('.tab');
-        tabs[0].classList.toggle('active', tab === 'lectura');
-        tabs[1].classList.toggle('active', tab === 'redaccion');
-    }
-
-    function unlockStaff() {
-        const pass = document.getElementById('staff-pass').value;
-        if(pass === CLAVE_SECRETA) {
-            document.getElementById('lock-screen').style.display = 'none';
-            document.getElementById('staff-editor').style.display = 'block';
-        } else {
-            alert("¡Esa no es la clave! Una vociferadora ha sido enviada a tu casa.");
-        }
-    }
-
-    function start() {
-        document.getElementById('f-m').innerText = new Date().toLocaleDateString('es-ES',{day:'numeric',month:'short'}).toUpperCase();
-        setInterval(()=> { 
-            document.getElementById('h-m').innerText = new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}); 
-        }, 1000);
-        load();
-    }
-
-    function publicarOficial() {
-        const id = "ID"+Date.now();
-        const data = {
-            id,
-            tipo: 'noticia',
-            rango: 'OFICIAL',
-            autor: "Redacción Central",
-            casa: "STAFF",
-            titulo: document.getElementById('t-t').value,
-            texto: document.getElementById('t-m').value,
-            img: document.getElementById('t-img').value,
-            estilo: document.getElementById('t-e').value,
-            color: document.getElementById('t-color').value,
-            time: Date.now(),
-            c: 0
-        };
-
-        if(!data.titulo || !data.texto) return alert("Escribe al menos el titular y el contenido");
-
-        fetch(`${DB}/${id}.json`,{method:'PUT',body:JSON.stringify(data)})
-        .then(() => {
-            alert("¡Publicado en la edición oficial!");
-            location.reload();
-        });
-    }
-
-    function load() {
-        fetch(`${DB}.json`).then(r=>r.json()).then(data => {
+    function cargarNoticias() {
+        fetch(`${DB}.json`).then(r => r.json()).then(data => {
             if(!data) return;
-            const items = Object.values(data).sort((a,b)=>b.time - a.time);
-            let hOf="", hAl="", hConf="";
+            const items = Object.values(data).sort((a,b) => b.time - a.time);
+            
+            let htmlOficial = '<div class="sec-title">EDICIÓN DE ORO</div>';
+            let htmlAlumnos = '<div class="sec-title">ECOS DE HOGWARTS</div>';
+            
+            let tieneOficial = false;
+            let tieneAlumno = false;
 
             items.forEach(n => {
-                const imgHtml = n.img ? `<img src="${n.img}" class="img-magica">` : "";
-                const isVoc = n.estilo === 'vociferadora';
-                let styleAttr = n.rango === 'OFICIAL' ? `style="border-color:${n.color} !important; box-shadow: 0 0 15px ${n.color}55;"` : "";
-                
-                if(isVoc) styleAttr = `style="background: linear-gradient(135deg, #8b0000, ${n.color}); color:white; border:none; animation:shake 0.3s infinite;"`;
-
-                const html = `
-                    <div class="article ${n.rango === 'OFICIAL' ? 'card-oficial' : ''}" ${styleAttr}>
-                        <h3 style="${n.rango==='OFICIAL'?'color:'+n.color:''}">${n.titulo || 'Sin Título'}</h3>
-                        <small>🖋️ ${n.autor} [${n.casa}]</small>
-                        ${imgHtml}
-                        <p>${n.texto}</p>
-                        <div style="text-align:right; font-size:10px; opacity:0.7;">
-                            🔥 Gritos: ${n.c || 0}
-                        </div>
-                    </div>`;
-
-                if(n.rango === 'OFICIAL') hOf += html;
-                else if(n.tipo === 'confesion') hConf += `<div class="confesion-card"><b>🤫 SECRETO:</b><br>"${n.texto}"</div>`;
-                else hAl += html;
+                if(n.tipo === 'STAFF') {
+                    tieneOficial = true;
+                    htmlOficial += `
+                        <div class="card-oficial">
+                            <h3>${n.titulo}</h3>
+                            ${n.img ? `<img src="${n.img}" class="img-galeria">` : ''}
+                            <p>${n.texto}</p>
+                            <small style="color:var(--oro); opacity:0.8;">🖋️ Redacción Central</small>
+                        </div>`;
+                } else {
+                    tieneAlumno = true;
+                    htmlAlumnos += `
+                        <div class="card-alumno">
+                            <h4>${n.titulo}</h4>
+                            <p style="font-size:14px;">${n.texto}</p>
+                            <small>— Enviado por: ${n.autor}</small>
+                        </div>`;
+                }
             });
 
-            document.getElementById('feed-oficial').innerHTML = hOf ? `<div class="sec-title">EDICIÓN DE ORO</div>`+hOf : "";
-            document.getElementById('feed-comunidad').innerHTML = hAl ? `<div class="sec-title">ECOS DE HOGWARTS</div>`+hAl : "";
-            document.getElementById('feed-confesiones').innerHTML = hConf ? `<div class="sec-title">EL RINCÓN DEL CHISME</div>`+hConf : "";
+            document.getElementById('feed-oficial').innerHTML = tieneOficial ? htmlOficial : "";
+            document.getElementById('feed-alumnos').innerHTML = tieneAlumno ? htmlAlumnos : "";
         });
     }
+
+    cargarNoticias();
 </script>
 </body>
 </html>
